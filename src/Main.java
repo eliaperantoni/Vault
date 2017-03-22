@@ -29,7 +29,8 @@ public class Main {
             try {
                 Socket newSock = serverSock.accept();
                 clientSocks.add(newSock);
-                new ClientThread(newSock, usr, psw).run();
+                Thread thread = new ClientThread(newSock, usr, psw);
+                thread.start();
             } catch (Exception e) {
                 e.printStackTrace();
                 server.close();

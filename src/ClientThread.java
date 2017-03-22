@@ -33,7 +33,7 @@ public class ClientThread extends Thread {
 //            String psw = inStream.readUTF();
 //            String otp = inStream.readUTF();
 //            System.out.println(authenticate(usr, psw, otp));
-//            sendFile("test.pdf");
+            sendFile("test.vault");
         } catch (Exception e) {
             e.printStackTrace();
         }
