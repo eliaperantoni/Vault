@@ -1,12 +1,11 @@
 import com.google.common.hash.Hashing;
+
 import com.yubico.client.v2.VerificationResponse;
 import com.yubico.client.v2.YubicoClient;
 import com.yubico.client.v2.exceptions.YubicoValidationFailure;
 import com.yubico.client.v2.exceptions.YubicoVerificationException;
 
-import java.io.DataInputStream;
-import java.io.DataOutputStream;
-import java.io.OutputStream;
+import java.io.*;
 import java.net.Socket;
 import java.nio.charset.StandardCharsets;
 import java.util.Map;
@@ -29,11 +28,12 @@ public class ClientThread extends Thread {
     @Override
     public void run() {
         try {
-            inStream = new DataInputStream(socket.getInputStream());
-            String usr = inStream.readUTF();
-            String psw = inStream.readUTF();
-            String otp = inStream.readUTF();
-            System.out.println(authenticate(usr, psw, otp));
+//            inStream = new DataInputStream(socket.getInputStream());
+//            String usr = inStream.readUTF();
+//            String psw = inStream.readUTF();
+//            String otp = inStream.readUTF();
+//            System.out.println(authenticate(usr, psw, otp));
+//            sendFile("test.pdf");
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -67,5 +67,50 @@ public class ClientThread extends Thread {
         } else {
             return false;
         }
+    }
+    public void sendFile(String file){
+        try {
+            File f = new File(file);
+            DataOutputStream dos = new DataOutputStream(socket.getOutputStream());
+            dos.writeLong(f.length());
+            FileInputStream fis = new FileInputStream(f);
+            byte[] buffer = new byte[4096];
+
+            while (fis.read(buffer) > 0) {
+                dos.write(buffer);
+            }
+
+            fis.close();
+            dos.close();
+        }catch(Exception e){
+            e.printStackTrace();
+        }
+    }
+    int getSize(byte[] buffer,long remaining){
+        try {
+            return Math.toIntExact(Math.min(((long) buffer.length), remaining));
+        }catch(ArithmeticException e){
+            return 4096;
+        }
+    }
+    void saveFile(Socket clientSock,String fileName) throws IOException {
+        DataInputStream dis = new DataInputStream(clientSock.getInputStream());
+        File f = new File(fileName);
+        FileOutputStream fos = new FileOutputStream(f);
+        byte[] buffer = new byte[4096];
+
+        long filesize = dis.readLong();
+        int read = 0;
+        int totalRead = 0;
+        long remaining = filesize;
+
+        while((read = dis.read(buffer, 0, getSize(buffer,remaining))) > 0) {
+            totalRead += read;
+            remaining -= read;
+            fos.write(buffer, 0, read);
+        }
+
+        fos.close();
+        dis.close();
     }
 }

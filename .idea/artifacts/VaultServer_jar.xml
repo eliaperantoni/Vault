@@ -6,6 +6,11 @@
       <element id="extracted-dir" path="$MAVEN_REPOSITORY$/com/google/guava/guava/21.0/guava-21.0.jar" path-in-jar="/" />
       <element id="extracted-dir" path="$MAVEN_REPOSITORY$/com/google/collections/google-collections/1.0-rc2/google-collections-1.0-rc2.jar" path-in-jar="/" />
       <element id="extracted-dir" path="$USER_HOME$/Downloads/mysql-connector.jar" path-in-jar="/" />
+      <element id="library" level="project" name="com.yubico:yubico-validation-client2:3.0.1" />
+      <element id="library" level="project" name="org.slf4j:slf4j-simple:1.7.22" />
+      <element id="library" level="project" name="mysql-connector" />
+      <element id="library" level="project" name="com.google.guava:guava:21.0" />
+      <element id="library" level="project" name="com.google.collections:google-collections:1.0-rc2" />
     </root>
   </artifact>
 </component>
