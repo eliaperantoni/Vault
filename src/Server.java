@@ -9,6 +9,9 @@ import java.util.*;
  * Created by extensys on 13/03/2017.
  */
 public class Server {
+    Connection getConnection(){
+        return this.con;
+    }
     private Connection con;
     private static Server ourInstance = new Server();
     public static Server getInstance() {
@@ -24,84 +27,6 @@ public class Server {
                     ("jdbc:mysql://localhost:3306/vault", databaseUsername, databasePassword);
         } catch (Exception e) {
             e.printStackTrace();
-        }
-    }
-    String addUser(String username, String password, String[] groups, String publicId) {
-        try {
-            String token = UUID.randomUUID().toString();
-            password = Hashing.sha256()
-                    .hashString(password, StandardCharsets.UTF_8)
-                    .toString();
-            String groupsStr = Joiner.on(";").join(groups);
-            Statement stmt = con.createStatement();
-            stmt.executeUpdate
-                    (String.format("insert into users(username,password,token,groups,publicId,registerDate) values " +
-                                    "(\"%s\",\"%s\",\"%s\",\"%s\",\"%s\",%s);",
-                            username, password, token, groupsStr, publicId, System.currentTimeMillis() / 1000));
-            return token;
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-        return username;
-    }
-    void addGroup(String username, String newGroup) {
-        try {
-            Statement stmt = con.createStatement();
-            List<String> old;
-            User user = getUsersMap().get(username);
-            old = new ArrayList<>();
-            for(Group x:user.getGroups()){
-                old.add(x.getGroupName());
-            }
-            for(String ii:old){
-                if(ii.equals(newGroup)){
-                    System.out.println(String.format("Group \'%s\' already exists for user \'%s\'", newGroup,username));
-                    return;
-                }
-            }
-            old.add(newGroup);
-            String oldStr = Joiner.on(";").join(old);
-            stmt.executeUpdate(String.format("UPDATE users SET groups=\"%s\" WHERE username=\"%s\"", oldStr,username));
-            System.out.println(String.format("Successfully added group \'%s\' to user \'%s\'", newGroup,username));
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-    }
-    void removeUser(String username){
-        String sql = String.format("DELETE FROM users WHERE username=\"%s\"", username);
-        try {
-            Statement stmt = con.createStatement();
-            stmt.executeUpdate(sql);
-        }catch(Exception e){
-            e.printStackTrace();
-        }
-    }
-    int removeGroup(String username, String groupToRemove){
-        boolean ok = false;
-        try {
-            Statement stmt = con.createStatement();
-            List<String> old;
-            User user = getUsersMap().get(username);
-            old = new ArrayList<>();
-            for(Group x:user.getGroups()){
-                old.add(x.getGroupName());
-            }
-            for(String ii:old){
-                if(ii.equals(groupToRemove)){
-                    ok = true;
-                }
-            }
-            if(!ok){
-                return 2;
-            }
-            old.remove(groupToRemove);
-            String oldStr = Joiner.on(";").join(old);
-            stmt.executeUpdate(String.format("UPDATE users SET groups=\"%s\" WHERE username=\"%s\"", oldStr,username));
-            System.out.println(String.format("Successfully removed group \'%s\' from user \'%s\'", groupToRemove,username));
-            return 0;
-        } catch (Exception e) {
-            e.printStackTrace();
-            return 1;
         }
     }
     int setup(){
@@ -128,40 +53,108 @@ public class Server {
             e.printStackTrace();
         }
     }
-    public List<User> getUsers(){
-        List<User> out = null;
-        String sql = "SELECT * FROM users";
+
+    //SQL OPERATIONS USERS
+    String addUser(String username, String password, String publicId) {
+        try {
+            String token = UUID.randomUUID().toString();
+            password = Hashing.sha256()
+                    .hashString(password, StandardCharsets.UTF_8)
+                    .toString();
+            Statement stmt = con.createStatement();
+            stmt.executeUpdate
+                    (String.format("insert into users(username,password,token,publicId,registerDate) values " +
+                                    "(\"%s\",\"%s\",\"%s\",\"%s\",%s);",
+                            username, password, token, publicId, System.currentTimeMillis() / 1000));
+            return token;
+        } catch (Exception e) {
+            e.printStackTrace();
+            return null;
+        }
+    }
+    
+    int getIdFromUsername(String username){
+        try {
+            Statement stmt = con.createStatement();
+            ResultSet rs = stmt.executeQuery(String.format("SELECT userId FROM users WHERE username=\"%s\"", username));
+            rs.first();
+            return rs.getInt("userId");
+        } catch(Exception e){
+            e.printStackTrace();
+            return -1;
+        }
+
+    }
+    User getUserFromId(int id){
+        try {
+            Statement stmt = con.createStatement();
+            ResultSet rs = stmt.executeQuery(String.format("SELECT * FROM users WHERE userId=\"%s\"", id));
+            rs.first();
+
+            User out = new User(id,
+                    rs.getString("username"),
+                    rs.getString("password"),
+                    rs.getString("token"),
+                    getGroupsFromUserId(id),
+                    rs.getString("publicId"),
+                    rs.getInt("registerDate"));
+            return out;
+        } catch(Exception e){
+            e.printStackTrace();
+            return null;
+        }
+    }
+    Map<Integer,User> getUsersMap(){
+        Map<Integer,User> out = new HashMap<>();
+        try {
+            Statement stmt = con.createStatement();
+            ResultSet rs = stmt.executeQuery(String.format("SELECT userId FROM users"));
+            while(rs.next()){
+                out.put(rs.getInt("userId"),getUserFromId(rs.getInt("userId")));
+            }
+            return out;
+        } catch(Exception e){
+            e.printStackTrace();
+            return null;
+        }
+    }
+
+    //SQL OPERATIONS GROUPS
+    int getIdFromGroupName(String groupName){
+        String sql = String.format("SELECT groupId FROM groups WHERE groupName=\"%s\"", groupName);
         try {
             Statement stmt = con.createStatement();
             ResultSet rs = stmt.executeQuery(sql);
-            while(rs.next()){
-                out = new ArrayList<>();
-                List<Group> groups = new ArrayList<>();
-                int nId = rs.getInt("id");
-                String nUsername = rs.getString("username");
-                String nPassword = rs.getString("password");
-                String nToken = rs.getString("token");
-                String nGroups = rs.getString("groups");
-                String nPublicId = rs.getString("publicId");
-                int nRegisterDate = rs.getInt("registerDate");
-                for(String x:nGroups.split(";")){
-                    if(!x.equals("")) {
-                        groups.add(new Group(x));
-                    }
-                }
-                out.add(new User(nId,nUsername,nPassword,nToken,groups,nPublicId,nRegisterDate));
-            }
-        } catch (Exception e){
+            rs.first();
+            return rs.getInt("groupId");
+        } catch(Exception e){
             e.printStackTrace();
+            return -1;
         }
-        return out;
     }
-    public Map<String,User> getUsersMap(){
-        List<User> in = getUsers();
-        Map<String,User> out = new HashMap<>();
-        for(User x:in){
-            out.put(x.getUsername(),x);
+    Group getGroupFromId(int id){
+        try {
+            Statement stmt = con.createStatement();
+            ResultSet rs = stmt.executeQuery(String.format("SELECT groupName FROM groups WHERE groupId=\"%s\"", id));
+            rs.first();
+            return new Group(id,rs.getString("groupName"));
+        } catch(Exception e){
+            e.printStackTrace();
+            return null;
         }
-        return out;
+    }
+    List<Group> getGroupsFromUserId(int id){
+        try {
+            List<Group> out = new ArrayList<>();
+            Statement stmt = con.createStatement();
+            ResultSet rs = stmt.executeQuery(String.format("SELECT groupId FROM usersgroups WHERE userId=\"%s\"", id));
+            while (rs.next()) {
+                out.add(getGroupFromId(rs.getInt("groupId")));
+            }
+            return out;
+        } catch(Exception e){
+            e.printStackTrace();
+            return null;
+        }
     }
 }

@@ -28,12 +28,12 @@ public class ClientThread extends Thread {
     @Override
     public void run() {
         try {
-//            inStream = new DataInputStream(socket.getInputStream());
-//            String usr = inStream.readUTF();
-//            String psw = inStream.readUTF();
-//            String otp = inStream.readUTF();
-//            System.out.println(authenticate(usr, psw, otp));
-            sendFile("test.vault");
+            inStream = new DataInputStream(socket.getInputStream());
+            String usr = inStream.readUTF();
+            String psw = inStream.readUTF();
+            String otp = inStream.readUTF();
+            System.out.println(authenticate(usr, psw, otp));
+//            sendFile("test.vault");
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -42,8 +42,9 @@ public class ClientThread extends Thread {
     private boolean authenticate(String usr, String psw, String otp) {
         Server server = Server.getInstance();
         server.connect(dbUser, dbPassword);
-        Map<String, User> users = server.getUsersMap();
-        if (users.containsKey(usr) && users.get(usr).getPassword().equals(Hashing.sha256()
+        int id = server.getIdFromUsername(usr);
+        Map<Integer, User> users = server.getUsersMap();
+        if (users.containsKey(id) && users.get(id).getPassword().equals(Hashing.sha256()
                 .hashString(psw, StandardCharsets.UTF_8)
                 .toString())) {
             YubicoClient client = YubicoClient.getClient(32131, "vxQ++dnryWncTfyJzTkrhDnDBuc=");
