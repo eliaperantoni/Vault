@@ -6,7 +6,9 @@ import java.io.File;
 public class VaultTest {
     public static void main(String[] args) {
         try {
-            CryptoUtils.encryptFile("aaaaaaaaaaaaaaaa",new File("test.txt"),new File("test.txt.vlt"));
+            String key = CryptoUtils.generate16BitsKey();
+            CryptoUtils.decryptFile("d4deef1d74d34005",new File("test.txt.vlt"),new File("test.txt"));
+            System.out.println(key);
         } catch (CryptoException e) {
             e.printStackTrace();
         }
