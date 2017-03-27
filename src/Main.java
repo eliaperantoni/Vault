@@ -29,8 +29,11 @@ public class Main {
             try {
                 Socket newSock = serverSock.accept();
                 clientSocks.add(newSock);
+                System.out.println("Connected to: "+newSock);
+                System.out.println("Attaching new ClientThread...");
                 Thread thread = new ClientThread(newSock, usr, psw);
                 thread.start();
+                System.out.println("Thread attached and running\n");
             } catch (Exception e) {
                 e.printStackTrace();
                 server.close();
