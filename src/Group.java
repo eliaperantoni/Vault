@@ -1,3 +1,7 @@
+import java.sql.Connection;
+import java.sql.ResultSet;
+import java.sql.Statement;
+
 /**
  * Created by extensys on 15/03/2017.
  */
@@ -24,4 +28,25 @@ public class Group {
 
     private String mGroupName;
     private int mGroupId;
+
+    void removeSelf(Server server){
+        try {
+            Connection con = server.getConnection();
+            Statement stmt = con.createStatement();
+            stmt.executeUpdate(String.format("DELETE FROM groups WHERE groupId=\"%s\"", this.mGroupId));
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+    void updateSelf(Server server){
+        try {
+            Connection con = server.getConnection();
+            Statement stmt = con.createStatement();
+            ResultSet rs = stmt.executeQuery(String.format("SELECT * FROM groups WHERE groupId=\"%s\"", this.mGroupId));
+            rs.first();
+            setGroupName(rs.getString("groupName"));
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
 }

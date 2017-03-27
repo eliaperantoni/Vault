@@ -9,7 +9,7 @@ import java.util.*;
  * Created by extensys on 13/03/2017.
  */
 public class Server {
-    Connection getConnection(){
+    Connection getConnection() {
         return this.con;
     }
     private Connection con;
@@ -20,7 +20,7 @@ public class Server {
     private Server() {
 
     }
-    void connect(String databaseUsername,String databasePassword){
+    void connect(String databaseUsername, String databasePassword) {
         try {
             Class.forName("com.mysql.jdbc.Driver");
             con = DriverManager.getConnection
@@ -29,9 +29,9 @@ public class Server {
             e.printStackTrace();
         }
     }
-    int setup(){
+    int setup() {
         Statement stmt = null;
-        try{
+        try {
             stmt = con.createStatement();
             stmt.executeUpdate("CREATE TABLE users (id INT NOT NULL AUTO_INCREMENT ," +
                     " username TEXT CHARACTER SET utf8 COLLATE utf8_bin NOT NULL ," +
@@ -40,7 +40,7 @@ public class Server {
                     " groups TEXT CHARACTER SET utf8 COLLATE utf8_bin NOT NULL ," +
                     " publicId TEXT CHARACTER SET utf8 COLLATE utf8_bin NOT NULL ," +
                     " registerDate INT NULL , PRIMARY KEY (id)) ENGINE = InnoDB;");
-        }catch(Exception e){
+        } catch (Exception e) {
             e.printStackTrace();
             return 1;
         }
@@ -72,20 +72,19 @@ public class Server {
             return null;
         }
     }
-    
-    int getIdFromUsername(String username){
+    int getIdFromUsername(String username) {
         try {
             Statement stmt = con.createStatement();
             ResultSet rs = stmt.executeQuery(String.format("SELECT userId FROM users WHERE username=\"%s\"", username));
             rs.first();
             return rs.getInt("userId");
-        } catch(Exception e){
+        } catch (Exception e) {
             e.printStackTrace();
             return -1;
         }
 
     }
-    User getUserFromId(int id){
+    User getUserFromId(int id) {
         try {
             Statement stmt = con.createStatement();
             ResultSet rs = stmt.executeQuery(String.format("SELECT * FROM users WHERE userId=\"%s\"", id));
@@ -99,51 +98,82 @@ public class Server {
                     rs.getString("publicId"),
                     rs.getInt("registerDate"));
             return out;
-        } catch(Exception e){
+        } catch (Exception e) {
             e.printStackTrace();
             return null;
         }
     }
-    Map<Integer,User> getUsersMap(){
-        Map<Integer,User> out = new HashMap<>();
+    Map<Integer, User> getUsersMap() {
+        Map<Integer, User> out = new HashMap<>();
         try {
             Statement stmt = con.createStatement();
             ResultSet rs = stmt.executeQuery(String.format("SELECT userId FROM users"));
-            while(rs.next()){
-                out.put(rs.getInt("userId"),getUserFromId(rs.getInt("userId")));
+            while (rs.next()) {
+                out.put(rs.getInt("userId"), getUserFromId(rs.getInt("userId")));
             }
             return out;
-        } catch(Exception e){
+        } catch (Exception e) {
             e.printStackTrace();
             return null;
         }
     }
 
     //SQL OPERATIONS GROUPS
-    int getIdFromGroupName(String groupName){
+    int addGroup(String groupName){
+        int ris = -1;
+        try {
+            PreparedStatement stmt = con.prepareStatement(String.format("INSERT INTO groups (groupId,groupName) VALUES (NULL, \"%s\")",
+                    groupName, Statement.RETURN_GENERATED_KEYS)
+                    , Statement.RETURN_GENERATED_KEYS);
+            int num = stmt.executeUpdate();
+
+            ResultSet rs = stmt.getGeneratedKeys();
+            if (rs.next()){
+                ris=rs.getInt(1);
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return ris;
+    }
+    int getIdFromGroupName(String groupName) {
         String sql = String.format("SELECT groupId FROM groups WHERE groupName=\"%s\"", groupName);
         try {
             Statement stmt = con.createStatement();
             ResultSet rs = stmt.executeQuery(sql);
             rs.first();
             return rs.getInt("groupId");
-        } catch(Exception e){
+        } catch (Exception e) {
             e.printStackTrace();
             return -1;
         }
     }
-    Group getGroupFromId(int id){
+    Group getGroupFromId(int id) {
         try {
             Statement stmt = con.createStatement();
             ResultSet rs = stmt.executeQuery(String.format("SELECT groupName FROM groups WHERE groupId=\"%s\"", id));
             rs.first();
-            return new Group(id,rs.getString("groupName"));
-        } catch(Exception e){
+            return new Group(id, rs.getString("groupName"));
+        } catch (Exception e) {
             e.printStackTrace();
             return null;
         }
     }
-    List<Group> getGroupsFromUserId(int id){
+    Map<Integer,Group> getGroupsMap(){
+        Map<Integer, Group> out = new HashMap<>();
+        try {
+            Statement stmt = con.createStatement();
+            ResultSet rs = stmt.executeQuery(String.format("SELECT groupId FROM groups"));
+            while (rs.next()) {
+                out.put(rs.getInt("groupId"), getGroupFromId(rs.getInt("groupId")));
+            }
+            return out;
+        } catch (Exception e) {
+            e.printStackTrace();
+            return null;
+        }
+    }
+    List<Group> getGroupsFromUserId(int id) {
         try {
             List<Group> out = new ArrayList<>();
             Statement stmt = con.createStatement();
@@ -152,9 +182,20 @@ public class Server {
                 out.add(getGroupFromId(rs.getInt("groupId")));
             }
             return out;
-        } catch(Exception e){
+        } catch (Exception e) {
             e.printStackTrace();
             return null;
         }
+    }
+
+    //SQL OPERATIONS FILES
+    int getIdFromFilePath(){
+        return 0;
+    }
+    VaultFile getFileFromId(int id){
+        return null;
+    }
+    Map<Integer, VaultFile> getFilesMap(){
+        return null;
     }
 }

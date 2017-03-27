@@ -33,55 +33,42 @@ public class User {
     public int getId() {
         return mId;
     }
-
     public void setId(int id) {
         mId = id;
     }
-
     public String getUsername() {
         return mUsername;
     }
-
     public void setUsername(String username) {
         mUsername = username;
     }
-
     public String getPassword() {
         return mPassword;
     }
-
     public void setPassword(String password) {
         mPassword = password;
     }
-
     public String getToken() {
         return mToken;
     }
-
     public void setToken(String token) {
         mToken = token;
     }
-
     public List<Group> getGroups() {
         return mGroups;
     }
-
     public void setGroups(List<Group> groups) {
         mGroups = groups;
     }
-
     public String getPublicId() {
         return mPublicId;
     }
-
     public void setPublicId(String publicId) {
         mPublicId = publicId;
     }
-
     public int getRegisterDate() {
         return mRegisterDate;
     }
-
     public void setRegisterDate(int registerDate) {
         mRegisterDate = registerDate;
     }
@@ -94,7 +81,6 @@ public class User {
             e.printStackTrace();
         }
     }
-
     void modifySelf(Server server, String columnIndex, String newString) {
         try {
             Connection con = server.getConnection();
@@ -109,7 +95,6 @@ public class User {
         }
         updateSelf(server);
     }
-
     void updateSelf(Server server) {
         try {
             Connection con = server.getConnection();
@@ -126,8 +111,7 @@ public class User {
             e.printStackTrace();
         }
     }
-
-    void addGroup(Server server, int groupId){
+    void assignGroup(Server server, int groupId) {
         String sql = String.format("INSERT INTO usersgroups (userId, groupId) VALUES ('%s', '%s')", this.mId, groupId);
         try {
             Connection con = server.getConnection();

@@ -60,7 +60,7 @@ public class ClientThread extends Thread {
             } catch (YubicoValidationFailure yubicoValidationFailure) {
                 yubicoValidationFailure.printStackTrace();
             }
-            if (response.isOk() && response.getPublicId().equals(users.get(usr).getPublicId())) {
+            if (response.isOk() && response.getPublicId().equals(users.get(id).getPublicId())) {
                 return true;
             } else {
                 return false;

@@ -8,7 +8,6 @@
   <component name="ChangeListManager">
     <list default="true" id="1c51b184-97e9-42dc-97b8-2e3d797ace63" name="Default" comment="">
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/out/production/VaultServer/Group.class" afterPath="$PROJECT_DIR$/out/production/VaultServer/Group.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/out/production/VaultServer/Main.class" afterPath="$PROJECT_DIR$/out/production/VaultServer/Main.class" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/out/production/VaultServer/Server.class" afterPath="$PROJECT_DIR$/out/production/VaultServer/Server.class" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/out/production/VaultServer/User.class" afterPath="$PROJECT_DIR$/out/production/VaultServer/User.class" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
@@ -40,10 +39,22 @@
       <file leaf-file-name="Main.java" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/Main.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="323">
-              <caret line="17" column="0" lean-forward="false" selection-start-line="17" selection-start-column="0" selection-end-line="17" selection-end-column="0" />
+            <state relative-caret-position="133">
+              <caret line="7" column="37" lean-forward="false" selection-start-line="7" selection-start-column="37" selection-end-line="7" selection-end-column="37" />
               <folding>
                 <element signature="imports" expanded="true" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="ClientThread.java" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/ClientThread.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="988">
+              <caret line="62" column="77" lean-forward="false" selection-start-line="62" selection-start-column="77" selection-end-line="62" selection-end-column="77" />
+              <folding>
+                <element signature="imports" expanded="false" />
               </folding>
             </state>
           </provider>
@@ -52,12 +63,10 @@
       <file leaf-file-name="Server.java" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/src/Server.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="323">
-              <caret line="74" column="4" lean-forward="false" selection-start-line="74" selection-start-column="4" selection-end-line="74" selection-end-column="4" />
+            <state relative-caret-position="380">
+              <caret line="137" column="5" lean-forward="false" selection-start-line="137" selection-start-column="5" selection-end-line="137" selection-end-column="5" />
               <folding>
                 <element signature="docComment;class#Server#0" expanded="false" />
-                <element signature="e#258#259#0" expanded="true" />
-                <element signature="e#289#290#0" expanded="true" />
                 <element signature="method#Server#0;class#Server#0" expanded="false" />
                 <element signature="method#connect#0;class#Server#0" expanded="false" />
                 <element signature="method#setup#0;class#Server#0" expanded="false" />
@@ -66,8 +75,10 @@
                 <element signature="method#getIdFromUsername#0;class#Server#0" expanded="false" />
                 <element signature="method#getUserFromId#0;class#Server#0" expanded="false" />
                 <element signature="method#getUsersMap#0;class#Server#0" expanded="false" />
+                <element signature="method#addGroup#0;class#Server#0" expanded="false" />
                 <element signature="method#getIdFromGroupName#0;class#Server#0" expanded="false" />
                 <element signature="method#getGroupFromId#0;class#Server#0" expanded="false" />
+                <element signature="method#getGroupsMap#0;class#Server#0" expanded="false" />
                 <element signature="method#getGroupsFromUserId#0;class#Server#0" expanded="false" />
               </folding>
             </state>
@@ -77,17 +88,44 @@
       <file leaf-file-name="User.java" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/User.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="499">
-              <caret line="129" column="31" lean-forward="false" selection-start-line="129" selection-start-column="31" selection-end-line="129" selection-end-column="31" />
+            <state relative-caret-position="651">
+              <caret line="97" column="35" lean-forward="false" selection-start-line="97" selection-start-column="35" selection-end-line="97" selection-end-column="35" />
               <folding>
                 <element signature="imports" expanded="true" />
                 <element signature="docComment;class#User#0" expanded="false" />
                 <element signature="method#User#0;class#User#0" expanded="false" />
-                <element signature="e#1752#1753#0" expanded="true" />
-                <element signature="e#1788#1789#0" expanded="true" />
                 <element signature="method#removeSelf#0;class#User#0" expanded="false" />
                 <element signature="method#modifySelf#0;class#User#0" expanded="false" />
                 <element signature="method#updateSelf#0;class#User#0" expanded="false" />
+                <element signature="method#assignGroup#0;class#User#0" expanded="false" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="Group.java" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/Group.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="494">
+              <caret line="40" column="34" lean-forward="false" selection-start-line="40" selection-start-column="34" selection-end-line="40" selection-end-column="34" />
+              <folding>
+                <element signature="imports" expanded="true" />
+                <element signature="e#455#456#0" expanded="true" />
+                <element signature="e#486#487#0" expanded="true" />
+                <element signature="method#removeSelf#0;class#Group#0" expanded="false" />
+                <element signature="method#updateSelf#0;class#Group#0" expanded="false" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="VaultFile.java" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/VaultFile.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="228">
+              <caret line="15" column="0" lean-forward="true" selection-start-line="15" selection-start-column="0" selection-end-line="15" selection-end-column="0" />
+              <folding>
+                <element signature="docComment;class#VaultFile#0" expanded="false" />
               </folding>
             </state>
           </provider>
@@ -115,11 +153,12 @@
     <option name="CHANGED_PATHS">
       <list>
         <option value="$PROJECT_DIR$/src/Response.java" />
-        <option value="$PROJECT_DIR$/src/Group.java" />
-        <option value="$PROJECT_DIR$/src/ClientThread.java" />
         <option value="$PROJECT_DIR$/src/Main.java" />
+        <option value="$PROJECT_DIR$/src/ClientThread.java" />
         <option value="$PROJECT_DIR$/src/User.java" />
+        <option value="$PROJECT_DIR$/src/VaultFile.java" />
         <option value="$PROJECT_DIR$/src/Server.java" />
+        <option value="$PROJECT_DIR$/src/Group.java" />
       </list>
     </option>
   </component>
@@ -144,9 +183,9 @@
       <foldersAlwaysOnTop value="true" />
     </navigator>
     <panes>
-      <pane id="Scope" />
-      <pane id="Scratches" />
       <pane id="PackagesPane" />
+      <pane id="Scratches" />
+      <pane id="Scope" />
       <pane id="ProjectPane">
         <subPane>
           <PATH>
@@ -185,7 +224,7 @@
     <property name="Downloaded.Files.Path.Enabled" value="false" />
     <property name="Repository.Attach.JavaDocs" value="false" />
     <property name="Repository.Attach.Sources" value="false" />
-    <property name="settings.editor.selected.configurable" value="reference.settingsdialog.IDE.editor.colors" />
+    <property name="settings.editor.selected.configurable" value="preferences.sourceCode.Java" />
   </component>
   <component name="RunDashboard">
     <option name="ruleStates">
@@ -451,7 +490,7 @@
     </todo-panel>
   </component>
   <component name="ToolWindowManager">
-    <frame x="-8" y="-8" width="1296" height="1000" extended-state="7" />
+    <frame x="-8" y="-8" width="1296" height="1000" extended-state="6" />
     <editor active="true" />
     <layout>
       <window_info id="Palette" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
@@ -465,24 +504,24 @@
       <window_info id="Maven Projects" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.38314608" sideWeight="0.65546876" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
-      <window_info id="Coverage" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.3296875" sideWeight="0.5" order="-1" side_tool="true" content_ui="tabs" />
       <window_info id="Properties" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Terminal" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Capture Tool" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Designer" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.16953126" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
-      <window_info id="Find" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32921347" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="Structure" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="Ant Build" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="UI Designer" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Theme Preview" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
-      <window_info id="Debug" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.4" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
+      <window_info id="Debug" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.4" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Favorites" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="2" side_tool="true" content_ui="tabs" />
       <window_info id="Cvs" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
       <window_info id="Message" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
       <window_info id="Commander" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.4" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
       <window_info id="Hierarchy" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="2" side_tool="false" content_ui="combo" />
       <window_info id="Inspection" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.4" sideWeight="0.5" order="5" side_tool="false" content_ui="tabs" />
+      <window_info id="Coverage" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.3296875" sideWeight="0.5" order="4" side_tool="true" content_ui="tabs" />
+      <window_info id="Find" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32921347" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
     </layout>
   </component>
   <component name="VcsContentAnnotationSettings">
@@ -498,7 +537,7 @@
           <option name="timeStamp" value="35" />
         </line-breakpoint>
       </breakpoints>
-      <option name="time" value="36" />
+      <option name="time" value="37" />
     </breakpoint-manager>
     <watches-manager />
   </component>
@@ -507,21 +546,13 @@
     <option name="FILTER_TARGETS" value="false" />
   </component>
   <component name="editorHistoryManager">
-    <entry file="file://$PROJECT_DIR$/src/Main.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="0">
-          <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-          <folding>
-            <element signature="imports" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/ClientThread.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="1258">
           <caret line="74" column="0" lean-forward="false" selection-start-line="74" selection-start-column="0" selection-end-line="74" selection-end-column="0" />
-          <folding />
+          <folding>
+            <element signature="imports" expanded="false" />
+          </folding>
         </state>
       </provider>
     </entry>
@@ -531,8 +562,6 @@
           <caret line="33" column="32" lean-forward="false" selection-start-line="31" selection-start-column="23" selection-end-line="33" selection-end-column="32" />
           <folding>
             <element signature="docComment;class#Server#0" expanded="false" />
-            <element signature="e#258#259#0" expanded="true" />
-            <element signature="e#289#290#0" expanded="true" />
             <element signature="method#Server#0;class#Server#0" expanded="false" />
             <element signature="method#connect#0;class#Server#0" expanded="false" />
             <element signature="method#setup#0;class#Server#0" expanded="false" />
@@ -541,8 +570,10 @@
             <element signature="method#getIdFromUsername#0;class#Server#0" expanded="false" />
             <element signature="method#getUserFromId#0;class#Server#0" expanded="false" />
             <element signature="method#getUsersMap#0;class#Server#0" expanded="false" />
+            <element signature="method#addGroup#0;class#Server#0" expanded="false" />
             <element signature="method#getIdFromGroupName#0;class#Server#0" expanded="false" />
             <element signature="method#getGroupFromId#0;class#Server#0" expanded="false" />
+            <element signature="method#getGroupsMap#0;class#Server#0" expanded="false" />
             <element signature="method#getGroupsFromUserId#0;class#Server#0" expanded="false" />
           </folding>
         </state>
@@ -556,11 +587,10 @@
             <element signature="imports" expanded="true" />
             <element signature="docComment;class#User#0" expanded="false" />
             <element signature="method#User#0;class#User#0" expanded="false" />
-            <element signature="e#1752#1753#0" expanded="true" />
-            <element signature="e#1788#1789#0" expanded="true" />
             <element signature="method#removeSelf#0;class#User#0" expanded="false" />
             <element signature="method#modifySelf#0;class#User#0" expanded="false" />
             <element signature="method#updateSelf#0;class#User#0" expanded="false" />
+            <element signature="method#assignGroup#0;class#User#0" expanded="false" />
           </folding>
         </state>
       </provider>
@@ -579,7 +609,9 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="1258">
           <caret line="74" column="0" lean-forward="false" selection-start-line="74" selection-start-column="0" selection-end-line="74" selection-end-column="0" />
-          <folding />
+          <folding>
+            <element signature="imports" expanded="false" />
+          </folding>
         </state>
       </provider>
     </entry>
@@ -589,8 +621,6 @@
           <caret line="33" column="32" lean-forward="false" selection-start-line="31" selection-start-column="23" selection-end-line="33" selection-end-column="32" />
           <folding>
             <element signature="docComment;class#Server#0" expanded="false" />
-            <element signature="e#258#259#0" expanded="true" />
-            <element signature="e#289#290#0" expanded="true" />
             <element signature="method#Server#0;class#Server#0" expanded="false" />
             <element signature="method#connect#0;class#Server#0" expanded="false" />
             <element signature="method#setup#0;class#Server#0" expanded="false" />
@@ -599,8 +629,10 @@
             <element signature="method#getIdFromUsername#0;class#Server#0" expanded="false" />
             <element signature="method#getUserFromId#0;class#Server#0" expanded="false" />
             <element signature="method#getUsersMap#0;class#Server#0" expanded="false" />
+            <element signature="method#addGroup#0;class#Server#0" expanded="false" />
             <element signature="method#getIdFromGroupName#0;class#Server#0" expanded="false" />
             <element signature="method#getGroupFromId#0;class#Server#0" expanded="false" />
+            <element signature="method#getGroupsMap#0;class#Server#0" expanded="false" />
             <element signature="method#getGroupsFromUserId#0;class#Server#0" expanded="false" />
           </folding>
         </state>
@@ -614,11 +646,10 @@
             <element signature="imports" expanded="true" />
             <element signature="docComment;class#User#0" expanded="false" />
             <element signature="method#User#0;class#User#0" expanded="false" />
-            <element signature="e#1752#1753#0" expanded="true" />
-            <element signature="e#1788#1789#0" expanded="true" />
             <element signature="method#removeSelf#0;class#User#0" expanded="false" />
             <element signature="method#modifySelf#0;class#User#0" expanded="false" />
             <element signature="method#updateSelf#0;class#User#0" expanded="false" />
+            <element signature="method#assignGroup#0;class#User#0" expanded="false" />
           </folding>
         </state>
       </provider>
@@ -637,7 +668,9 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="1258">
           <caret line="74" column="0" lean-forward="false" selection-start-line="74" selection-start-column="0" selection-end-line="74" selection-end-column="0" />
-          <folding />
+          <folding>
+            <element signature="imports" expanded="false" />
+          </folding>
         </state>
       </provider>
     </entry>
@@ -647,8 +680,6 @@
           <caret line="33" column="32" lean-forward="false" selection-start-line="31" selection-start-column="23" selection-end-line="33" selection-end-column="32" />
           <folding>
             <element signature="docComment;class#Server#0" expanded="false" />
-            <element signature="e#258#259#0" expanded="true" />
-            <element signature="e#289#290#0" expanded="true" />
             <element signature="method#Server#0;class#Server#0" expanded="false" />
             <element signature="method#connect#0;class#Server#0" expanded="false" />
             <element signature="method#setup#0;class#Server#0" expanded="false" />
@@ -657,8 +688,10 @@
             <element signature="method#getIdFromUsername#0;class#Server#0" expanded="false" />
             <element signature="method#getUserFromId#0;class#Server#0" expanded="false" />
             <element signature="method#getUsersMap#0;class#Server#0" expanded="false" />
+            <element signature="method#addGroup#0;class#Server#0" expanded="false" />
             <element signature="method#getIdFromGroupName#0;class#Server#0" expanded="false" />
             <element signature="method#getGroupFromId#0;class#Server#0" expanded="false" />
+            <element signature="method#getGroupsMap#0;class#Server#0" expanded="false" />
             <element signature="method#getGroupsFromUserId#0;class#Server#0" expanded="false" />
           </folding>
         </state>
@@ -672,11 +705,10 @@
             <element signature="imports" expanded="true" />
             <element signature="docComment;class#User#0" expanded="false" />
             <element signature="method#User#0;class#User#0" expanded="false" />
-            <element signature="e#1752#1753#0" expanded="true" />
-            <element signature="e#1788#1789#0" expanded="true" />
             <element signature="method#removeSelf#0;class#User#0" expanded="false" />
             <element signature="method#modifySelf#0;class#User#0" expanded="false" />
             <element signature="method#updateSelf#0;class#User#0" expanded="false" />
+            <element signature="method#assignGroup#0;class#User#0" expanded="false" />
           </folding>
         </state>
       </provider>
@@ -695,7 +727,9 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="1088">
           <caret line="74" column="0" lean-forward="false" selection-start-line="74" selection-start-column="0" selection-end-line="74" selection-end-column="0" />
-          <folding />
+          <folding>
+            <element signature="imports" expanded="false" />
+          </folding>
         </state>
       </provider>
     </entry>
@@ -705,8 +739,6 @@
           <caret line="33" column="32" lean-forward="false" selection-start-line="31" selection-start-column="23" selection-end-line="33" selection-end-column="32" />
           <folding>
             <element signature="docComment;class#Server#0" expanded="false" />
-            <element signature="e#258#259#0" expanded="true" />
-            <element signature="e#289#290#0" expanded="true" />
             <element signature="method#Server#0;class#Server#0" expanded="false" />
             <element signature="method#connect#0;class#Server#0" expanded="false" />
             <element signature="method#setup#0;class#Server#0" expanded="false" />
@@ -715,8 +747,10 @@
             <element signature="method#getIdFromUsername#0;class#Server#0" expanded="false" />
             <element signature="method#getUserFromId#0;class#Server#0" expanded="false" />
             <element signature="method#getUsersMap#0;class#Server#0" expanded="false" />
+            <element signature="method#addGroup#0;class#Server#0" expanded="false" />
             <element signature="method#getIdFromGroupName#0;class#Server#0" expanded="false" />
             <element signature="method#getGroupFromId#0;class#Server#0" expanded="false" />
+            <element signature="method#getGroupsMap#0;class#Server#0" expanded="false" />
             <element signature="method#getGroupsFromUserId#0;class#Server#0" expanded="false" />
           </folding>
         </state>
@@ -730,11 +764,10 @@
             <element signature="imports" expanded="true" />
             <element signature="docComment;class#User#0" expanded="false" />
             <element signature="method#User#0;class#User#0" expanded="false" />
-            <element signature="e#1752#1753#0" expanded="true" />
-            <element signature="e#1788#1789#0" expanded="true" />
             <element signature="method#removeSelf#0;class#User#0" expanded="false" />
             <element signature="method#modifySelf#0;class#User#0" expanded="false" />
             <element signature="method#updateSelf#0;class#User#0" expanded="false" />
+            <element signature="method#assignGroup#0;class#User#0" expanded="false" />
           </folding>
         </state>
       </provider>
@@ -755,8 +788,6 @@
           <caret line="33" column="32" lean-forward="false" selection-start-line="31" selection-start-column="23" selection-end-line="33" selection-end-column="32" />
           <folding>
             <element signature="docComment;class#Server#0" expanded="false" />
-            <element signature="e#258#259#0" expanded="true" />
-            <element signature="e#289#290#0" expanded="true" />
             <element signature="method#Server#0;class#Server#0" expanded="false" />
             <element signature="method#connect#0;class#Server#0" expanded="false" />
             <element signature="method#setup#0;class#Server#0" expanded="false" />
@@ -765,8 +796,10 @@
             <element signature="method#getIdFromUsername#0;class#Server#0" expanded="false" />
             <element signature="method#getUserFromId#0;class#Server#0" expanded="false" />
             <element signature="method#getUsersMap#0;class#Server#0" expanded="false" />
+            <element signature="method#addGroup#0;class#Server#0" expanded="false" />
             <element signature="method#getIdFromGroupName#0;class#Server#0" expanded="false" />
             <element signature="method#getGroupFromId#0;class#Server#0" expanded="false" />
+            <element signature="method#getGroupsMap#0;class#Server#0" expanded="false" />
             <element signature="method#getGroupsFromUserId#0;class#Server#0" expanded="false" />
           </folding>
         </state>
@@ -780,11 +813,10 @@
             <element signature="imports" expanded="true" />
             <element signature="docComment;class#User#0" expanded="false" />
             <element signature="method#User#0;class#User#0" expanded="false" />
-            <element signature="e#1752#1753#0" expanded="true" />
-            <element signature="e#1788#1789#0" expanded="true" />
             <element signature="method#removeSelf#0;class#User#0" expanded="false" />
             <element signature="method#modifySelf#0;class#User#0" expanded="false" />
             <element signature="method#updateSelf#0;class#User#0" expanded="false" />
+            <element signature="method#assignGroup#0;class#User#0" expanded="false" />
           </folding>
         </state>
       </provider>
@@ -803,7 +835,9 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="0">
           <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-          <folding />
+          <folding>
+            <element signature="imports" expanded="false" />
+          </folding>
         </state>
       </provider>
     </entry>
@@ -820,8 +854,6 @@
           <caret line="33" column="32" lean-forward="false" selection-start-line="31" selection-start-column="23" selection-end-line="33" selection-end-column="32" />
           <folding>
             <element signature="docComment;class#Server#0" expanded="false" />
-            <element signature="e#258#259#0" expanded="true" />
-            <element signature="e#289#290#0" expanded="true" />
             <element signature="method#Server#0;class#Server#0" expanded="false" />
             <element signature="method#connect#0;class#Server#0" expanded="false" />
             <element signature="method#setup#0;class#Server#0" expanded="false" />
@@ -830,8 +862,10 @@
             <element signature="method#getIdFromUsername#0;class#Server#0" expanded="false" />
             <element signature="method#getUserFromId#0;class#Server#0" expanded="false" />
             <element signature="method#getUsersMap#0;class#Server#0" expanded="false" />
+            <element signature="method#addGroup#0;class#Server#0" expanded="false" />
             <element signature="method#getIdFromGroupName#0;class#Server#0" expanded="false" />
             <element signature="method#getGroupFromId#0;class#Server#0" expanded="false" />
+            <element signature="method#getGroupsMap#0;class#Server#0" expanded="false" />
             <element signature="method#getGroupsFromUserId#0;class#Server#0" expanded="false" />
           </folding>
         </state>
@@ -845,11 +879,10 @@
             <element signature="imports" expanded="true" />
             <element signature="docComment;class#User#0" expanded="false" />
             <element signature="method#User#0;class#User#0" expanded="false" />
-            <element signature="e#1752#1753#0" expanded="true" />
-            <element signature="e#1788#1789#0" expanded="true" />
             <element signature="method#removeSelf#0;class#User#0" expanded="false" />
             <element signature="method#modifySelf#0;class#User#0" expanded="false" />
             <element signature="method#updateSelf#0;class#User#0" expanded="false" />
+            <element signature="method#assignGroup#0;class#User#0" expanded="false" />
           </folding>
         </state>
       </provider>
@@ -870,8 +903,6 @@
           <caret line="82" column="29" lean-forward="false" selection-start-line="82" selection-start-column="29" selection-end-line="82" selection-end-column="29" />
           <folding>
             <element signature="docComment;class#Server#0" expanded="false" />
-            <element signature="e#258#259#0" expanded="true" />
-            <element signature="e#289#290#0" expanded="true" />
             <element signature="method#Server#0;class#Server#0" expanded="false" />
             <element signature="method#connect#0;class#Server#0" expanded="false" />
             <element signature="method#setup#0;class#Server#0" expanded="false" />
@@ -880,8 +911,10 @@
             <element signature="method#getIdFromUsername#0;class#Server#0" expanded="false" />
             <element signature="method#getUserFromId#0;class#Server#0" expanded="false" />
             <element signature="method#getUsersMap#0;class#Server#0" expanded="false" />
+            <element signature="method#addGroup#0;class#Server#0" expanded="false" />
             <element signature="method#getIdFromGroupName#0;class#Server#0" expanded="false" />
             <element signature="method#getGroupFromId#0;class#Server#0" expanded="false" />
+            <element signature="method#getGroupsMap#0;class#Server#0" expanded="false" />
             <element signature="method#getGroupsFromUserId#0;class#Server#0" expanded="false" />
           </folding>
         </state>
@@ -895,11 +928,10 @@
             <element signature="imports" expanded="true" />
             <element signature="docComment;class#User#0" expanded="false" />
             <element signature="method#User#0;class#User#0" expanded="false" />
-            <element signature="e#1752#1753#0" expanded="true" />
-            <element signature="e#1788#1789#0" expanded="true" />
             <element signature="method#removeSelf#0;class#User#0" expanded="false" />
             <element signature="method#modifySelf#0;class#User#0" expanded="false" />
             <element signature="method#updateSelf#0;class#User#0" expanded="false" />
+            <element signature="method#assignGroup#0;class#User#0" expanded="false" />
           </folding>
         </state>
       </provider>
@@ -920,8 +952,6 @@
           <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
           <folding>
             <element signature="docComment;class#Server#0" expanded="false" />
-            <element signature="e#258#259#0" expanded="true" />
-            <element signature="e#289#290#0" expanded="true" />
             <element signature="method#Server#0;class#Server#0" expanded="false" />
             <element signature="method#connect#0;class#Server#0" expanded="false" />
             <element signature="method#setup#0;class#Server#0" expanded="false" />
@@ -930,8 +960,10 @@
             <element signature="method#getIdFromUsername#0;class#Server#0" expanded="false" />
             <element signature="method#getUserFromId#0;class#Server#0" expanded="false" />
             <element signature="method#getUsersMap#0;class#Server#0" expanded="false" />
+            <element signature="method#addGroup#0;class#Server#0" expanded="false" />
             <element signature="method#getIdFromGroupName#0;class#Server#0" expanded="false" />
             <element signature="method#getGroupFromId#0;class#Server#0" expanded="false" />
+            <element signature="method#getGroupsMap#0;class#Server#0" expanded="false" />
             <element signature="method#getGroupsFromUserId#0;class#Server#0" expanded="false" />
           </folding>
         </state>
@@ -945,11 +977,10 @@
             <element signature="imports" expanded="true" />
             <element signature="docComment;class#User#0" expanded="false" />
             <element signature="method#User#0;class#User#0" expanded="false" />
-            <element signature="e#1752#1753#0" expanded="true" />
-            <element signature="e#1788#1789#0" expanded="true" />
             <element signature="method#removeSelf#0;class#User#0" expanded="false" />
             <element signature="method#modifySelf#0;class#User#0" expanded="false" />
             <element signature="method#updateSelf#0;class#User#0" expanded="false" />
+            <element signature="method#assignGroup#0;class#User#0" expanded="false" />
           </folding>
         </state>
       </provider>
@@ -970,8 +1001,6 @@
           <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
           <folding>
             <element signature="docComment;class#Server#0" expanded="false" />
-            <element signature="e#258#259#0" expanded="true" />
-            <element signature="e#289#290#0" expanded="true" />
             <element signature="method#Server#0;class#Server#0" expanded="false" />
             <element signature="method#connect#0;class#Server#0" expanded="false" />
             <element signature="method#setup#0;class#Server#0" expanded="false" />
@@ -980,8 +1009,10 @@
             <element signature="method#getIdFromUsername#0;class#Server#0" expanded="false" />
             <element signature="method#getUserFromId#0;class#Server#0" expanded="false" />
             <element signature="method#getUsersMap#0;class#Server#0" expanded="false" />
+            <element signature="method#addGroup#0;class#Server#0" expanded="false" />
             <element signature="method#getIdFromGroupName#0;class#Server#0" expanded="false" />
             <element signature="method#getGroupFromId#0;class#Server#0" expanded="false" />
+            <element signature="method#getGroupsMap#0;class#Server#0" expanded="false" />
             <element signature="method#getGroupsFromUserId#0;class#Server#0" expanded="false" />
           </folding>
         </state>
@@ -995,11 +1026,10 @@
             <element signature="imports" expanded="true" />
             <element signature="docComment;class#User#0" expanded="false" />
             <element signature="method#User#0;class#User#0" expanded="false" />
-            <element signature="e#1752#1753#0" expanded="true" />
-            <element signature="e#1788#1789#0" expanded="true" />
             <element signature="method#removeSelf#0;class#User#0" expanded="false" />
             <element signature="method#modifySelf#0;class#User#0" expanded="false" />
             <element signature="method#updateSelf#0;class#User#0" expanded="false" />
+            <element signature="method#assignGroup#0;class#User#0" expanded="false" />
           </folding>
         </state>
       </provider>
@@ -1027,8 +1057,6 @@
           <caret line="59" column="5" lean-forward="false" selection-start-line="59" selection-start-column="5" selection-end-line="59" selection-end-column="5" />
           <folding>
             <element signature="docComment;class#Server#0" expanded="false" />
-            <element signature="e#258#259#0" expanded="true" />
-            <element signature="e#289#290#0" expanded="true" />
             <element signature="method#Server#0;class#Server#0" expanded="false" />
             <element signature="method#connect#0;class#Server#0" expanded="false" />
             <element signature="method#setup#0;class#Server#0" expanded="false" />
@@ -1037,8 +1065,10 @@
             <element signature="method#getIdFromUsername#0;class#Server#0" expanded="false" />
             <element signature="method#getUserFromId#0;class#Server#0" expanded="false" />
             <element signature="method#getUsersMap#0;class#Server#0" expanded="false" />
+            <element signature="method#addGroup#0;class#Server#0" expanded="false" />
             <element signature="method#getIdFromGroupName#0;class#Server#0" expanded="false" />
             <element signature="method#getGroupFromId#0;class#Server#0" expanded="false" />
+            <element signature="method#getGroupsMap#0;class#Server#0" expanded="false" />
             <element signature="method#getGroupsFromUserId#0;class#Server#0" expanded="false" />
           </folding>
         </state>
@@ -1052,11 +1082,10 @@
             <element signature="imports" expanded="true" />
             <element signature="docComment;class#User#0" expanded="false" />
             <element signature="method#User#0;class#User#0" expanded="false" />
-            <element signature="e#1752#1753#0" expanded="true" />
-            <element signature="e#1788#1789#0" expanded="true" />
             <element signature="method#removeSelf#0;class#User#0" expanded="false" />
             <element signature="method#modifySelf#0;class#User#0" expanded="false" />
             <element signature="method#updateSelf#0;class#User#0" expanded="false" />
+            <element signature="method#assignGroup#0;class#User#0" expanded="false" />
           </folding>
         </state>
       </provider>
@@ -1084,8 +1113,6 @@
           <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
           <folding>
             <element signature="docComment;class#Server#0" expanded="false" />
-            <element signature="e#258#259#0" expanded="true" />
-            <element signature="e#289#290#0" expanded="true" />
             <element signature="method#Server#0;class#Server#0" expanded="false" />
             <element signature="method#connect#0;class#Server#0" expanded="false" />
             <element signature="method#setup#0;class#Server#0" expanded="false" />
@@ -1094,8 +1121,10 @@
             <element signature="method#getIdFromUsername#0;class#Server#0" expanded="false" />
             <element signature="method#getUserFromId#0;class#Server#0" expanded="false" />
             <element signature="method#getUsersMap#0;class#Server#0" expanded="false" />
+            <element signature="method#addGroup#0;class#Server#0" expanded="false" />
             <element signature="method#getIdFromGroupName#0;class#Server#0" expanded="false" />
             <element signature="method#getGroupFromId#0;class#Server#0" expanded="false" />
+            <element signature="method#getGroupsMap#0;class#Server#0" expanded="false" />
             <element signature="method#getGroupsFromUserId#0;class#Server#0" expanded="false" />
           </folding>
         </state>
@@ -1109,11 +1138,10 @@
             <element signature="imports" expanded="true" />
             <element signature="docComment;class#User#0" expanded="false" />
             <element signature="method#User#0;class#User#0" expanded="false" />
-            <element signature="e#1752#1753#0" expanded="true" />
-            <element signature="e#1788#1789#0" expanded="true" />
             <element signature="method#removeSelf#0;class#User#0" expanded="false" />
             <element signature="method#modifySelf#0;class#User#0" expanded="false" />
             <element signature="method#updateSelf#0;class#User#0" expanded="false" />
+            <element signature="method#assignGroup#0;class#User#0" expanded="false" />
           </folding>
         </state>
       </provider>
@@ -1134,8 +1162,6 @@
           <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
           <folding>
             <element signature="docComment;class#Server#0" expanded="false" />
-            <element signature="e#258#259#0" expanded="true" />
-            <element signature="e#289#290#0" expanded="true" />
             <element signature="method#Server#0;class#Server#0" expanded="false" />
             <element signature="method#connect#0;class#Server#0" expanded="false" />
             <element signature="method#setup#0;class#Server#0" expanded="false" />
@@ -1144,8 +1170,10 @@
             <element signature="method#getIdFromUsername#0;class#Server#0" expanded="false" />
             <element signature="method#getUserFromId#0;class#Server#0" expanded="false" />
             <element signature="method#getUsersMap#0;class#Server#0" expanded="false" />
+            <element signature="method#addGroup#0;class#Server#0" expanded="false" />
             <element signature="method#getIdFromGroupName#0;class#Server#0" expanded="false" />
             <element signature="method#getGroupFromId#0;class#Server#0" expanded="false" />
+            <element signature="method#getGroupsMap#0;class#Server#0" expanded="false" />
             <element signature="method#getGroupsFromUserId#0;class#Server#0" expanded="false" />
           </folding>
         </state>
@@ -1166,55 +1194,61 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/Response.java">
+    <entry file="file://$PROJECT_DIR$/src/Response.java" />
+    <entry file="file://$PROJECT_DIR$/src/ClientThread.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="76">
-          <caret line="4" column="4" lean-forward="false" selection-start-line="4" selection-start-column="4" selection-end-line="4" selection-end-column="4" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/Group.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="228">
-          <caret line="16" column="29" lean-forward="false" selection-start-line="16" selection-start-column="29" selection-end-line="16" selection-end-column="29" />
+        <state relative-caret-position="988">
+          <caret line="62" column="77" lean-forward="false" selection-start-line="62" selection-start-column="77" selection-end-line="62" selection-end-column="77" />
           <folding>
-            <element signature="e#403#404#0" expanded="true" />
-            <element signature="e#446#447#0" expanded="true" />
-            <element signature="e#480#481#0" expanded="true" />
+            <element signature="imports" expanded="false" />
           </folding>
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/ClientThread.java">
+    <entry file="file://$PROJECT_DIR$/src/VaultFile.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="75">
-          <caret line="38" column="9" lean-forward="true" selection-start-line="38" selection-start-column="9" selection-end-line="38" selection-end-column="9" />
-          <folding />
+        <state relative-caret-position="228">
+          <caret line="15" column="0" lean-forward="true" selection-start-line="15" selection-start-column="0" selection-end-line="15" selection-end-column="0" />
+          <folding>
+            <element signature="docComment;class#VaultFile#0" expanded="false" />
+          </folding>
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/src/User.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="499">
-          <caret line="129" column="31" lean-forward="false" selection-start-line="129" selection-start-column="31" selection-end-line="129" selection-end-column="31" />
+        <state relative-caret-position="651">
+          <caret line="97" column="35" lean-forward="false" selection-start-line="97" selection-start-column="35" selection-end-line="97" selection-end-column="35" />
           <folding>
             <element signature="imports" expanded="true" />
             <element signature="docComment;class#User#0" expanded="false" />
             <element signature="method#User#0;class#User#0" expanded="false" />
-            <element signature="e#1752#1753#0" expanded="true" />
-            <element signature="e#1788#1789#0" expanded="true" />
             <element signature="method#removeSelf#0;class#User#0" expanded="false" />
             <element signature="method#modifySelf#0;class#User#0" expanded="false" />
             <element signature="method#updateSelf#0;class#User#0" expanded="false" />
+            <element signature="method#assignGroup#0;class#User#0" expanded="false" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/Group.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="494">
+          <caret line="40" column="34" lean-forward="false" selection-start-line="40" selection-start-column="34" selection-end-line="40" selection-end-column="34" />
+          <folding>
+            <element signature="imports" expanded="true" />
+            <element signature="e#455#456#0" expanded="true" />
+            <element signature="e#486#487#0" expanded="true" />
+            <element signature="method#removeSelf#0;class#Group#0" expanded="false" />
+            <element signature="method#updateSelf#0;class#Group#0" expanded="false" />
           </folding>
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/src/Main.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="323">
-          <caret line="17" column="0" lean-forward="false" selection-start-line="17" selection-start-column="0" selection-end-line="17" selection-end-column="0" />
+        <state relative-caret-position="133">
+          <caret line="7" column="37" lean-forward="false" selection-start-line="7" selection-start-column="37" selection-end-line="7" selection-end-column="37" />
           <folding>
             <element signature="imports" expanded="true" />
           </folding>
@@ -1223,12 +1257,10 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/src/Server.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="323">
-          <caret line="74" column="4" lean-forward="false" selection-start-line="74" selection-start-column="4" selection-end-line="74" selection-end-column="4" />
+        <state relative-caret-position="380">
+          <caret line="137" column="5" lean-forward="false" selection-start-line="137" selection-start-column="5" selection-end-line="137" selection-end-column="5" />
           <folding>
             <element signature="docComment;class#Server#0" expanded="false" />
-            <element signature="e#258#259#0" expanded="true" />
-            <element signature="e#289#290#0" expanded="true" />
             <element signature="method#Server#0;class#Server#0" expanded="false" />
             <element signature="method#connect#0;class#Server#0" expanded="false" />
             <element signature="method#setup#0;class#Server#0" expanded="false" />
@@ -1237,8 +1269,10 @@
             <element signature="method#getIdFromUsername#0;class#Server#0" expanded="false" />
             <element signature="method#getUserFromId#0;class#Server#0" expanded="false" />
             <element signature="method#getUsersMap#0;class#Server#0" expanded="false" />
+            <element signature="method#addGroup#0;class#Server#0" expanded="false" />
             <element signature="method#getIdFromGroupName#0;class#Server#0" expanded="false" />
             <element signature="method#getGroupFromId#0;class#Server#0" expanded="false" />
+            <element signature="method#getGroupsMap#0;class#Server#0" expanded="false" />
             <element signature="method#getGroupsFromUserId#0;class#Server#0" expanded="false" />
           </folding>
         </state>
