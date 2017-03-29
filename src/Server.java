@@ -189,13 +189,88 @@ public class Server {
     }
 
     //SQL OPERATIONS FILES
-    int getIdFromFilePath(){
-        return 0;
+    int addFile(String fileName, String filePath, String fileKey){
+        int ris = -1;
+        try {
+            PreparedStatement stmt = con.prepareStatement(String.format("INSERT INTO files (fileId,fileName,filePath,fileKey) VALUES (NULL, \"%s\", \"%s\", \"%s\")",
+                    fileName, filePath, fileKey, Statement.RETURN_GENERATED_KEYS)
+                    , Statement.RETURN_GENERATED_KEYS);
+            int num = stmt.executeUpdate();
+
+            ResultSet rs = stmt.getGeneratedKeys();
+            if (rs.next()){
+                ris=rs.getInt(1);
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return ris;
+    }
+    int getIdFromCompletePath(String completePath){
+        String dbFileName;
+        String dbFilePath;
+        List<String> dirs = Arrays.asList(completePath.split("/"));
+        dbFileName = dirs.get(dirs.size()-1);
+        dirs.set(dirs.size()-1,"");
+        dbFilePath = Joiner.on("/").join(dirs);
+        String sql = String.format("SELECT fileId FROM files WHERE fileName=\"%s\" AND filePath=\"%s\"", dbFileName, dbFilePath);
+        try {
+            Statement stmt = con.createStatement();
+            ResultSet rs = stmt.executeQuery(sql);
+            rs.first();
+            return rs.getInt("fileId");
+        } catch (Exception e) {
+            e.printStackTrace();
+            return -1;
+        }
     }
     VaultFile getFileFromId(int id){
-        return null;
+        String sql = String.format("SELECT * FROM files WHERE fileId=\"%s\"", id);
+        try {
+            VaultFile out;
+            Statement stmt = con.createStatement();
+            ResultSet rs = stmt.executeQuery(sql);
+            rs.first();
+            out=new VaultFile(rs.getInt("fileId"),
+                    rs.getString("fileName"),
+                    rs.getString("filePath"),
+                    null,
+                    null,
+                    true,
+                    rs.getString("fileKey"),
+                    getGroupsFromFileId(id));
+            return out;
+        } catch (Exception e) {
+            e.printStackTrace();
+            return null;
+        }
     }
     Map<Integer, VaultFile> getFilesMap(){
-        return null;
+        Map<Integer,VaultFile> out = new HashMap<>();
+        try {
+            Statement stmt = con.createStatement();
+            ResultSet rs = stmt.executeQuery(String.format("SELECT fileId FROM files"));
+            while (rs.next()) {
+                out.put(rs.getInt("fileId"), getFileFromId(rs.getInt("fileId")));
+            }
+            return out;
+        } catch (Exception e) {
+            e.printStackTrace();
+            return null;
+        }
+    }
+    List<Group> getGroupsFromFileId(int id) {
+        try {
+            List<Group> out = new ArrayList<>();
+            Statement stmt = con.createStatement();
+            ResultSet rs = stmt.executeQuery(String.format("SELECT groupId FROM filesgroups WHERE fileId=\"%s\"", id));
+            while (rs.next()) {
+                out.add(getGroupFromId(rs.getInt("groupId")));
+            }
+            return out;
+        } catch (Exception e) {
+            e.printStackTrace();
+            return null;
+        }
     }
 }

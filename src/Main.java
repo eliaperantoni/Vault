@@ -1,6 +1,8 @@
 import java.io.IOException;
 import java.net.ServerSocket;
 import java.net.Socket;
+import java.nio.file.Files;
+import java.nio.file.Paths;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
@@ -15,8 +17,14 @@ public class Main {
         String psw = scan.nextLine();
         Server server = Server.getInstance();
         server.connect(usr, psw);
+        server.getIdFromCompletePath("/lalalal/lalal/test.txt");
         if (args.length > 0 && args[0].equals("setup")) {
             server.setup();
+            try{
+                Files.createDirectories(Paths.get("data"));
+            }catch(Exception e){
+                e.printStackTrace();
+            }
         }
         try {
             serverSock = new ServerSocket(9090);

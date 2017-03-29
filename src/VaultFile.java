@@ -14,6 +14,17 @@ public class VaultFile {
     private String key;
     private List<Group> ownerGroups;
 
+    public VaultFile(int id, String fileName, String filePath, File encryptedFile, File clearFile, boolean isEncrypted, String key, List<Group> ownerGroups) {
+        this.id = id;
+        this.fileName = fileName;
+        this.filePath = filePath;
+        this.encryptedFile = encryptedFile;
+        this.clearFile = clearFile;
+        this.isEncrypted = isEncrypted;
+        this.key = key;
+        this.ownerGroups = ownerGroups;
+    }
+
     public int getId() {
         return id;
     }
