@@ -16,6 +16,7 @@ import java.util.Map;
 public class ClientThread extends Thread {
     private Socket socket;
     private DataInputStream inStream;
+    private DataOutputStream outStream;
     private String dbUser;
     private String dbPassword;
 
@@ -29,10 +30,11 @@ public class ClientThread extends Thread {
     public void run() {
         try {
             inStream = new DataInputStream(socket.getInputStream());
+            outStream = new DataOutputStream(socket.getOutputStream());
             String usr = inStream.readUTF();
             String psw = inStream.readUTF();
             String otp = inStream.readUTF();
-            authenticate(usr, psw, otp);
+            outStream.writeBoolean(authenticate(usr, psw, otp));
 //            sendFile("test.vault");
             socket.close();
             this.interrupt();
