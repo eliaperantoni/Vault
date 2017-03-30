@@ -79,7 +79,6 @@ public class Server {
             rs.first();
             return rs.getInt("userId");
         } catch (Exception e) {
-            e.printStackTrace();
             return -1;
         }
 

@@ -17,7 +17,6 @@ public class Main {
         String psw = scan.nextLine();
         Server server = Server.getInstance();
         server.connect(usr, psw);
-        server.getIdFromCompletePath("/lalalal/lalal/test.txt");
         if (args.length > 0 && args[0].equals("setup")) {
             server.setup();
             try{
@@ -32,20 +31,43 @@ public class Main {
             e.printStackTrace();
         }
         clientSocks = new ArrayList<>();
-        System.out.println("\nListening for incoming connections....");
-        while (true) {
-            try {
-                Socket newSock = serverSock.accept();
-                clientSocks.add(newSock);
-                System.out.println("Connected to: "+newSock);
-                System.out.println("Attaching new ClientThread...");
-                Thread thread = new ClientThread(newSock, usr, psw);
-                thread.start();
-                System.out.println("Thread attached and running\n");
-            } catch (Exception e) {
-                e.printStackTrace();
-                server.close();
+        ServerSocket finalServerSock = serverSock;
+        System.out.println();
+        try {
+            System.out.println(!server.getConnection().isClosed() ? "SQL Connection Status: OK" : "SQL Connection Status: BAD");
+        }catch (Exception e){
+            e.printStackTrace();
+            System.out.println("SQL Connection Status: BAD");
+        }
+        try{
+            System.out.println(!serverSock.isClosed() && serverSock.isBound() ? "Server Socket Status: OK" : "Server Socket Status: OK");
+        } catch (Exception e){
+            e.printStackTrace();
+        }
+        System.out.println();
+        System.out.println("Listening for incoming connections\n");
+        new Thread(){
+            @Override
+            public void run() {
+                super.run();
+                while (true) {
+                    try {
+                        Socket newSock = finalServerSock.accept();
+                        clientSocks.add(newSock); //FIXME Remove sockets when closed
+                        Thread thread = new ClientThread(newSock, usr, psw);
+                        thread.start();
+                    } catch (Exception e) {
+                        e.printStackTrace();
+                        server.close();
+                    }
+                }
             }
+        }.start();
+        String inp = "";
+        while(inp!="exit"){
+            System.out.print("~ ");
+            inp = scan.nextLine();
+
         }
     }
 }

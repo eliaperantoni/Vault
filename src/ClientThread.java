@@ -32,8 +32,10 @@ public class ClientThread extends Thread {
             String usr = inStream.readUTF();
             String psw = inStream.readUTF();
             String otp = inStream.readUTF();
-            System.out.println(authenticate(usr, psw, otp));
+            authenticate(usr, psw, otp);
 //            sendFile("test.vault");
+            socket.close();
+            this.interrupt();
         } catch (Exception e) {
             e.printStackTrace();
         }
