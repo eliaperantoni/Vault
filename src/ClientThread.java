@@ -2,8 +2,7 @@ import com.google.common.hash.Hashing;
 
 import com.yubico.client.v2.VerificationResponse;
 import com.yubico.client.v2.YubicoClient;
-import com.yubico.client.v2.exceptions.YubicoValidationFailure;
-import com.yubico.client.v2.exceptions.YubicoVerificationException;
+import com.yubico.client.v2.exceptions.*;
 
 import java.io.*;
 import java.net.Socket;
@@ -31,19 +30,15 @@ public class ClientThread extends Thread {
         try {
             inStream = new DataInputStream(socket.getInputStream());
             outStream = new DataOutputStream(socket.getOutputStream());
-            String usr = inStream.readUTF();
-            String psw = inStream.readUTF();
-            String otp = inStream.readUTF();
-            outStream.writeBoolean(authenticate(usr, psw, otp));
-//            sendFile("test.vault");
-            socket.close();
-            this.interrupt();
+            sendFile("a.txt");
+            sendFile("b.txt");
+            sendFile("c.txt");
         } catch (Exception e) {
             e.printStackTrace();
         }
     }
 
-    private boolean authenticate(String usr, String psw, String otp) {
+    boolean authenticate(String usr, String psw, String otp) {
         Server server = Server.getInstance();
         server.connect(dbUser, dbPassword);
         int id = server.getIdFromUsername(usr);
@@ -73,23 +68,23 @@ public class ClientThread extends Thread {
             return false;
         }
     }
-    public void sendFile(String file){
+    void sendFile(String file){
         try {
             File f = new File(file);
-            DataOutputStream dos = new DataOutputStream(socket.getOutputStream());
-            dos.writeLong(f.length());
+            outStream.writeUTF(file);
+            outStream.writeLong(f.length());
             FileInputStream fis = new FileInputStream(f);
             byte[] buffer = new byte[4096];
-
-            while (fis.read(buffer) > 0) {
-                dos.write(buffer);
+            int count;
+            while ((count = fis.read(buffer)) > 0) {
+                outStream.write(buffer, 0, count);
             }
 
             fis.close();
-            dos.close();
         }catch(Exception e){
             e.printStackTrace();
         }
+
     }
     int getSize(byte[] buffer,long remaining){
         try {
@@ -115,7 +110,5 @@ public class ClientThread extends Thread {
             fos.write(buffer, 0, read);
         }
 
-        fos.close();
-        dis.close();
     }
 }

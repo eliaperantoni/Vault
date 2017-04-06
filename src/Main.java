@@ -1,28 +1,43 @@
+import java.io.DataInputStream;
+import java.io.DataOutputStream;
+import java.io.File;
 import java.io.IOException;
 import java.net.ServerSocket;
 import java.net.Socket;
 import java.nio.file.Files;
 import java.nio.file.Paths;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 import java.util.Scanner;
 public class Main {
     public static void main(String[] args) {
+        boolean boolDebug = true;//TODO REMOVE THIS!!
         ServerSocket serverSock = null;
         List<Socket> clientSocks;
-        Scanner scan = new Scanner(System.in);
-        System.out.println("Username:");
-        String usr = scan.nextLine();
-        System.out.println("Password:");
-        String psw = scan.nextLine();
+        List<ClientThread> clientThreads;
+        String usr;
+        String psw;
+        if(!boolDebug) {
+            Scanner scan = new Scanner(System.in);
+            System.out.println("Username:");
+            usr = scan.nextLine();
+            System.out.println("Password:");
+            psw = scan.nextLine();
+        }else{
+            usr = "vaultServer";
+            psw = "qwedcxzaextensys";
+        }
         Server server = Server.getInstance();
         server.connect(usr, psw);
-        if (args.length > 0 && args[0].equals("setup")) {
-            server.setup();
-            try{
-                Files.createDirectories(Paths.get("data"));
-            }catch(Exception e){
-                e.printStackTrace();
+        if (args.length > 0) {
+            if(args[0].equals("setup")) {
+                server.setup();
+                try {
+                    Files.createDirectories(Paths.get("data"));
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
             }
         }
         try {
@@ -31,6 +46,7 @@ public class Main {
             e.printStackTrace();
         }
         clientSocks = new ArrayList<>();
+        clientThreads = new ArrayList<>();
         ServerSocket finalServerSock = serverSock;
         System.out.println();
         try {
@@ -56,18 +72,12 @@ public class Main {
                         clientSocks.add(newSock); //FIXME Remove sockets when closed
                         Thread thread = new ClientThread(newSock, usr, psw);
                         thread.start();
+                        clientThreads.add((ClientThread)thread);
                     } catch (Exception e) {
                         e.printStackTrace();
-                        server.close();
                     }
                 }
             }
         }.start();
-        String inp = "";
-        while(inp!="exit"){
-            System.out.print("~ ");
-            inp = scan.nextLine();
-
-        }
     }
 }
