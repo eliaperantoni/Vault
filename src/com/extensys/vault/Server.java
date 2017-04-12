@@ -1,5 +1,6 @@
 package com.extensys.vault;
 
+import com.extensys.vault.obj.Folder;
 import com.extensys.vault.obj.Group;
 import com.extensys.vault.obj.User;
 import com.extensys.vault.obj.VaultFile;
@@ -123,7 +124,7 @@ public class Server {
     }
 
     //SQL OPERATIONS GROUPS
-    public int addGroup(String groupName){
+    public int addGroup(String groupName) {
         int ris = -1;
         try {
             PreparedStatement stmt = con.prepareStatement(String.format("INSERT INTO groups (groupId,groupName) VALUES (NULL, \"%s\")",
@@ -132,8 +133,8 @@ public class Server {
             int num = stmt.executeUpdate();
 
             ResultSet rs = stmt.getGeneratedKeys();
-            if (rs.next()){
-                ris=rs.getInt(1);
+            if (rs.next()) {
+                ris = rs.getInt(1);
             }
         } catch (Exception e) {
             e.printStackTrace();
@@ -163,7 +164,7 @@ public class Server {
             return null;
         }
     }
-    public Map<Integer,Group> getGroupsMap(){
+    public Map<Integer, Group> getGroupsMap() {
         Map<Integer, Group> out = new HashMap<>();
         try {
             Statement stmt = con.createStatement();
@@ -193,7 +194,7 @@ public class Server {
     }
 
     //SQL OPERATIONS FILES
-    public int addFile(String fileName, String filePath, String fileKey){
+    public int addFile(String fileName, String filePath, String fileKey) {
         int ris = -1;
         try {
             PreparedStatement stmt = con.prepareStatement(String.format("INSERT INTO files (fileId,fileName,filePath,fileKey) VALUES (NULL, \"%s\", \"%s\", \"%s\")",
@@ -202,20 +203,20 @@ public class Server {
             int num = stmt.executeUpdate();
 
             ResultSet rs = stmt.getGeneratedKeys();
-            if (rs.next()){
-                ris=rs.getInt(1);
+            if (rs.next()) {
+                ris = rs.getInt(1);
             }
         } catch (Exception e) {
             e.printStackTrace();
         }
         return ris;
     }
-    public int getIdFromCompletePath(String completePath){
+    public int getIdFromCompletePath(String completePath) {
         String dbFileName;
         String dbFilePath;
         List<String> dirs = Arrays.asList(completePath.split("/"));
-        dbFileName = dirs.get(dirs.size()-1);
-        dirs.set(dirs.size()-1,"");
+        dbFileName = dirs.get(dirs.size() - 1);
+        dirs.set(dirs.size() - 1, "");
         dbFilePath = Joiner.on("/").join(dirs);
         String sql = String.format("SELECT fileId FROM files WHERE fileName=\"%s\" AND filePath=\"%s\"", dbFileName, dbFilePath);
         try {
@@ -228,14 +229,14 @@ public class Server {
             return -1;
         }
     }
-    public VaultFile getFileFromId(int id){
+    public VaultFile getFileFromId(int id) {
         String sql = String.format("SELECT * FROM files WHERE fileId=\"%s\"", id);
         try {
             VaultFile out;
             Statement stmt = con.createStatement();
             ResultSet rs = stmt.executeQuery(sql);
             rs.first();
-            out=new VaultFile(rs.getInt("fileId"),
+            out = new VaultFile(rs.getInt("fileId"),
                     rs.getString("fileName"),
                     rs.getString("filePath"),
                     null,
@@ -249,8 +250,8 @@ public class Server {
             return null;
         }
     }
-    public Map<Integer, VaultFile> getFilesMap(){
-        Map<Integer,VaultFile> out = new HashMap<>();
+    public Map<Integer, VaultFile> getFilesMap() {
+        Map<Integer, VaultFile> out = new HashMap<>();
         try {
             Statement stmt = con.createStatement();
             ResultSet rs = stmt.executeQuery(String.format("SELECT fileId FROM files"));
@@ -271,6 +272,38 @@ public class Server {
             while (rs.next()) {
                 out.add(getGroupFromId(rs.getInt("groupId")));
             }
+            return out;
+        } catch (Exception e) {
+            e.printStackTrace();
+            return null;
+        }
+    }
+
+    //SQL OPERATIONS FILESYSTEM
+    public int addFolder(String name,int parent){
+        int ris = -1;
+        try {
+            PreparedStatement stmt = con.prepareStatement(String.format("INSERT INTO folders (folderId,folderName,parentId) VALUES (NULL, \"%s\", %d)",
+                     name,parent, Statement.RETURN_GENERATED_KEYS)
+                    , Statement.RETURN_GENERATED_KEYS);
+            int num = stmt.executeUpdate();
+
+            ResultSet rs = stmt.getGeneratedKeys();
+            if (rs.next()) {
+                ris = rs.getInt(1);
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return ris;
+    }
+    public Folder getFolderFromId(int id){
+        try {
+            Statement stmt = con.createStatement();
+            ResultSet rs = stmt.executeQuery(String.format("SELECT * FROM folders WHERE folderId=\"%s\"", id));
+            rs.first();
+
+            Folder out = new Folder(rs.getInt("folderId"),rs.getInt("parentId"),rs.getString("folderName"));
             return out;
         } catch (Exception e) {
             e.printStackTrace();
