@@ -5,13 +5,21 @@ package com.extensys.vault.obj;
  */
 public class Folder {
     private int id;
-    private int parentId;
+    private Folder folder;
     private String name;
 
-    public Folder(int id, int parentId, String name) {
+    public Folder(int id, Folder folder, String name) {
         this.id = id;
-        this.parentId = parentId;
+        this.folder = folder;
         this.name = name;
+    }
+
+    public Folder getFolder() {
+        return folder;
+    }
+
+    public void setFolder(Folder folder) {
+        this.folder = folder;
     }
 
     public int getId() {
@@ -22,13 +30,6 @@ public class Folder {
         this.id = id;
     }
 
-    public int getParentId() {
-        return parentId;
-    }
-
-    public void setParentId(int parentId) {
-        this.parentId = parentId;
-    }
 
     public String getName() {
         return name;

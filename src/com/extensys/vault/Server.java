@@ -303,7 +303,21 @@ public class Server {
             ResultSet rs = stmt.executeQuery(String.format("SELECT * FROM folders WHERE folderId=\"%s\"", id));
             rs.first();
 
-            Folder out = new Folder(rs.getInt("folderId"),rs.getInt("parentId"),rs.getString("folderName"));
+            Folder out = new Folder(rs.getInt("folderId"),getFolderFromId(rs.getInt("parentId")),rs.getString("folderName"));
+            return out;
+        } catch (Exception e) {
+            e.printStackTrace();
+            return null;
+        }
+    }
+    public Map<Integer, Folder> getFolderMap() {
+        Map<Integer, Folder> out = new HashMap<>();
+        try {
+            Statement stmt = con.createStatement();
+            ResultSet rs = stmt.executeQuery(String.format("SELECT folderId FROM folders"));
+            while (rs.next()) {
+                out.put(rs.getInt("folderId"), getFolderFromId(rs.getInt("folderId")));
+            }
             return out;
         } catch (Exception e) {
             e.printStackTrace();
