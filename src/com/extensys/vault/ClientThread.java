@@ -1,3 +1,6 @@
+package com.extensys.vault;
+
+import com.extensys.vault.obj.User;
 import com.google.common.hash.Hashing;
 
 import com.yubico.client.v2.VerificationResponse;
@@ -7,32 +10,64 @@ import com.yubico.client.v2.exceptions.*;
 import java.io.*;
 import java.net.Socket;
 import java.nio.charset.StandardCharsets;
+import java.util.List;
 import java.util.Map;
+import java.util.UUID;
 
 /**
  * Created by extensys on 20/03/2017.
  */
 public class ClientThread extends Thread {
-    private Socket socket;
+    private Socket stdSocket;
+    private Socket vashSocket;
+    private UUID uuid;
     private DataInputStream inStream;
     private DataOutputStream outStream;
     private String dbUser;
     private String dbPassword;
+    private List<ClientThread> clientThreads;
 
-    public ClientThread(Socket socket, String DbUser, String DbPass) {
-        this.socket = socket;
-        this.dbUser = DbUser;
-        this.dbPassword = DbPass;
+    public ClientThread(UUID uuid,String usr,String psw){
+        this.uuid=uuid;
+        this.dbUser=usr;
+        this.dbPassword=psw;
+    }
+
+    public Socket getStdSocket() {
+        return stdSocket;
+    }
+
+    public void setStdSocket(Socket stdSocket) {
+        this.stdSocket = stdSocket;
+    }
+
+    public Socket getVashSocket() {
+        return vashSocket;
+    }
+
+    public void setVashSocket(Socket vashSocket) {
+        this.vashSocket = vashSocket;
+    }
+
+    public UUID getUuid() {
+        return uuid;
+    }
+
+    public void setUuid(UUID uuid) {
+        this.uuid = uuid;
     }
 
     @Override
     public void run() {
         try {
-            inStream = new DataInputStream(socket.getInputStream());
-            outStream = new DataOutputStream(socket.getOutputStream());
-            sendFile("a.txt");
-            sendFile("b.txt");
-            sendFile("c.txt");
+            inStream = new DataInputStream(stdSocket.getInputStream());
+            outStream = new DataOutputStream(stdSocket.getOutputStream());
+            outStream.writeUTF("auth");
+            String usr, psw, otp;
+            usr = inStream.readUTF();
+            psw = inStream.readUTF();
+            otp = inStream.readUTF();
+            outStream.writeBoolean(authenticate(usr,psw,otp));
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -110,5 +145,26 @@ public class ClientThread extends Thread {
             fos.write(buffer, 0, read);
         }
 
+    }
+
+    void close(){
+        try {
+            outStream.writeUTF("close()");
+            stdSocket.shutdownInput();
+            stdSocket.shutdownOutput();
+            inStream.close();
+            outStream.close();
+            stdSocket.close();
+        }catch(Exception e){
+            System.out.println("Error closing socket "+stdSocket);
+            e.printStackTrace();
+        }finally{
+            clientThreads.remove(this);
+            this.interrupt();
+        }
+    }
+
+    boolean checkConn(){
+        return !stdSocket.isClosed();
     }
 }

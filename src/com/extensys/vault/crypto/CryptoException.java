@@ -1,3 +1,5 @@
+package com.extensys.vault.crypto;
+
 /**
  * Created by extensys on 27/03/2017.
  */

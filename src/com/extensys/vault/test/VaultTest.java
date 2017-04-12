@@ -1,3 +1,8 @@
+package com.extensys.vault.test;
+
+import com.extensys.vault.crypto.CryptoException;
+import com.extensys.vault.crypto.CryptoUtils;
+
 import java.io.File;
 
 /**

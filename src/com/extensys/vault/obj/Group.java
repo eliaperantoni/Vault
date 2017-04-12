@@ -1,3 +1,7 @@
+package com.extensys.vault.obj;
+
+import com.extensys.vault.Server;
+
 import java.sql.Connection;
 import java.sql.ResultSet;
 import java.sql.Statement;

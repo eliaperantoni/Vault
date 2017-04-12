@@ -1,3 +1,8 @@
+package com.extensys.vault;
+
+import com.extensys.vault.obj.Group;
+import com.extensys.vault.obj.User;
+import com.extensys.vault.obj.VaultFile;
 import com.google.common.base.Joiner;
 import com.google.common.hash.Hashing;
 
@@ -9,7 +14,7 @@ import java.util.*;
  * Created by extensys on 13/03/2017.
  */
 public class Server {
-    Connection getConnection() {
+    public Connection getConnection() {
         return this.con;
     }
     private Connection con;
@@ -55,7 +60,7 @@ public class Server {
     }
 
     //SQL OPERATIONS USERS
-    String addUser(String username, String password, String publicId) {
+    public String addUser(String username, String password, String publicId) {
         try {
             String token = UUID.randomUUID().toString();
             password = Hashing.sha256()
@@ -72,7 +77,7 @@ public class Server {
             return null;
         }
     }
-    int getIdFromUsername(String username) {
+    public int getIdFromUsername(String username) {
         try {
             Statement stmt = con.createStatement();
             ResultSet rs = stmt.executeQuery(String.format("SELECT userId FROM users WHERE username=\"%s\"", username));
@@ -83,7 +88,7 @@ public class Server {
         }
 
     }
-    User getUserFromId(int id) {
+    public User getUserFromId(int id) {
         try {
             Statement stmt = con.createStatement();
             ResultSet rs = stmt.executeQuery(String.format("SELECT * FROM users WHERE userId=\"%s\"", id));
@@ -102,7 +107,7 @@ public class Server {
             return null;
         }
     }
-    Map<Integer, User> getUsersMap() {
+    public Map<Integer, User> getUsersMap() {
         Map<Integer, User> out = new HashMap<>();
         try {
             Statement stmt = con.createStatement();
@@ -118,7 +123,7 @@ public class Server {
     }
 
     //SQL OPERATIONS GROUPS
-    int addGroup(String groupName){
+    public int addGroup(String groupName){
         int ris = -1;
         try {
             PreparedStatement stmt = con.prepareStatement(String.format("INSERT INTO groups (groupId,groupName) VALUES (NULL, \"%s\")",
@@ -135,7 +140,7 @@ public class Server {
         }
         return ris;
     }
-    int getIdFromGroupName(String groupName) {
+    public int getIdFromGroupName(String groupName) {
         String sql = String.format("SELECT groupId FROM groups WHERE groupName=\"%s\"", groupName);
         try {
             Statement stmt = con.createStatement();
@@ -147,7 +152,7 @@ public class Server {
             return -1;
         }
     }
-    Group getGroupFromId(int id) {
+    public Group getGroupFromId(int id) {
         try {
             Statement stmt = con.createStatement();
             ResultSet rs = stmt.executeQuery(String.format("SELECT groupName FROM groups WHERE groupId=\"%s\"", id));
@@ -158,7 +163,7 @@ public class Server {
             return null;
         }
     }
-    Map<Integer,Group> getGroupsMap(){
+    public Map<Integer,Group> getGroupsMap(){
         Map<Integer, Group> out = new HashMap<>();
         try {
             Statement stmt = con.createStatement();
@@ -172,7 +177,7 @@ public class Server {
             return null;
         }
     }
-    List<Group> getGroupsFromUserId(int id) {
+    public List<Group> getGroupsFromUserId(int id) {
         try {
             List<Group> out = new ArrayList<>();
             Statement stmt = con.createStatement();
@@ -188,7 +193,7 @@ public class Server {
     }
 
     //SQL OPERATIONS FILES
-    int addFile(String fileName, String filePath, String fileKey){
+    public int addFile(String fileName, String filePath, String fileKey){
         int ris = -1;
         try {
             PreparedStatement stmt = con.prepareStatement(String.format("INSERT INTO files (fileId,fileName,filePath,fileKey) VALUES (NULL, \"%s\", \"%s\", \"%s\")",
@@ -205,7 +210,7 @@ public class Server {
         }
         return ris;
     }
-    int getIdFromCompletePath(String completePath){
+    public int getIdFromCompletePath(String completePath){
         String dbFileName;
         String dbFilePath;
         List<String> dirs = Arrays.asList(completePath.split("/"));
@@ -223,7 +228,7 @@ public class Server {
             return -1;
         }
     }
-    VaultFile getFileFromId(int id){
+    public VaultFile getFileFromId(int id){
         String sql = String.format("SELECT * FROM files WHERE fileId=\"%s\"", id);
         try {
             VaultFile out;
@@ -244,7 +249,7 @@ public class Server {
             return null;
         }
     }
-    Map<Integer, VaultFile> getFilesMap(){
+    public Map<Integer, VaultFile> getFilesMap(){
         Map<Integer,VaultFile> out = new HashMap<>();
         try {
             Statement stmt = con.createStatement();
@@ -258,7 +263,7 @@ public class Server {
             return null;
         }
     }
-    List<Group> getGroupsFromFileId(int id) {
+    public List<Group> getGroupsFromFileId(int id) {
         try {
             List<Group> out = new ArrayList<>();
             Statement stmt = con.createStatement();

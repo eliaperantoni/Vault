@@ -1,3 +1,7 @@
+package com.extensys.vault.crypto;
+
+import com.extensys.vault.crypto.CryptoException;
+
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileOutputStream;

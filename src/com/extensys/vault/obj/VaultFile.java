@@ -1,3 +1,7 @@
+package com.extensys.vault.obj;
+
+import com.extensys.vault.obj.Group;
+
 import java.io.File;
 import java.util.List;
 
