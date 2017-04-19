@@ -1,15 +1,33 @@
 package com.extensys.vault.obj;
 
+import com.extensys.vault.DataBank;
+
+import javax.xml.crypto.Data;
+import java.io.Serializable;
+import java.util.HashMap;
+import java.util.Map;
+import java.util.UUID;
+
 /**
  * Created by extensys on 12/04/2017.
  */
-public class Folder {
-    private int id;
+public class Folder implements Serializable {
+    private static final long serialVersionUID = 1L;
+
+    private UUID id;
     private Folder folder;
     private String name;
 
-    public Folder(int id, Folder folder, String name) {
-        this.id = id;
+    public Folder( Folder folder, String name) {
+        Map<UUID,Folder> folders = new HashMap<>();
+        for(Folder x: DataBank.getInstance().getFolders()){
+            folders.put(x.getId(),x);
+        }
+        UUID uid;
+        do{
+            uid=UUID.randomUUID();
+        }while(folders.containsKey(uid));
+        this.id = uid;
         this.folder = folder;
         this.name = name;
     }
@@ -22,11 +40,11 @@ public class Folder {
         this.folder = folder;
     }
 
-    public int getId() {
+    public UUID getId() {
         return id;
     }
 
-    public void setId(int id) {
+    public void setId(UUID id) {
         this.id = id;
     }
 

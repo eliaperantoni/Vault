@@ -1,25 +1,39 @@
 package com.extensys.vault.obj;
 
+import com.extensys.vault.DataBank;
 import com.extensys.vault.obj.Group;
 
 import java.io.File;
+import java.io.Serializable;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
+import java.util.UUID;
 
 /**
  * Created by extensys on 27/03/2017.
  */
-public class VaultFile {
-    private int id;
+public class VaultFile implements Serializable {
+    private static final long serialVersionUID = 1L;
+    private UUID id;
     private String fileName;
     private String filePath;
-    private File encryptedFile;
-    private File clearFile;
+    transient private File encryptedFile;
+    transient private File clearFile;
     private boolean isEncrypted;
     private String key;
     private List<Group> ownerGroups;
 
-    public VaultFile(int id, String fileName, String filePath, File encryptedFile, File clearFile, boolean isEncrypted, String key, List<Group> ownerGroups) {
-        this.id = id;
+    public VaultFile( String fileName, String filePath, File encryptedFile, File clearFile, boolean isEncrypted, String key, List<Group> ownerGroups) {
+        Map<UUID,VaultFile> files = new HashMap<>();
+        for(VaultFile x: DataBank.getInstance().getFiles()){
+            files.put(x.getId(),x);
+        }
+        UUID uid;
+        do{
+            uid = UUID.randomUUID();
+        }while(files.containsKey(uid));
+        this.id = uid;
         this.fileName = fileName;
         this.filePath = filePath;
         this.encryptedFile = encryptedFile;
@@ -29,10 +43,10 @@ public class VaultFile {
         this.ownerGroups = ownerGroups;
     }
 
-    public int getId() {
+    public UUID getId() {
         return id;
     }
-    public void setId(int id) {
+    public void setId(UUID id) {
         this.id = id;
     }
     public String getFileName() {

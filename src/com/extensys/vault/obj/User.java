@@ -1,28 +1,34 @@
 package com.extensys.vault.obj;
 
-import com.extensys.vault.Server;
-import com.extensys.vault.obj.Group;
+import com.extensys.vault.DataBank;
 
-import java.sql.Connection;
-import java.sql.ResultSet;
-import java.sql.Statement;
-import java.util.List;
+import java.io.Serializable;
+import java.util.*;
 
 /**
  * Created by extensys on 15/03/2017.
  */
-public class User {
-    public User(int id, String username, String password, String token, List<Group> groups, String publicId, int registerDate) {
+public class User implements Serializable {
+    private static final long serialVersionUID = 1L;
+    public User( String username, String password, String token, String publicId, int registerDate) {
+        Map<UUID,User> users = new HashMap<>();
+        for(User x:DataBank.getInstance().getUsers()){
+            users.put(x.getId(),x);
+        }
+        UUID id;
+        do{
+            id = UUID.randomUUID();
+        }while(users.containsKey(id));
         this.mId = id;
         this.mUsername = username;
         this.mPassword = password;
         this.mToken = token;
-        this.mGroups = groups;
+        this.mGroups = new ArrayList<>();
         this.mPublicId = publicId;
         this.mRegisterDate = registerDate;
     }
 
-    private int mId;
+    private UUID mId;
     private String mUsername;
     private String mPassword;
     private String mToken;
@@ -30,10 +36,10 @@ public class User {
     private String mPublicId;
     private int mRegisterDate;
 
-    public int getId() {
+    public UUID getId() {
         return mId;
     }
-    public void setId(int id) {
+    public void setId(UUID id) {
         mId = id;
     }
     public String getUsername() {
@@ -73,52 +79,4 @@ public class User {
         mRegisterDate = registerDate;
     }
 
-    void removeSelf(Connection con) {
-        try {
-            Statement stmt = con.createStatement();
-            stmt.executeUpdate(String.format("DELETE FROM users WHERE userId=\"%s\"", this.mId));
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-    }
-    void modifySelf(Server server, String columnIndex, String newString) {
-        try {
-            Connection con = server.getConnection();
-            Statement stmt = con.createStatement();
-            String sql = String.format("UPDATE users SET %s=\"%s\" WHERE userId=%s",
-                    columnIndex,
-                    newString,
-                    this.mId);
-            stmt.executeUpdate(sql);
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-        updateSelf(server);
-    }
-    void updateSelf(Server server) {
-        try {
-            Connection con = server.getConnection();
-            Statement stmt = con.createStatement();
-            ResultSet rs = stmt.executeQuery(String.format("SELECT * FROM users WHERE userId=\"%s\"", this.mId));
-            rs.first();
-            setUsername(rs.getString("username"));
-            setPassword(rs.getString("password"));
-            setToken(rs.getString("token"));
-            server.getGroupsFromUserId(this.mId);
-            setPublicId(rs.getString("publicId"));
-            setRegisterDate(rs.getInt("registerDate"));
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-    }
-    void assignGroup(Server server, int groupId) {
-        String sql = String.format("INSERT INTO usersgroups (userId, groupId) VALUES ('%s', '%s')", this.mId, groupId);
-        try {
-            Connection con = server.getConnection();
-            Statement stmt = con.createStatement();
-            stmt.executeUpdate(sql);
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-    }
 }

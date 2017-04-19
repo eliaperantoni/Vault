@@ -10,6 +10,7 @@ import com.yubico.client.v2.exceptions.*;
 import java.io.*;
 import java.net.Socket;
 import java.nio.charset.StandardCharsets;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.UUID;
@@ -23,14 +24,10 @@ public class ClientThread extends Thread {
     private UUID uuid;
     private DataInputStream inStream;
     private DataOutputStream outStream;
-    private String dbUser;
-    private String dbPassword;
     private List<ClientThread> clientThreads;
 
-    public ClientThread(UUID uuid,String usr,String psw){
+    public ClientThread(UUID uuid){
         this.uuid=uuid;
-        this.dbUser=usr;
-        this.dbPassword=psw;
     }
 
     public Socket getStdSocket() {
@@ -74,11 +71,12 @@ public class ClientThread extends Thread {
     }
 
     boolean authenticate(String usr, String psw, String otp) {
-        Server server = Server.getInstance();
-        server.connect(dbUser, dbPassword);
-        int id = server.getIdFromUsername(usr);
-        Map<Integer, User> users = server.getUsersMap();
-        if (users.containsKey(id) && users.get(id).getPassword().equals(Hashing.sha256()
+        List<User> usersList = DataBank.getInstance().getUsers();
+        Map<String,User> users = new HashMap<>();
+        for(User x:usersList){
+            users.put(x.getUsername(),x);
+        }
+        if (users.containsKey(usr) && users.get(usr).getPassword().equals(Hashing.sha256()
                 .hashString(psw, StandardCharsets.UTF_8)
                 .toString())) {
             YubicoClient client = YubicoClient.getClient(32131, "vxQ++dnryWncTfyJzTkrhDnDBuc=");
@@ -94,7 +92,7 @@ public class ClientThread extends Thread {
             } catch (YubicoValidationFailure yubicoValidationFailure) {
                 yubicoValidationFailure.printStackTrace();
             }
-            if (response.isOk() && response.getPublicId().equals(users.get(id).getPublicId())) {
+            if (response.isOk() && response.getPublicId().equals(users.get(usr).getPublicId())) {
                 return true;
             } else {
                 return false;
