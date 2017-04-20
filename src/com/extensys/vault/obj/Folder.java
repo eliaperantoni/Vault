@@ -2,9 +2,9 @@ package com.extensys.vault.obj;
 
 import com.extensys.vault.DataBank;
 
-import javax.xml.crypto.Data;
 import java.io.Serializable;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 import java.util.UUID;
 
@@ -15,10 +15,10 @@ public class Folder implements Serializable {
     private static final long serialVersionUID = 1L;
 
     private UUID id;
-    private Folder folder;
+    private List<Folder> folder;
     private String name;
 
-    public Folder( Folder folder, String name) {
+    public Folder(List<Folder> folder, String name) {
         Map<UUID,Folder> folders = new HashMap<>();
         for(Folder x: DataBank.getInstance().getFolders()){
             folders.put(x.getId(),x);
@@ -32,11 +32,11 @@ public class Folder implements Serializable {
         this.name = name;
     }
 
-    public Folder getFolder() {
+    public List<Folder> getFolder() {
         return folder;
     }
 
-    public void setFolder(Folder folder) {
+    public void setFolder(List<Folder> folder) {
         this.folder = folder;
     }
 

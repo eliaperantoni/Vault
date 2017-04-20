@@ -24,7 +24,7 @@ public class VaultFile implements Serializable {
     private String key;
     private List<Group> ownerGroups;
 
-    public VaultFile( String fileName, String filePath, File encryptedFile, File clearFile, boolean isEncrypted, String key, List<Group> ownerGroups) {
+    public VaultFile( String fileName, String filePath, File encryptedFile, File clearFile, boolean isEncrypted, String key) {
         Map<UUID,VaultFile> files = new HashMap<>();
         for(VaultFile x: DataBank.getInstance().getFiles()){
             files.put(x.getId(),x);
