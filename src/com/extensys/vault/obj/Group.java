@@ -43,5 +43,13 @@ public class Group implements Serializable {
     private String mGroupName;
     private UUID mGroupId;
 
+    @Override
+    public int hashCode() {
+        return mGroupId.hashCode();
+    }
 
+    @Override
+    public boolean equals(Object obj) {
+        return this.hashCode()==((Group)this).hashCode();
+    }
 }

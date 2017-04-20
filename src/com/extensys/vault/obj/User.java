@@ -79,4 +79,13 @@ public class User implements Serializable {
         mRegisterDate = registerDate;
     }
 
+    @Override
+    public int hashCode() {
+        return mId.hashCode();
+    }
+
+    @Override
+    public boolean equals(Object obj) {
+        return this.hashCode()==((User)this).hashCode();
+    }
 }

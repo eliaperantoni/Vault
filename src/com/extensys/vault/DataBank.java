@@ -7,12 +7,28 @@ import com.extensys.vault.obj.VaultFile;
 
 import java.io.*;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
+import java.util.Set;
+import java.util.concurrent.ConcurrentHashMap;
 
 /**
  * Created by extensys on 19/04/2017.
  */
 public class DataBank {
+    List<Set> sets = new ArrayList<>();
+    public void reset(){
+            mUsers = Collections.newSetFromMap(new ConcurrentHashMap<User,Boolean>());
+            mGroups = Collections.newSetFromMap(new ConcurrentHashMap<Group,Boolean>());
+            mFiles = Collections.newSetFromMap(new ConcurrentHashMap<VaultFile,Boolean>());
+            mFolders = Collections.newSetFromMap(new ConcurrentHashMap<Folder,Boolean>());
+    }
+    public void saveAll(){
+        saveUsers();
+        saveFolders();
+        saveGroups();
+        saveFiles();
+    }
     boolean initialized = false;
     private static DataBank ourInstance = new DataBank();
 
@@ -27,37 +43,41 @@ public class DataBank {
         ObjectInputStream obj = null;
         try {
             obj = new ObjectInputStream(new FileInputStream("users.bin"));
-            mUsers = (List<User>) obj.readObject();
+            mUsers = (Set<User>) obj.readObject();
             obj.close();
         } catch (Exception e) {
             e.printStackTrace();
-            mUsers = new ArrayList<>();
+            mUsers = Collections.newSetFromMap(new ConcurrentHashMap<User,Boolean>());
         }
         try {
             obj = new ObjectInputStream(new FileInputStream("groups.bin"));
-            mGroups = (List<Group>) obj.readObject();
+            mGroups = (Set<Group>) obj.readObject();
             obj.close();
         } catch (Exception e) {
             e.printStackTrace();
-            mGroups = new ArrayList<>();
+            mGroups = Collections.newSetFromMap(new ConcurrentHashMap<Group,Boolean>());
         }
         try {
             obj = new ObjectInputStream(new FileInputStream("files.bin"));
-            mFiles = (List<VaultFile>) obj.readObject();
+            mFiles = (Set<VaultFile>) obj.readObject();
             obj.close();
         } catch (Exception e) {
             e.printStackTrace();
-            mGroups = new ArrayList<>();
+            mFiles = Collections.newSetFromMap(new ConcurrentHashMap<VaultFile,Boolean>());
         }
         try {
             obj = new ObjectInputStream(new FileInputStream("folders.bin"));
-            mFolders = (List<Folder>) obj.readObject();
+            mFolders = (Set<Folder>) obj.readObject();
             obj.close();
         } catch (Exception e) {
             e.printStackTrace();
-            mGroups = new ArrayList<>();
+            mFolders = Collections.newSetFromMap(new ConcurrentHashMap<Folder,Boolean>());
         }
         initialized = true;
+        sets.add(mUsers);
+        sets.add(mGroups);
+        sets.add(mFiles);
+        sets.add(mFolders);
         return this;
     }
 
@@ -100,10 +120,10 @@ public class DataBank {
         }
     }
 
-    private List<User> mUsers;
-    private List<Group> mGroups;
-    private List<VaultFile> mFiles;
-    private List<Folder> mFolders;
+    private Set<User> mUsers;
+    private Set<Group> mGroups;
+    private Set<VaultFile> mFiles;
+    private Set<Folder> mFolders;
 
 
     public static DataBank getOurInstance() {
@@ -114,35 +134,43 @@ public class DataBank {
         DataBank.ourInstance = ourInstance;
     }
 
-    public List<User> getUsers() {
+    public boolean isInitialized() {
+        return initialized;
+    }
+
+    public void setInitialized(boolean initialized) {
+        this.initialized = initialized;
+    }
+
+    public Set<User> getUsers() {
         return mUsers;
     }
 
-    public void setUsers(List<User> users) {
+    public void setUsers(Set<User> users) {
         mUsers = users;
     }
 
-    public List<Group> getGroups() {
+    public Set<Group> getGroups() {
         return mGroups;
     }
 
-    public void setGroups(List<Group> groups) {
+    public void setGroups(Set<Group> groups) {
         mGroups = groups;
     }
 
-    public List<VaultFile> getFiles() {
+    public Set<VaultFile> getFiles() {
         return mFiles;
     }
 
-    public void setFiles(List<VaultFile> files) {
+    public void setFiles(Set<VaultFile> files) {
         mFiles = files;
     }
 
-    public List<Folder> getFolders() {
+    public Set<Folder> getFolders() {
         return mFolders;
     }
 
-    public void setFolders(List<Folder> folders) {
+    public void setFolders(Set<Folder> folders) {
         mFolders = folders;
     }
 }

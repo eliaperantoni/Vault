@@ -10,10 +10,7 @@ import com.yubico.client.v2.exceptions.*;
 import java.io.*;
 import java.net.Socket;
 import java.nio.charset.StandardCharsets;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
-import java.util.UUID;
+import java.util.*;
 
 /**
  * Created by extensys on 20/03/2017.
@@ -71,7 +68,7 @@ public class ClientThread extends Thread {
     }
 
     boolean authenticate(String usr, String psw, String otp) {
-        List<User> usersList = DataBank.getInstance().getUsers();
+        Set<User> usersList = DataBank.getInstance().getUsers();
         Map<String,User> users = new HashMap<>();
         for(User x:usersList){
             users.put(x.getUsername(),x);

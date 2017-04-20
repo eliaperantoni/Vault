@@ -91,4 +91,13 @@ public class VaultFile implements Serializable {
     public void setOwnerGroups(List<Group> ownerGroups) {
         this.ownerGroups = ownerGroups;
     }
+    @Override
+    public int hashCode() {
+        return id.hashCode();
+    }
+
+    @Override
+    public boolean equals(Object obj) {
+        return this.hashCode()==((VaultFile)this).hashCode();
+    }
 }
