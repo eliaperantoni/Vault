@@ -3,6 +3,8 @@ package com.extensys.vault;
 import com.extensys.vault.obj.*;
 
 import java.io.*;
+import java.nio.file.Files;
+import java.nio.file.Paths;
 import java.util.*;
 import java.util.concurrent.ConcurrentHashMap;
 
@@ -39,9 +41,14 @@ public class DataBank {
     }
 
     public DataBank initialize() {
+        try {
+            Files.createDirectories(Paths.get("db"));
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
         ObjectInputStream obj = null;
         try {
-            obj = new ObjectInputStream(new FileInputStream("users.bin"));
+            obj = new ObjectInputStream(new FileInputStream("db/users.bin"));
             mUsers = (Set<User>) obj.readObject();
             obj.close();
         } catch (Exception e) {
@@ -49,7 +56,7 @@ public class DataBank {
             mUsers = Collections.newSetFromMap(new ConcurrentHashMap<User, Boolean>());
         }
         try {
-            obj = new ObjectInputStream(new FileInputStream("groups.bin"));
+            obj = new ObjectInputStream(new FileInputStream("db/groups.bin"));
             mGroups = (Set<Group>) obj.readObject();
             obj.close();
         } catch (Exception e) {
@@ -57,7 +64,7 @@ public class DataBank {
             mGroups = Collections.newSetFromMap(new ConcurrentHashMap<Group, Boolean>());
         }
         try {
-            obj = new ObjectInputStream(new FileInputStream("files.bin"));
+            obj = new ObjectInputStream(new FileInputStream("db/files.bin"));
             mFiles = (Set<VaultFile>) obj.readObject();
             obj.close();
         } catch (Exception e) {
@@ -65,7 +72,7 @@ public class DataBank {
             mFiles = Collections.newSetFromMap(new ConcurrentHashMap<VaultFile, Boolean>());
         }
         try {
-            obj = new ObjectInputStream(new FileInputStream("folders.bin"));
+            obj = new ObjectInputStream(new FileInputStream("db/folders.bin"));
             mFolders = (Set<Folder>) obj.readObject();
             obj.close();
         } catch (Exception e) {
@@ -82,7 +89,7 @@ public class DataBank {
 
     public void saveUsers() {
         try {
-            ObjectOutputStream obj = new ObjectOutputStream(new FileOutputStream("users.bin"));
+            ObjectOutputStream obj = new ObjectOutputStream(new FileOutputStream("db/users.bin"));
             obj.writeObject(mUsers);
             obj.close();
         } catch (IOException e) {
@@ -92,7 +99,7 @@ public class DataBank {
 
     public void saveGroups() {
         try {
-            ObjectOutputStream obj = new ObjectOutputStream(new FileOutputStream("groups.bin"));
+            ObjectOutputStream obj = new ObjectOutputStream(new FileOutputStream("db/groups.bin"));
             obj.writeObject(mGroups);
             obj.close();
         } catch (IOException e) {
@@ -102,7 +109,7 @@ public class DataBank {
 
     public void saveFiles() {
         try {
-            ObjectOutputStream obj = new ObjectOutputStream(new FileOutputStream("files.bin"));
+            ObjectOutputStream obj = new ObjectOutputStream(new FileOutputStream("db/files.bin"));
             obj.writeObject(mFiles);
             obj.close();
         } catch (IOException e) {
@@ -112,7 +119,7 @@ public class DataBank {
 
     public void saveFolders() {
         try {
-            ObjectOutputStream obj = new ObjectOutputStream(new FileOutputStream("folders.bin"));
+            ObjectOutputStream obj = new ObjectOutputStream(new FileOutputStream("db/folders.bin"));
             obj.writeObject(mFolders);
             obj.close();
         } catch (IOException e) {
