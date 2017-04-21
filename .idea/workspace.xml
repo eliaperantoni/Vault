@@ -7,13 +7,8 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="1c51b184-97e9-42dc-97b8-2e3d797ace63" name="Default" comment="">
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/folders.bin" afterPath="$PROJECT_DIR$/folders.bin" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/com/extensys/vault/DataBank.java" afterPath="$PROJECT_DIR$/src/com/extensys/vault/DataBank.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/com/extensys/vault/obj/Folder.java" afterPath="$PROJECT_DIR$/src/com/extensys/vault/obj/Folder.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/com/extensys/vault/obj/Group.java" afterPath="$PROJECT_DIR$/src/com/extensys/vault/obj/Group.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/com/extensys/vault/obj/User.java" afterPath="$PROJECT_DIR$/src/com/extensys/vault/obj/User.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/com/extensys/vault/obj/VaultFile.java" afterPath="$PROJECT_DIR$/src/com/extensys/vault/obj/VaultFile.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/com/extensys/vault/test/com/extensys/vault/DataBankTest.java" afterPath="$PROJECT_DIR$/src/com/extensys/vault/test/com/extensys/vault/DataBankTest.java" />
     </list>
     <ignored path="$PROJECT_DIR$/out/" />
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
@@ -80,11 +75,24 @@
         <entry file="file://$PROJECT_DIR$/src/com/extensys/vault/obj/Group.java">
           <provider selected="true" editor-type-id="text-editor">
             <state relative-caret-position="509">
-              <caret line="43" column="26" lean-forward="true" selection-start-line="43" selection-start-column="26" selection-end-line="43" selection-end-column="26" />
+              <caret line="43" column="26" lean-forward="false" selection-start-line="43" selection-start-column="26" selection-end-line="43" selection-end-column="26" />
               <folding>
                 <element signature="imports" expanded="true" />
                 <element signature="e#1075#1076#0" expanded="true" />
                 <element signature="e#1117#1118#0" expanded="true" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="DataBank.java" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/com/extensys/vault/DataBank.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="737">
+              <caret line="173" column="25" lean-forward="true" selection-start-line="173" selection-start-column="25" selection-end-line="173" selection-end-column="25" />
+              <folding>
+                <element signature="imports" expanded="true" />
+                <element signature="method#initialize#0;class#DataBank#0" expanded="false" />
               </folding>
             </state>
           </provider>
@@ -123,8 +131,8 @@
       <file leaf-file-name="Folder.java" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/com/extensys/vault/obj/Folder.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="57">
-              <caret line="23" column="37" lean-forward="true" selection-start-line="23" selection-start-column="37" selection-end-line="23" selection-end-column="37" />
+            <state relative-caret-position="380">
+              <caret line="32" column="40" lean-forward="false" selection-start-line="32" selection-start-column="40" selection-end-line="32" selection-end-column="40" />
               <folding>
                 <element signature="imports" expanded="true" />
                 <element signature="docComment;class#Folder#0" expanded="false" />
@@ -181,14 +189,14 @@
         <option value="$PROJECT_DIR$/src/com/extensys/vault/Vash.java" />
         <option value="$PROJECT_DIR$/src/com/extensys/vault/Server.java" />
         <option value="$PROJECT_DIR$/src/com/extensys/vault/ClientThread.java" />
-        <option value="$PROJECT_DIR$/src/com/extensys/vault/Main.java" />
         <option value="$PROJECT_DIR$/src/com/extensys/vault/test/com/extensys/vault/DataBankTest.java" />
         <option value="$PROJECT_DIR$/src/com/extensys/vault/obj/HasId.java" />
         <option value="$PROJECT_DIR$/src/com/extensys/vault/DataBank.java" />
-        <option value="$PROJECT_DIR$/src/com/extensys/vault/obj/Folder.java" />
         <option value="$PROJECT_DIR$/src/com/extensys/vault/obj/VaultFile.java" />
         <option value="$PROJECT_DIR$/src/com/extensys/vault/obj/Group.java" />
         <option value="$PROJECT_DIR$/src/com/extensys/vault/obj/User.java" />
+        <option value="$PROJECT_DIR$/src/com/extensys/vault/Main.java" />
+        <option value="$PROJECT_DIR$/src/com/extensys/vault/obj/Folder.java" />
       </list>
     </option>
   </component>
@@ -753,7 +761,6 @@
   </component>
   <component name="ToolWindowManager">
     <frame x="-8" y="-8" width="1296" height="1000" extended-state="6" />
-    <editor active="true" />
     <layout>
       <window_info id="Palette" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.3298731" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
@@ -776,7 +783,7 @@
       <window_info id="Ant Build" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="UI Designer" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Theme Preview" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
-      <window_info id="Debug" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.39907727" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
+      <window_info id="Debug" active="true" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.39907727" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Favorites" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="2" side_tool="true" content_ui="tabs" />
       <window_info id="Cvs" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
       <window_info id="Message" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
@@ -1095,19 +1102,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/com/extensys/vault/DataBank.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="718">
-          <caret line="173" column="25" lean-forward="true" selection-start-line="173" selection-start-column="25" selection-end-line="173" selection-end-column="25" />
-          <folding>
-            <element signature="imports" expanded="true" />
-            <element signature="method#initialize#0;class#DataBank#0" expanded="false" />
-            <element signature="e#4745#4746#0" expanded="true" />
-            <element signature="e#4779#4780#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/com/extensys/vault/ClientThread.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="19">
@@ -1119,7 +1113,7 @@
     <entry file="file://$PROJECT_DIR$/src/com/extensys/vault/obj/Group.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="509">
-          <caret line="43" column="26" lean-forward="true" selection-start-line="43" selection-start-column="26" selection-end-line="43" selection-end-column="26" />
+          <caret line="43" column="26" lean-forward="false" selection-start-line="43" selection-start-column="26" selection-end-line="43" selection-end-column="26" />
           <folding>
             <element signature="imports" expanded="true" />
             <element signature="e#1075#1076#0" expanded="true" />
@@ -1147,17 +1141,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/com/extensys/vault/obj/Folder.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="57">
-          <caret line="23" column="37" lean-forward="true" selection-start-line="23" selection-start-column="37" selection-end-line="23" selection-end-column="37" />
-          <folding>
-            <element signature="imports" expanded="true" />
-            <element signature="docComment;class#Folder#0" expanded="false" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/com/extensys/vault/test/com/extensys/vault/DataBankTest.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="138">
@@ -1173,6 +1156,28 @@
         <state relative-caret-position="19">
           <caret line="27" column="18" lean-forward="false" selection-start-line="27" selection-start-column="18" selection-end-line="27" selection-end-column="18" />
           <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/com/extensys/vault/DataBank.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="737">
+          <caret line="173" column="25" lean-forward="true" selection-start-line="173" selection-start-column="25" selection-end-line="173" selection-end-column="25" />
+          <folding>
+            <element signature="imports" expanded="true" />
+            <element signature="method#initialize#0;class#DataBank#0" expanded="false" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/com/extensys/vault/obj/Folder.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="380">
+          <caret line="32" column="40" lean-forward="false" selection-start-line="32" selection-start-column="40" selection-end-line="32" selection-end-column="40" />
+          <folding>
+            <element signature="imports" expanded="true" />
+            <element signature="docComment;class#Folder#0" expanded="false" />
+          </folding>
         </state>
       </provider>
     </entry>

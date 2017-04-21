@@ -2,11 +2,9 @@ package com.extensys.vault.obj;
 
 import com.extensys.vault.DataBank;
 
+import javax.xml.crypto.Data;
 import java.io.Serializable;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
-import java.util.UUID;
+import java.util.*;
 
 /**
  * Created by extensys on 12/04/2017.
@@ -32,9 +30,11 @@ public class Folder implements Serializable,HasId {
         }
         this.id = uid;
         this.name = name;
+        this.children=new ArrayList<>();
     }
     public Folder(String name, Folder parent){
-
+        this(name);
+        DataBank.Utils.mapFromSet(DataBank.getInstance().getFolders()).get(parent.getId()).getChildren().add(this);
     }
 
     public List<Folder> getChildren() {
