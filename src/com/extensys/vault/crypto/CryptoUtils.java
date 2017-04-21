@@ -1,6 +1,7 @@
 package com.extensys.vault.crypto;
 
 import com.extensys.vault.crypto.CryptoException;
+import org.jasypt.util.text.BasicTextEncryptor;
 
 import java.io.File;
 import java.io.FileInputStream;
@@ -57,6 +58,16 @@ public class CryptoUtils {
                 | IllegalBlockSizeException | IOException ex) {
             throw new CryptoException("Error encrypting/decrypting file", ex);
         }
+    }
+    public static String encryptString(String strClearText,String strKey) throws Exception{
+        BasicTextEncryptor textEncryptor = new BasicTextEncryptor();
+        textEncryptor.setPassword(strKey);
+        return textEncryptor.encrypt(strClearText);
+    }
+    public static String decryptString(String strEncrypted,String strKey) throws Exception{
+        BasicTextEncryptor textEncryptor = new BasicTextEncryptor();
+        textEncryptor.setPassword(strKey);
+        return textEncryptor.decrypt(strEncrypted);
     }
     public static String generate16BitsKey(){
         return UUID.randomUUID().toString().substring(0,18).replace("-","");
