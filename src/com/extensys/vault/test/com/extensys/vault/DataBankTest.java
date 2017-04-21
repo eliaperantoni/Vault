@@ -56,8 +56,7 @@ public class DataBankTest {
                     "TestUsername",
                     "TestPassword",
                     "TestToken",
-                    "TestPublicId",
-                    10);
+                    "TestPublicId");
             assertTrue(DataBank.getInstance().getUsers().add(u));
             ids.add(u.getId());
         }
@@ -188,8 +187,7 @@ public class DataBankTest {
                 "TestUsername",
                 "TestPassword",
                 "TestToken",
-                "TestPublicId",
-                10);
+                "TestPublicId");
         bank.getUsers().add(us);
         bank.saveUsers();
         bank = DataBank.getInstance().initialize();

@@ -15,7 +15,7 @@ public class Folder implements Serializable {
     private static final long serialVersionUID = 1L;
 
     private UUID id;
-    private List<Folder> folders;
+    private List<Folder> children;
     private String name;
 
     public Folder(String name) {
@@ -27,16 +27,19 @@ public class Folder implements Serializable {
         do{
             uid=UUID.randomUUID();
         }while(folders.containsKey(uid));
+        if(name.equals("root")){
+            uid=UUID.fromString("1-1-1-1-1");
+        }
         this.id = uid;
         this.name = name;
     }
 
-    public List<Folder> getFolders() {
-        return folders;
+    public List<Folder> getChildren() {
+        return children;
     }
 
-    public void setFolders(List<Folder> folders) {
-        this.folders = folders;
+    public void setChildren(List<Folder> children) {
+        this.children = children;
     }
 
     public UUID getId() {

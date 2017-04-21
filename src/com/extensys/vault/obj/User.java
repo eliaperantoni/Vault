@@ -10,7 +10,7 @@ import java.util.*;
  */
 public class User implements Serializable {
     private static final long serialVersionUID = 1L;
-    public User( String username, String password, String token, String publicId, int registerDate) {
+    public User( String username, String password, String token, String publicId) {
         Map<UUID,User> users = new HashMap<>();
         for(User x:DataBank.getInstance().getUsers()){
             users.put(x.getId(),x);
@@ -25,7 +25,7 @@ public class User implements Serializable {
         this.mToken = token;
         this.mGroups = new ArrayList<>();
         this.mPublicId = publicId;
-        this.mRegisterDate = registerDate;
+        this.mRegisterDate = new Date();
     }
 
     private UUID mId;
@@ -34,7 +34,7 @@ public class User implements Serializable {
     private String mToken;
     private List<Group> mGroups;
     private String mPublicId;
-    private int mRegisterDate;
+    private Date mRegisterDate;
 
     public UUID getId() {
         return mId;
@@ -72,10 +72,10 @@ public class User implements Serializable {
     public void setPublicId(String publicId) {
         mPublicId = publicId;
     }
-    public int getRegisterDate() {
+    public Date getRegisterDate() {
         return mRegisterDate;
     }
-    public void setRegisterDate(int registerDate) {
+    public void setRegisterDate(Date registerDate) {
         mRegisterDate = registerDate;
     }
 
