@@ -15,10 +15,10 @@ public class Folder implements Serializable {
     private static final long serialVersionUID = 1L;
 
     private UUID id;
-    private List<Folder> folder;
+    private List<Folder> folders;
     private String name;
 
-    public Folder(List<Folder> folder, String name) {
+    public Folder(String name) {
         Map<UUID,Folder> folders = new HashMap<>();
         for(Folder x: DataBank.getInstance().getFolders()){
             folders.put(x.getId(),x);
@@ -28,16 +28,15 @@ public class Folder implements Serializable {
             uid=UUID.randomUUID();
         }while(folders.containsKey(uid));
         this.id = uid;
-        this.folder = folder;
         this.name = name;
     }
 
-    public List<Folder> getFolder() {
-        return folder;
+    public List<Folder> getFolders() {
+        return folders;
     }
 
-    public void setFolder(List<Folder> folder) {
-        this.folder = folder;
+    public void setFolders(List<Folder> folders) {
+        this.folders = folders;
     }
 
     public UUID getId() {
