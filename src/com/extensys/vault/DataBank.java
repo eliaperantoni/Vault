@@ -1,15 +1,9 @@
 package com.extensys.vault;
 
-import com.extensys.vault.obj.Folder;
-import com.extensys.vault.obj.Group;
-import com.extensys.vault.obj.User;
-import com.extensys.vault.obj.VaultFile;
+import com.extensys.vault.obj.*;
 
 import java.io.*;
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.List;
-import java.util.Set;
+import java.util.*;
 import java.util.concurrent.ConcurrentHashMap;
 
 /**
@@ -172,5 +166,15 @@ public class DataBank {
 
     public void setFolders(Set<Folder> folders) {
         mFolders = folders;
+    }
+
+    public static class Utils{
+        public static <T> Map<UUID,T> mapFromSet(Set<T> set){
+            Map<UUID,T> map = new HashMap<>();
+            for(T x:set){
+                map.put(((HasId)x).getId(),x);
+            }
+            return map;
+        }
     }
 }

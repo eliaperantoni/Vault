@@ -11,7 +11,7 @@ import java.util.UUID;
 /**
  * Created by extensys on 12/04/2017.
  */
-public class Folder implements Serializable {
+public class Folder implements Serializable,HasId {
     private static final long serialVersionUID = 1L;
 
     private UUID id;
@@ -32,6 +32,9 @@ public class Folder implements Serializable {
         }
         this.id = uid;
         this.name = name;
+    }
+    public Folder(String name, Folder parent){
+
     }
 
     public List<Folder> getChildren() {

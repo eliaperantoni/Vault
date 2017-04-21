@@ -13,7 +13,7 @@ import java.util.UUID;
 /**
  * Created by extensys on 27/03/2017.
  */
-public class VaultFile implements Serializable {
+public class VaultFile implements Serializable,HasId {
     private static final long serialVersionUID = 1L;
     private UUID id;
     private String fileName;

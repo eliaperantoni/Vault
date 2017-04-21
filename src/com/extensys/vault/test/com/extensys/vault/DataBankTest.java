@@ -6,8 +6,6 @@ import com.extensys.vault.obj.User;
 import com.extensys.vault.obj.VaultFile;
 import org.junit.Test;
 
-import javax.xml.crypto.Data;
-
 import java.util.*;
 
 import static org.junit.Assert.*;
@@ -79,13 +77,13 @@ public class DataBankTest {
                     "TestName"
             );
             assertTrue(DataBank.getInstance().getGroups().add(g));
-            ids.add(g.getGroupId());
+            ids.add(g.getId());
         }
         System.out.println(lengthBefore);
         System.out.println(DataBank.getInstance().getGroups().size());
         assert DataBank.getInstance().getGroups().size() == lengthBefore + 100;
         for(Group f:DataBank.getInstance().getGroups()){
-            if(ids.contains(f.getGroupId())){
+            if(ids.contains(f.getId())){
                 DataBank.getInstance().getGroups().remove(f);
             }
         }
@@ -267,15 +265,15 @@ public class DataBankTest {
         bank = DataBank.getInstance().initialize();
         Map<UUID, Group> map = new HashMap<>();
         for (Group x : bank.getGroups()) {
-            map.put(x.getGroupId(), x);
+            map.put(x.getId(), x);
         }
-        assert map.containsKey(us.getGroupId());
+        assert map.containsKey(us.getId());
         bank.getGroups().remove(us);
         map = new HashMap<>();
         for (Group x : bank.getGroups()) {
-            map.put(x.getGroupId(), x);
+            map.put(x.getId(), x);
         }
-        assert !map.containsKey(us.getGroupId());
+        assert !map.containsKey(us.getId());
         bank.saveAll();
     }
 

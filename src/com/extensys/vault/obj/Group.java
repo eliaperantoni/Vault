@@ -10,13 +10,13 @@ import java.util.UUID;
 /**
  * Created by extensys on 15/03/2017.
  */
-public class Group implements Serializable {
+public class Group implements Serializable,HasId {
     private static final long serialVersionUID = 1L;
     public Group( String groupName){
         this.mGroupName=groupName;
         Map<UUID,Group> groups = new HashMap<>();
         for(Group x: DataBank.getInstance().getGroups()){
-            groups.put(x.getGroupId(),x);
+            groups.put(x.getId(),x);
         }
         UUID id;
         do{
@@ -32,7 +32,7 @@ public class Group implements Serializable {
         mGroupName = groupName;
     }
 
-    public UUID getGroupId() {
+    public UUID getId() {
         return mGroupId;
     }
 

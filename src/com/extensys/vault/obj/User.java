@@ -8,7 +8,7 @@ import java.util.*;
 /**
  * Created by extensys on 15/03/2017.
  */
-public class User implements Serializable {
+public class User implements Serializable,HasId {
     private static final long serialVersionUID = 1L;
     public User( String username, String password, String token, String publicId) {
         Map<UUID,User> users = new HashMap<>();
