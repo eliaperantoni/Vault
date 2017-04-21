@@ -1,5 +1,8 @@
 package com.extensys.vault;
 
+import com.extensys.vault.obj.User;
+
+import javax.xml.crypto.Data;
 import java.io.DataInputStream;
 import java.io.DataOutputStream;
 import java.net.ServerSocket;
@@ -10,29 +13,14 @@ import java.util.*;
 
 public class Main {
     static Map<UUID, ClientThread> clients;
-
     public static void main(String[] args) {
+        DataBank bank = DataBank.getInstance();
+        bank.initialize();
         clients = new HashMap<>();
         boolean boolDebug = true;//TODO REMOVE THIS!!
         ServerSocket serverSock = null;
-
-        String usr;
-        String psw;
-        if (!boolDebug) {
-            Scanner scan = new Scanner(System.in);
-            System.out.println("Username:");
-            usr = scan.nextLine();
-            System.out.println("Password:");
-            psw = scan.nextLine();
-        } else {
-            usr = "vaultServer";
-            psw = "qwedcxzaextensys";
-        }
-        Server server = Server.getInstance();
-        server.connect(usr, psw);
         if (args.length > 0) {
             if (args[0].equals("setup")) {
-                server.setup();
                 try {
                     Files.createDirectories(Paths.get("data"));
                 } catch (Exception e) {
@@ -48,12 +36,6 @@ public class Main {
 
         ServerSocket finalServerSock = serverSock;
         System.out.println();
-        try {
-            System.out.println(!server.getConnection().isClosed() ? "SQL Connection Status: OK" : "SQL Connection Status: BAD");
-        } catch (Exception e) {
-            e.printStackTrace();
-            System.out.println("SQL Connection Status: BAD");
-        }
         try {
             System.out.println(!serverSock.isClosed() && serverSock.isBound() ? "Socket Status: OK" : "Socket Status: OK");
         } catch (Exception e) {
@@ -80,7 +62,7 @@ public class Main {
                                 */
                                 newUuid = UUID.randomUUID();
                             }
-                            ClientThread newClient = new ClientThread(newUuid, usr, psw);
+                            ClientThread newClient = new ClientThread(newUuid);
                             newClient.setStdSocket(newSock);
                             clients.put(newUuid, newClient);
                             dos.writeUTF(newUuid.toString());
