@@ -1,5 +1,8 @@
 package com.extensys.vault;
 
+import java.util.ArrayList;
+import java.util.List;
+
 /**
  * Created by extensys on 21/04/2017.
  */
@@ -11,5 +14,20 @@ public class Settings {
     }
 
     private Settings() {
+    }
+
+
+    public enum Fields{
+        AUTOSAVE,DEBUG;
+    }
+
+    String settingsProvider(Fields settingToProvide){
+        switch (settingToProvide){
+            case AUTOSAVE:
+                return "false";
+            case DEBUG:
+                return "true";
+        }
+        return "NULL";
     }
 }

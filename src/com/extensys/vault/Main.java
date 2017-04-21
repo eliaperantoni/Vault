@@ -17,7 +17,7 @@ public class Main {
         DataBank bank = DataBank.getInstance();
         bank.initialize();
         clients = new HashMap<>();
-        boolean boolDebug = true;//TODO REMOVE THIS!!
+        boolean boolDebug = Boolean.valueOf(Settings.getInstance().settingsProvider(Settings.Fields.DEBUG));
         ServerSocket serverSock = null;
         if (args.length > 0) {
             if (args[0].equals("setup")) {

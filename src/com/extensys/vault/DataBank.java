@@ -10,6 +10,8 @@ import java.util.concurrent.ConcurrentHashMap;
  * Created by extensys on 19/04/2017.
  */
 public class DataBank {
+    boolean autosaveEnabled = Boolean.valueOf(Settings.getInstance().settingsProvider(Settings.Fields.AUTOSAVE));
+
     List<Set> sets = new ArrayList<>();
     public void reset(){
             mUsers = Collections.newSetFromMap(new ConcurrentHashMap<User,Boolean>());
