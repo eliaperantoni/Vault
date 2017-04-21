@@ -13,18 +13,21 @@ public class DataBank {
     boolean autosaveEnabled = Boolean.valueOf(Settings.getInstance().settingsProvider(Settings.Fields.AUTOSAVE));
 
     List<Set> sets = new ArrayList<>();
-    public void reset(){
-            mUsers = Collections.newSetFromMap(new ConcurrentHashMap<User,Boolean>());
-            mGroups = Collections.newSetFromMap(new ConcurrentHashMap<Group,Boolean>());
-            mFiles = Collections.newSetFromMap(new ConcurrentHashMap<VaultFile,Boolean>());
-            mFolders = Collections.newSetFromMap(new ConcurrentHashMap<Folder,Boolean>());
+
+    public void reset() {
+        mUsers = Collections.newSetFromMap(new ConcurrentHashMap<User, Boolean>());
+        mGroups = Collections.newSetFromMap(new ConcurrentHashMap<Group, Boolean>());
+        mFiles = Collections.newSetFromMap(new ConcurrentHashMap<VaultFile, Boolean>());
+        mFolders = Collections.newSetFromMap(new ConcurrentHashMap<Folder, Boolean>());
     }
-    public void saveAll(){
+
+    public void saveAll() {
         saveUsers();
         saveFolders();
         saveGroups();
         saveFiles();
     }
+
     boolean initialized = false;
     private static DataBank ourInstance = new DataBank();
 
@@ -43,7 +46,7 @@ public class DataBank {
             obj.close();
         } catch (Exception e) {
             e.printStackTrace();
-            mUsers = Collections.newSetFromMap(new ConcurrentHashMap<User,Boolean>());
+            mUsers = Collections.newSetFromMap(new ConcurrentHashMap<User, Boolean>());
         }
         try {
             obj = new ObjectInputStream(new FileInputStream("groups.bin"));
@@ -51,7 +54,7 @@ public class DataBank {
             obj.close();
         } catch (Exception e) {
             e.printStackTrace();
-            mGroups = Collections.newSetFromMap(new ConcurrentHashMap<Group,Boolean>());
+            mGroups = Collections.newSetFromMap(new ConcurrentHashMap<Group, Boolean>());
         }
         try {
             obj = new ObjectInputStream(new FileInputStream("files.bin"));
@@ -59,7 +62,7 @@ public class DataBank {
             obj.close();
         } catch (Exception e) {
             e.printStackTrace();
-            mFiles = Collections.newSetFromMap(new ConcurrentHashMap<VaultFile,Boolean>());
+            mFiles = Collections.newSetFromMap(new ConcurrentHashMap<VaultFile, Boolean>());
         }
         try {
             obj = new ObjectInputStream(new FileInputStream("folders.bin"));
@@ -67,7 +70,7 @@ public class DataBank {
             obj.close();
         } catch (Exception e) {
             e.printStackTrace();
-            mFolders = Collections.newSetFromMap(new ConcurrentHashMap<Folder,Boolean>());
+            mFolders = Collections.newSetFromMap(new ConcurrentHashMap<Folder, Boolean>());
         }
         initialized = true;
         sets.add(mUsers);
@@ -106,6 +109,7 @@ public class DataBank {
             e.printStackTrace();
         }
     }
+
     public void saveFolders() {
         try {
             ObjectOutputStream obj = new ObjectOutputStream(new FileOutputStream("folders.bin"));
@@ -170,11 +174,11 @@ public class DataBank {
         mFolders = folders;
     }
 
-    public static class Utils{
-        public static <T> Map<UUID,T> mapFromSet(Set<T> set){
-            Map<UUID,T> map = new HashMap<>();
-            for(T x:set){
-                map.put(((HasId)x).getId(),x);
+    public static class Utils {
+        public static <T> Map<UUID, T> mapFromSet(Set<T> set) {
+            Map<UUID, T> map = new HashMap<>();
+            for (T x : set) {
+                map.put(((HasId) x).getId(), x);
             }
             return map;
         }

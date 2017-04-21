@@ -17,12 +17,12 @@ public class Settings {
     }
 
 
-    public enum Fields{
-        AUTOSAVE,DEBUG;
+    public enum Fields {
+        AUTOSAVE, DEBUG;
     }
 
-    String settingsProvider(Fields settingToProvide){
-        switch (settingToProvide){
+    String settingsProvider(Fields settingToProvide) {
+        switch (settingToProvide) {
             case AUTOSAVE:
                 return "false";
             case DEBUG:

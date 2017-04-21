@@ -13,6 +13,7 @@ import java.util.*;
 
 public class Main {
     static Map<UUID, ClientThread> clients;
+
     public static void main(String[] args) {
         DataBank bank = DataBank.getInstance();
         bank.initialize();
