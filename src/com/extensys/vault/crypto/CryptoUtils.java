@@ -1,15 +1,13 @@
 package com.extensys.vault.crypto;
 
 import com.extensys.vault.crypto.CryptoException;
+import org.apache.commons.codec.binary.Base64;
 import org.jasypt.util.text.BasicTextEncryptor;
 
-import java.io.File;
-import java.io.FileInputStream;
-import java.io.FileOutputStream;
-import java.io.IOException;
-import java.security.InvalidKeyException;
-import java.security.Key;
-import java.security.NoSuchAlgorithmException;
+import java.io.*;
+import java.nio.file.Files;
+import java.nio.file.Paths;
+import java.security.*;
 import java.util.UUID;
 
 import javax.crypto.BadPaddingException;
@@ -71,5 +69,23 @@ public class CryptoUtils {
     }
     public static String generate16BitsKey(){
         return UUID.randomUUID().toString().substring(0,18).replace("-","");
+    }
+    public static String calculateMD5(File f){
+        MessageDigest md = null;
+        try {
+            md = MessageDigest.getInstance("MD5");
+        } catch (NoSuchAlgorithmException e) {
+            e.printStackTrace();
+        }
+        try (InputStream is = new FileInputStream(f);
+             DigestInputStream dis = new DigestInputStream(is, md))
+        {} catch (IOException e) {
+            e.printStackTrace();
+        }
+        byte[] digest = md.digest();
+        return Base64.encodeBase64String(digest);
+    }
+    public static String calculateMD5(String f){
+        return calculateMD5(new File(f));
     }
 }

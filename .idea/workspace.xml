@@ -8,7 +8,6 @@
   <component name="ChangeListManager">
     <list default="true" id="1c51b184-97e9-42dc-97b8-2e3d797ace63" name="Default" comment="">
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/VaultServer.iml" afterPath="$PROJECT_DIR$/VaultServer.iml" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/com/extensys/vault/crypto/CryptoUtils.java" afterPath="$PROJECT_DIR$/src/com/extensys/vault/crypto/CryptoUtils.java" />
     </list>
     <ignored path="$PROJECT_DIR$/out/" />
@@ -39,11 +38,11 @@
   </component>
   <component name="FileEditorManager">
     <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
-      <file leaf-file-name="Main.java" pinned="false" current-in-tab="true">
+      <file leaf-file-name="Main.java" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/com/extensys/vault/Main.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="684">
-              <caret line="45" column="0" lean-forward="false" selection-start-line="45" selection-start-column="0" selection-end-line="45" selection-end-column="0" />
+            <state relative-caret-position="266">
+              <caret line="23" column="26" lean-forward="false" selection-start-line="23" selection-start-column="26" selection-end-line="23" selection-end-column="26" />
               <folding />
             </state>
           </provider>
@@ -84,9 +83,24 @@
       <file leaf-file-name="CryptoUtils.java" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/com/extensys/vault/crypto/CryptoUtils.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="704">
-              <caret line="69" column="49" lean-forward="false" selection-start-line="69" selection-start-column="49" selection-end-line="69" selection-end-column="49" />
-              <folding />
+            <state relative-caret-position="699">
+              <caret line="88" column="41" lean-forward="false" selection-start-line="88" selection-start-column="41" selection-end-line="88" selection-end-column="41" />
+              <folding>
+                <element signature="e#3373#3374#0" expanded="true" />
+                <element signature="e#3421#3422#0" expanded="true" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="CryptoUtilsTest.java" pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/src/com/extensys/vault/test/com/extensys/vault/crypto/CryptoUtilsTest.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="623">
+              <caret line="49" column="61" lean-forward="true" selection-start-line="49" selection-start-column="61" selection-end-line="49" selection-end-column="61" />
+              <folding>
+                <element signature="imports" expanded="true" />
+              </folding>
             </state>
           </provider>
         </entry>
@@ -161,6 +175,7 @@
         <option value="$PROJECT_DIR$/src/com/extensys/vault/test/com/extensys/vault/SettingsTest.java" />
         <option value="$PROJECT_DIR$/src/com/extensys/vault/DataBank.java" />
         <option value="$PROJECT_DIR$/src/com/extensys/vault/crypto/CryptoUtils.java" />
+        <option value="$PROJECT_DIR$/src/com/extensys/vault/test/com/extensys/vault/crypto/CryptoUtilsTest.java" />
       </list>
     </option>
   </component>
@@ -336,6 +351,7 @@
   </component>
   <component name="RecentsManager">
     <key name="CreateTestDialog.RecentsKey">
+      <recent name="com.extensys.vault.crypto" />
       <recent name="com.extensys.vault" />
     </key>
     <key name="CreateTestDialog.Recents.Supers">
@@ -354,7 +370,7 @@
       </list>
     </option>
   </component>
-  <component name="RunManager" selected="Application.Main">
+  <component name="RunManager" selected="JUnit.CryptoUtilsTest.fileEncryptionDecryption">
     <configuration default="false" name="Main" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
       <extension name="coverage" enabled="false" merge="false" sample_coverage="true" runner="idea" />
       <option name="MAIN_CLASS_NAME" value="com.extensys.vault.Main" />
@@ -391,58 +407,6 @@
       <patterns />
       <method />
     </configuration>
-    <configuration default="false" name="SettingsTest.getInstance" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
-      <extension name="coverage" enabled="false" merge="false" sample_coverage="true" runner="idea">
-        <pattern>
-          <option name="PATTERN" value="com.extensys.vault.*" />
-          <option name="ENABLED" value="true" />
-        </pattern>
-      </extension>
-      <module name="VaultServer" />
-      <option name="ALTERNATIVE_JRE_PATH_ENABLED" value="false" />
-      <option name="ALTERNATIVE_JRE_PATH" />
-      <option name="PACKAGE_NAME" value="com.extensys.vault" />
-      <option name="MAIN_CLASS_NAME" value="com.extensys.vault.SettingsTest" />
-      <option name="METHOD_NAME" value="getInstance" />
-      <option name="TEST_OBJECT" value="method" />
-      <option name="VM_PARAMETERS" value="-ea" />
-      <option name="PARAMETERS" />
-      <option name="WORKING_DIRECTORY" value="$MODULE_DIR$" />
-      <option name="ENV_VARIABLES" />
-      <option name="PASS_PARENT_ENVS" value="true" />
-      <option name="TEST_SEARCH_SCOPE">
-        <value defaultName="singleModule" />
-      </option>
-      <envs />
-      <patterns />
-      <method />
-    </configuration>
-    <configuration default="false" name="SettingsTest.settingsProvider" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
-      <extension name="coverage" enabled="false" merge="false" sample_coverage="true" runner="idea">
-        <pattern>
-          <option name="PATTERN" value="com.extensys.vault.*" />
-          <option name="ENABLED" value="true" />
-        </pattern>
-      </extension>
-      <module name="VaultServer" />
-      <option name="ALTERNATIVE_JRE_PATH_ENABLED" value="false" />
-      <option name="ALTERNATIVE_JRE_PATH" />
-      <option name="PACKAGE_NAME" value="com.extensys.vault" />
-      <option name="MAIN_CLASS_NAME" value="com.extensys.vault.SettingsTest" />
-      <option name="METHOD_NAME" value="settingsProvider" />
-      <option name="TEST_OBJECT" value="method" />
-      <option name="VM_PARAMETERS" value="-ea" />
-      <option name="PARAMETERS" />
-      <option name="WORKING_DIRECTORY" value="$MODULE_DIR$" />
-      <option name="ENV_VARIABLES" />
-      <option name="PASS_PARENT_ENVS" value="true" />
-      <option name="TEST_SEARCH_SCOPE">
-        <value defaultName="singleModule" />
-      </option>
-      <envs />
-      <patterns />
-      <method />
-    </configuration>
     <configuration default="false" name="SettingsTest" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
       <extension name="coverage" enabled="false" merge="false" sample_coverage="true" runner="idea">
         <pattern>
@@ -457,6 +421,58 @@
       <option name="MAIN_CLASS_NAME" value="com.extensys.vault.SettingsTest" />
       <option name="METHOD_NAME" />
       <option name="TEST_OBJECT" value="class" />
+      <option name="VM_PARAMETERS" value="-ea" />
+      <option name="PARAMETERS" />
+      <option name="WORKING_DIRECTORY" value="$MODULE_DIR$" />
+      <option name="ENV_VARIABLES" />
+      <option name="PASS_PARENT_ENVS" value="true" />
+      <option name="TEST_SEARCH_SCOPE">
+        <value defaultName="singleModule" />
+      </option>
+      <envs />
+      <patterns />
+      <method />
+    </configuration>
+    <configuration default="false" name="CryptoUtilsTest.stringEncryptionDecryption" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+      <extension name="coverage" enabled="false" merge="false" sample_coverage="true" runner="idea">
+        <pattern>
+          <option name="PATTERN" value="com.extensys.vault.crypto.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <module name="VaultServer" />
+      <option name="ALTERNATIVE_JRE_PATH_ENABLED" value="false" />
+      <option name="ALTERNATIVE_JRE_PATH" />
+      <option name="PACKAGE_NAME" value="com.extensys.vault.crypto" />
+      <option name="MAIN_CLASS_NAME" value="com.extensys.vault.crypto.CryptoUtilsTest" />
+      <option name="METHOD_NAME" value="stringEncryptionDecryption" />
+      <option name="TEST_OBJECT" value="method" />
+      <option name="VM_PARAMETERS" value="-ea" />
+      <option name="PARAMETERS" />
+      <option name="WORKING_DIRECTORY" value="$MODULE_DIR$" />
+      <option name="ENV_VARIABLES" />
+      <option name="PASS_PARENT_ENVS" value="true" />
+      <option name="TEST_SEARCH_SCOPE">
+        <value defaultName="singleModule" />
+      </option>
+      <envs />
+      <patterns />
+      <method />
+    </configuration>
+    <configuration default="false" name="CryptoUtilsTest.fileEncryptionDecryption" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+      <extension name="coverage" enabled="false" merge="false" sample_coverage="true" runner="idea">
+        <pattern>
+          <option name="PATTERN" value="com.extensys.vault.crypto.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <module name="VaultServer" />
+      <option name="ALTERNATIVE_JRE_PATH_ENABLED" value="false" />
+      <option name="ALTERNATIVE_JRE_PATH" />
+      <option name="PACKAGE_NAME" value="com.extensys.vault.crypto" />
+      <option name="MAIN_CLASS_NAME" value="com.extensys.vault.crypto.CryptoUtilsTest" />
+      <option name="METHOD_NAME" value="fileEncryptionDecryption" />
+      <option name="TEST_OBJECT" value="method" />
       <option name="VM_PARAMETERS" value="-ea" />
       <option name="PARAMETERS" />
       <option name="WORKING_DIRECTORY" value="$MODULE_DIR$" />
@@ -676,17 +692,17 @@
     <list size="5">
       <item index="0" class="java.lang.String" itemvalue="Application.Main" />
       <item index="1" class="java.lang.String" itemvalue="JUnit.All in VaultServer" />
-      <item index="2" class="java.lang.String" itemvalue="JUnit.SettingsTest.getInstance" />
-      <item index="3" class="java.lang.String" itemvalue="JUnit.SettingsTest.settingsProvider" />
-      <item index="4" class="java.lang.String" itemvalue="JUnit.SettingsTest" />
+      <item index="2" class="java.lang.String" itemvalue="JUnit.SettingsTest" />
+      <item index="3" class="java.lang.String" itemvalue="JUnit.CryptoUtilsTest.stringEncryptionDecryption" />
+      <item index="4" class="java.lang.String" itemvalue="JUnit.CryptoUtilsTest.fileEncryptionDecryption" />
     </list>
     <recent_temporary>
       <list size="5">
-        <item index="0" class="java.lang.String" itemvalue="Application.Main" />
+        <item index="0" class="java.lang.String" itemvalue="JUnit.CryptoUtilsTest.fileEncryptionDecryption" />
         <item index="1" class="java.lang.String" itemvalue="JUnit.All in VaultServer" />
-        <item index="2" class="java.lang.String" itemvalue="JUnit.SettingsTest" />
-        <item index="3" class="java.lang.String" itemvalue="JUnit.SettingsTest.settingsProvider" />
-        <item index="4" class="java.lang.String" itemvalue="JUnit.SettingsTest.getInstance" />
+        <item index="2" class="java.lang.String" itemvalue="JUnit.CryptoUtilsTest.stringEncryptionDecryption" />
+        <item index="3" class="java.lang.String" itemvalue="Application.Main" />
+        <item index="4" class="java.lang.String" itemvalue="JUnit.SettingsTest" />
       </list>
     </recent_temporary>
   </component>
@@ -719,15 +735,6 @@
     <servers />
   </component>
   <component name="TestHistory">
-    <history-entry file="All_in_VaultServer - 2017.04.21 at 14h 55m 57s.xml">
-      <configuration name="All in VaultServer" configurationId="JUnit" />
-    </history-entry>
-    <history-entry file="All_in_VaultServer - 2017.04.21 at 14h 56m 35s.xml">
-      <configuration name="All in VaultServer" configurationId="JUnit" />
-    </history-entry>
-    <history-entry file="All_in_VaultServer - 2017.04.21 at 16h 06m 04s.xml">
-      <configuration name="All in VaultServer" configurationId="JUnit" />
-    </history-entry>
     <history-entry file="All_in_VaultServer - 2017.04.21 at 16h 09m 34s.xml">
       <configuration name="All in VaultServer" configurationId="JUnit" />
     </history-entry>
@@ -737,17 +744,26 @@
     <history-entry file="All_in_VaultServer - 2017.04.21 at 16h 23m 35s.xml">
       <configuration name="All in VaultServer" configurationId="JUnit" />
     </history-entry>
-    <history-entry file="DataBankTest - 2017.04.21 at 14h 53m 03s.xml">
-      <configuration name="DataBankTest" configurationId="JUnit" />
+    <history-entry file="All_in_VaultServer - 2017.04.21 at 16h 43m 54s.xml">
+      <configuration name="All in VaultServer" configurationId="JUnit" />
+    </history-entry>
+    <history-entry file="CryptoUtilsTest_fileEncryptionDecryption - 2017.04.21 at 16h 45m 47s.xml">
+      <configuration name="CryptoUtilsTest.fileEncryptionDecryption" configurationId="JUnit" />
+    </history-entry>
+    <history-entry file="CryptoUtilsTest_fileEncryptionDecryption - 2017.04.21 at 16h 47m 50s.xml">
+      <configuration name="CryptoUtilsTest.fileEncryptionDecryption" configurationId="JUnit" />
+    </history-entry>
+    <history-entry file="CryptoUtilsTest_fileEncryptionDecryption - 2017.04.21 at 16h 48m 32s.xml">
+      <configuration name="CryptoUtilsTest.fileEncryptionDecryption" configurationId="JUnit" />
+    </history-entry>
+    <history-entry file="CryptoUtilsTest_fileEncryptionDecryption - 2017.04.21 at 16h 57m 50s.xml">
+      <configuration name="CryptoUtilsTest.fileEncryptionDecryption" configurationId="JUnit" />
+    </history-entry>
+    <history-entry file="CryptoUtilsTest_stringEncryptionDecryption - 2017.04.21 at 16h 43m 03s.xml">
+      <configuration name="CryptoUtilsTest.stringEncryptionDecryption" configurationId="JUnit" />
     </history-entry>
     <history-entry file="SettingsTest - 2017.04.21 at 16h 09m 27s.xml">
       <configuration name="SettingsTest" configurationId="JUnit" />
-    </history-entry>
-    <history-entry file="SettingsTest_getInstance - 2017.04.21 at 16h 07m 44s.xml">
-      <configuration name="SettingsTest.getInstance" configurationId="JUnit" />
-    </history-entry>
-    <history-entry file="SettingsTest_settingsProvider - 2017.04.21 at 16h 08m 44s.xml">
-      <configuration name="SettingsTest.settingsProvider" configurationId="JUnit" />
     </history-entry>
   </component>
   <component name="TodoView">
@@ -761,7 +777,6 @@
   </component>
   <component name="ToolWindowManager">
     <frame x="-8" y="-8" width="1296" height="1000" extended-state="6" />
-    <editor active="true" />
     <layout>
       <window_info id="Palette" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.3298731" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
@@ -779,7 +794,7 @@
       <window_info id="Terminal" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.3298731" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Capture Tool" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Designer" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
-      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.16909385" sideWeight="0.49335864" order="0" side_tool="false" content_ui="combo" />
+      <window_info id="Project" active="true" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.16909385" sideWeight="0.49335864" order="0" side_tool="false" content_ui="combo" />
       <window_info id="Find" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32871974" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="Structure" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.2540453" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="Ant Build" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
@@ -828,21 +843,21 @@
       <window_info id="Capture Tool" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Designer" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
       <window_info id="Hierarchy" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="2" side_tool="false" content_ui="combo" />
-      <window_info id="Structure" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25405845" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
+      <window_info id="Structure" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.2540453" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="Ant Build" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="UI Designer" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="5" side_tool="false" content_ui="tabs" />
-      <window_info id="Debug" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.39907727" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
+      <window_info id="Debug" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.39907727" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.3298731" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
       <window_info id="Messages" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32871974" sideWeight="0.5" order="8" side_tool="false" content_ui="tabs" />
       <window_info id="Palette&#9;" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
       <window_info id="Image Layers" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
       <window_info id="Capture Analysis" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Inspection" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.4" sideWeight="0.5" order="5" side_tool="false" content_ui="tabs" />
+      <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.48558247" sideWeight="0.65129447" order="2" side_tool="false" content_ui="tabs" x="127" y="660" width="975" height="425" />
       <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.3298731" sideWeight="0.5" order="9" side_tool="false" content_ui="tabs" />
-      <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.49019608" sideWeight="0.65129447" order="2" side_tool="false" content_ui="tabs" />
-      <window_info id="Coverage" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.3296875" sideWeight="0.5" order="9" side_tool="true" content_ui="tabs" />
+      <window_info id="Coverage" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.35841423" sideWeight="0.5" order="9" side_tool="true" content_ui="tabs" />
       <window_info id="Terminal" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.3298731" sideWeight="0.5" order="10" side_tool="false" content_ui="tabs" />
-      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.16747573" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
+      <window_info id="Project" active="true" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.16909385" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
       <window_info id="Find" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32871974" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="Theme Preview" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="8" side_tool="false" content_ui="tabs" />
       <window_info id="Favorites" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="7" side_tool="true" content_ui="tabs" />
@@ -890,7 +905,7 @@
           <option name="timeStamp" value="66" />
         </line-breakpoint>
       </breakpoints>
-      <option name="time" value="67" />
+      <option name="time" value="68" />
     </breakpoint-manager>
     <watches-manager>
       <configuration name="Application">
@@ -904,13 +919,6 @@
     <option name="FILTER_TARGETS" value="false" />
   </component>
   <component name="editorHistoryManager">
-    <entry file="file://$PROJECT_DIR$/src/com/extensys/vault/obj/User.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="306">
-          <caret line="18" column="25" lean-forward="false" selection-start-line="18" selection-start-column="25" selection-end-line="18" selection-end-column="25" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/com/extensys/vault/Main.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="612">
@@ -1107,9 +1115,9 @@
         <state relative-caret-position="509">
           <caret line="43" column="26" lean-forward="false" selection-start-line="43" selection-start-column="26" selection-end-line="43" selection-end-column="26" />
           <folding>
-            <element signature="imports" expanded="true" />
-            <element signature="e#1075#1076#0" expanded="true" />
-            <element signature="e#1117#1118#0" expanded="true" />
+            <element signature="imports" expanded="false" />
+            <element signature="e#1075#1076#0" expanded="false" />
+            <element signature="e#1117#1118#0" expanded="false" />
           </folding>
         </state>
       </provider>
@@ -1202,19 +1210,32 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/com/extensys/vault/crypto/CryptoUtils.java">
+    <entry file="file://$PROJECT_DIR$/src/com/extensys/vault/Main.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="704">
-          <caret line="69" column="49" lean-forward="false" selection-start-line="69" selection-start-column="49" selection-end-line="69" selection-end-column="49" />
+        <state relative-caret-position="266">
+          <caret line="23" column="26" lean-forward="false" selection-start-line="23" selection-start-column="26" selection-end-line="23" selection-end-column="26" />
           <folding />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/com/extensys/vault/Main.java">
+    <entry file="file://$PROJECT_DIR$/src/com/extensys/vault/crypto/CryptoUtils.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="684">
-          <caret line="45" column="0" lean-forward="false" selection-start-line="45" selection-start-column="0" selection-end-line="45" selection-end-column="0" />
-          <folding />
+        <state relative-caret-position="699">
+          <caret line="88" column="41" lean-forward="false" selection-start-line="88" selection-start-column="41" selection-end-line="88" selection-end-column="41" />
+          <folding>
+            <element signature="e#3373#3374#0" expanded="true" />
+            <element signature="e#3421#3422#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/com/extensys/vault/test/com/extensys/vault/crypto/CryptoUtilsTest.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="623">
+          <caret line="49" column="61" lean-forward="true" selection-start-line="49" selection-start-column="61" selection-end-line="49" selection-end-column="61" />
+          <folding>
+            <element signature="imports" expanded="true" />
+          </folding>
         </state>
       </provider>
     </entry>
