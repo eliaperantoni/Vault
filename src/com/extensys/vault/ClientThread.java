@@ -69,10 +69,13 @@ public class ClientThread extends Thread {
                 switch (command){
                     case "saveFile":
                         saveFile(stdSocket);
-                        outStream.writeUTF("ok");
-                        System.out.println("OK");
+                        break;
+                    case "lf":
+                        ObjectOutputStream obj = new ObjectOutputStream(outStream);
+                        obj.writeObject(DataBank.getInstance().getFolders());
                         break;
                 }
+                outStream.writeUTF("ok");
             }
         } catch (Exception e) {
             e.printStackTrace();
@@ -137,7 +140,7 @@ public class ClientThread extends Thread {
     }
     void saveFile(Socket clientSock) throws IOException {
         DataInputStream dis = new DataInputStream(clientSock.getInputStream());
-        Folder container = DataBank.getInstance().getFoldersMap().get(UUID.fromString("1-1-1-1-1"));
+        Folder container = DataBank.getInstance().getFoldersMap().get(UUID.fromString(dis.readUTF()));
         String fileName = dis.readUTF();
         VaultFile vf = new VaultFile(fileName,container);
         String path = FileSystem.createFile(vf);

@@ -59,7 +59,7 @@ public class Main {
                             while (clients.containsKey(newUuid)) {
                                 /*
                                 * In case the newly generated UUID is already contained in
-                                * the Map, which is REALLY rare, new generate another one
+                                * the Map, which is REALLY rare, generate another one
                                 */
                                 newUuid = UUID.randomUUID();
                             }
