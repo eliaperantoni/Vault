@@ -1,6 +1,8 @@
 package com.extensys.vault;
 
+import com.extensys.vault.obj.Folder;
 import com.extensys.vault.obj.User;
+import com.extensys.vault.obj.VaultFile;
 import com.google.common.hash.Hashing;
 
 import com.yubico.client.v2.VerificationResponse;
@@ -56,12 +58,22 @@ public class ClientThread extends Thread {
         try {
             inStream = new DataInputStream(stdSocket.getInputStream());
             outStream = new DataOutputStream(stdSocket.getOutputStream());
-            outStream.writeUTF("auth");
             String usr, psw, otp;
             usr = inStream.readUTF();
             psw = inStream.readUTF();
             otp = inStream.readUTF();
             outStream.writeBoolean(authenticate(usr,psw,otp));
+            String command = "null";
+            while(true){
+                command = inStream.readUTF();
+                switch (command){
+                    case "saveFile":
+                        saveFile(stdSocket);
+                        outStream.writeUTF("ok");
+                        System.out.println("OK");
+                        break;
+                }
+            }
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -123,9 +135,13 @@ public class ClientThread extends Thread {
             return 4096;
         }
     }
-    void saveFile(Socket clientSock,String fileName) throws IOException {
+    void saveFile(Socket clientSock) throws IOException {
         DataInputStream dis = new DataInputStream(clientSock.getInputStream());
-        File f = new File(fileName);
+        Folder container = DataBank.getInstance().getFoldersMap().get(UUID.fromString("1-1-1-1-1"));
+        String fileName = dis.readUTF();
+        VaultFile vf = new VaultFile(fileName,container);
+        String path = FileSystem.createFile(vf);
+        File f = new File(path+"/"+fileName);
         FileOutputStream fos = new FileOutputStream(f);
         byte[] buffer = new byte[4096];
 
@@ -137,14 +153,16 @@ public class ClientThread extends Thread {
         while((read = dis.read(buffer, 0, getSize(buffer,remaining))) > 0) {
             totalRead += read;
             remaining -= read;
+            System.out.println(read);
             fos.write(buffer, 0, read);
         }
+
 
     }
 
     void close(){
         try {
-            outStream.writeUTF("close()");
+            outStream.writeUTF("exit");
             stdSocket.shutdownInput();
             stdSocket.shutdownOutput();
             inStream.close();

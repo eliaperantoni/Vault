@@ -11,9 +11,11 @@
       <element id="extracted-dir" path="$MAVEN_REPOSITORY$/org/slf4j/slf4j-simple/1.7.22/slf4j-simple-1.7.22.jar" path-in-jar="/" />
       <element id="extracted-dir" path="$MAVEN_REPOSITORY$/org/slf4j/slf4j-api/1.7.22/slf4j-api-1.7.22.jar" path-in-jar="/" />
       <element id="extracted-dir" path="$MAVEN_REPOSITORY$/com/google/collections/google-collections/1.0-rc2/google-collections-1.0-rc2.jar" path-in-jar="/" />
-      <element id="library" level="project" name="mysql-connector" />
       <element id="library" level="project" name="com.yubico:yubico-validation-client2:3.0.1" />
       <element id="library" level="project" name="org.slf4j:slf4j-simple:1.7.22" />
+      <element id="library" level="project" name="com.google.guava:guava:21.0" />
+      <element id="library" level="project" name="junit:junit:4.12" />
+      <element id="library" level="project" name="org.jasypt:jasypt:1.9.2" />
     </root>
   </artifact>
 </component>

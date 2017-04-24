@@ -1,14 +1,12 @@
 package com.extensys.vault.obj;
 
 import com.extensys.vault.DataBank;
+import com.extensys.vault.crypto.CryptoUtils;
 import com.extensys.vault.obj.Group;
 
 import java.io.File;
 import java.io.Serializable;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
-import java.util.UUID;
+import java.util.*;
 
 /**
  * Created by extensys on 27/03/2017.
@@ -17,14 +15,14 @@ public class VaultFile implements Serializable,HasId {
     private static final long serialVersionUID = 1L;
     private UUID id;
     private String fileName;
-    private String filePath;
+    private Folder parentFolder;
     transient private File encryptedFile;
     transient private File clearFile;
     private boolean isEncrypted;
     private String key;
     private List<Group> ownerGroups;
 
-    public VaultFile( String fileName, String filePath, File encryptedFile, File clearFile, boolean isEncrypted, String key) {
+    public VaultFile( String fileName, Folder parent) {
         Map<UUID,VaultFile> files = new HashMap<>();
         for(VaultFile x: DataBank.getInstance().getFiles()){
             files.put(x.getId(),x);
@@ -35,12 +33,12 @@ public class VaultFile implements Serializable,HasId {
         }while(files.containsKey(uid));
         this.id = uid;
         this.fileName = fileName;
-        this.filePath = filePath;
-        this.encryptedFile = encryptedFile;
-        this.clearFile = clearFile;
-        this.isEncrypted = isEncrypted;
-        this.key = key;
-        this.ownerGroups = ownerGroups;
+        this.parentFolder = parent;
+        this.encryptedFile = null;
+        this.clearFile = null;
+        this.isEncrypted = false;
+        this.key = CryptoUtils.generate16BitsKey();
+        this.ownerGroups = new ArrayList<>();
     }
 
     public UUID getId() {
@@ -55,11 +53,11 @@ public class VaultFile implements Serializable,HasId {
     public void setFileName(String fileName) {
         this.fileName = fileName;
     }
-    public String getFilePath() {
-        return filePath;
+    public Folder getParentFolder() {
+        return parentFolder;
     }
-    public void setFilePath(String filePath) {
-        this.filePath = filePath;
+    public void setParentFolder(Folder parentFolder) {
+        this.parentFolder = parentFolder;
     }
     public File getEncryptedFile() {
         return encryptedFile;

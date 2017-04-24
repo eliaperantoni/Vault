@@ -98,11 +98,7 @@ public class DataBankTest {
         for (int i = 0; i < 100; i++) {
             VaultFile file = new VaultFile(
                     "TestName",
-                    "TestPath",
-                    null,
-                    null,
-                    false,
-                    "TestKey"
+                    null
             );
             assertTrue(DataBank.getInstance().getFiles().add(file));
             ids.add(file.getId());
@@ -209,11 +205,7 @@ public class DataBankTest {
         DataBank bank = DataBank.getInstance().initialize();
         VaultFile us = new VaultFile(
                 "TestName",
-                "TestPath",
-                null,
-                null,
-                false,
-                "TestKey");
+                null);
         bank.getFiles().add(us);
         bank.saveFiles();
         bank = DataBank.getInstance().initialize();

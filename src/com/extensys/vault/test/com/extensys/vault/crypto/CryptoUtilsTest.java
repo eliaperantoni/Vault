@@ -55,7 +55,6 @@ public class CryptoUtilsTest {
         enc.delete();
         assertFalse(clear.exists());
         assertFalse(enc.exists());
-
     }
 
 }

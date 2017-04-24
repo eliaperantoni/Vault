@@ -127,6 +127,19 @@ public class DataBank {
         }
     }
 
+    public Map<UUID,User> getUsersMap(){
+        return DataBank.Utils.mapFromSet(this.getUsers());
+    }
+    public Map<UUID,Group> getGroupsMap(){
+        return DataBank.Utils.mapFromSet(this.getGroups());
+    }
+    public Map<UUID,Folder> getFoldersMap(){
+        return DataBank.Utils.mapFromSet(this.getFolders());
+    }
+    public Map<UUID,VaultFile> getFilesMap(){
+        return DataBank.Utils.mapFromSet(this.getFiles());
+    }
+
     private Set<User> mUsers;
     private Set<Group> mGroups;
     private Set<VaultFile> mFiles;

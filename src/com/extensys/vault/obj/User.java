@@ -1,8 +1,10 @@
 package com.extensys.vault.obj;
 
 import com.extensys.vault.DataBank;
+import com.google.common.hash.Hashing;
 
 import java.io.Serializable;
+import java.nio.charset.StandardCharsets;
 import java.util.*;
 
 /**
@@ -21,7 +23,9 @@ public class User implements Serializable,HasId {
         }while(users.containsKey(id));
         this.mId = id;
         this.mUsername = username;
-        this.mPassword = password;
+        this.mPassword = Hashing.sha256()
+                .hashString(password, StandardCharsets.UTF_8)
+                .toString();
         this.mToken = token;
         this.mGroups = new ArrayList<>();
         this.mPublicId = publicId;
