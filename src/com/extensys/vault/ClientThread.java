@@ -67,6 +67,7 @@ public class ClientThread extends Thread {
             outStream.writeBoolean(authenticate(usr,psw,otp));
             String command = "null";
             while(true){
+                outStream.writeUTF("listening");
                 command = inStream.readUTF();
                 switch (command){
                     case "saveFile":
@@ -77,7 +78,7 @@ public class ClientThread extends Thread {
                         obj.writeObject(DataBank.getInstance().getFolders());
                         break;
                 }
-                outStream.writeUTF("ok");
+                outStream.writeUTF("done");
             }
         } catch (Exception e) {
             e.printStackTrace();
