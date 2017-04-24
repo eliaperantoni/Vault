@@ -1,5 +1,7 @@
 package com.extensys.vault;
 
+import com.extensys.vault.crypto.CryptoException;
+import com.extensys.vault.crypto.CryptoUtils;
 import com.extensys.vault.obj.Folder;
 import com.extensys.vault.obj.User;
 import com.extensys.vault.obj.VaultFile;
@@ -160,7 +162,17 @@ public class ClientThread extends Thread {
             fos.write(buffer, 0, read);
         }
 
-
+        fos.close();
+        try {
+            CryptoUtils.encryptFile(vf.getKey(),new File(path+"/"+fileName),new File(path+"/"+fileName+".encrypted"));
+        } catch (CryptoException e) {
+            e.printStackTrace();
+        }
+        new File(path+"/"+fileName).delete();
+        DataBank bank = DataBank.getInstance();
+        bank.getFiles().add(vf);
+        bank.saveFiles();
+        bank.saveFolders();
     }
 
     void close(){
