@@ -1,12 +1,15 @@
 package com.extensys.vault.crypto;
 
 import com.extensys.vault.crypto.CryptoException;
+import com.google.common.hash.HashCode;
+import com.google.common.hash.HashFunction;
+import com.google.common.hash.Hashing;
+import com.google.common.io.ByteSource;
+import com.google.common.io.Files;
 import org.apache.commons.codec.binary.Base64;
 import org.jasypt.util.text.BasicTextEncryptor;
 
 import java.io.*;
-import java.nio.file.Files;
-import java.nio.file.Paths;
 import java.security.*;
 import java.util.UUID;
 
@@ -15,6 +18,7 @@ import javax.crypto.Cipher;
 import javax.crypto.IllegalBlockSizeException;
 import javax.crypto.NoSuchPaddingException;
 import javax.crypto.spec.SecretKeySpec;
+
 /**
  * Created by extensys on 27/03/2017.
  */
@@ -57,35 +61,34 @@ public class CryptoUtils {
             throw new CryptoException("Error encrypting/decrypting file", ex);
         }
     }
-    public static String encryptString(String strClearText,String strKey) throws Exception{
+
+    public static String encryptString(String strClearText, String strKey) throws Exception {
         BasicTextEncryptor textEncryptor = new BasicTextEncryptor();
         textEncryptor.setPassword(strKey);
         return textEncryptor.encrypt(strClearText);
     }
-    public static String decryptString(String strEncrypted,String strKey) throws Exception{
+
+    public static String decryptString(String strEncrypted, String strKey) throws Exception {
         BasicTextEncryptor textEncryptor = new BasicTextEncryptor();
         textEncryptor.setPassword(strKey);
         return textEncryptor.decrypt(strEncrypted);
     }
-    public static String generate16BitsKey(){
-        return UUID.randomUUID().toString().substring(0,18).replace("-","");
+
+    public static String generate16BitsKey() {
+        return UUID.randomUUID().toString().substring(0, 18).replace("-", "");
     }
-    public static String calculateMD5(File f){
-        MessageDigest md = null;
+
+    public static String calculateMD5(File f) {
+        HashCode hc = null;
         try {
-            md = MessageDigest.getInstance("MD5");
-        } catch (NoSuchAlgorithmException e) {
+            hc = Files.hash(f,Hashing.md5());
+        } catch (Exception e) {
             e.printStackTrace();
         }
-        try (InputStream is = new FileInputStream(f);
-             DigestInputStream dis = new DigestInputStream(is, md))
-        {} catch (IOException e) {
-            e.printStackTrace();
-        }
-        byte[] digest = md.digest();
-        return Base64.encodeBase64String(digest);
+        return hc.toString();
     }
-    public static String calculateMD5(String f){
+
+    public static String calculateMD5(String f) {
         return calculateMD5(new File(f));
     }
 }

@@ -9,8 +9,6 @@
     <orderEntry type="inheritedJdk" />
     <orderEntry type="sourceFolder" forTests="false" />
     <orderEntry type="library" exported="" name="mysql-connector" level="project" />
-    <orderEntry type="library" exported="" name="com.google.collections:google-collections:1.0-rc2" level="project" />
-    <orderEntry type="library" exported="" name="com.google.guava:guava:21.0" level="project" />
     <orderEntry type="library" exported="" name="com.yubico:yubico-validation-client2:3.0.1" level="project" />
     <orderEntry type="library" exported="" name="org.slf4j:slf4j-simple:1.7.22" level="project" />
     <orderEntry type="module-library" scope="TEST">
@@ -25,5 +23,6 @@
     </orderEntry>
     <orderEntry type="library" name="junit:junit:4.12" level="project" />
     <orderEntry type="library" name="org.jasypt:jasypt:1.9.2" level="project" />
+    <orderEntry type="library" name="com.google.guava:guava:21.0" level="project" />
   </component>
 </module>
