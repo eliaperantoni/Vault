@@ -43,5 +43,5 @@ You can download VaultServer here: TODO
 
 ## Authors
 
-* **Elia Perantoni** - [PurpleBooth](https://github.com/hellix08)
+* **Elia Perantoni** - [hellix08](https://github.com/hellix08)
 
