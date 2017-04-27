@@ -11,6 +11,7 @@ import java.util.UUID;
  * Created by extensys on 15/03/2017.
  */
 public class Group implements Serializable,HasId {
+    //TODO: Make groups relevant
     private static final long serialVersionUID = 1L;
     public Group( String groupName){
         this.mGroupName=groupName;

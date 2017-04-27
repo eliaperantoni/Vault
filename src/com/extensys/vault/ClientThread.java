@@ -64,21 +64,30 @@ public class ClientThread extends Thread {
             usr = inStream.readUTF();
             psw = inStream.readUTF();
             otp = inStream.readUTF();
-            outStream.writeBoolean(authenticate(usr,psw,otp));
+            boolean result = authenticate(usr,psw,otp);
+            outStream.writeBoolean(result);
+            if(!result)this.close();
+            Commander.setSocket(stdSocket);
             String command = "null";
             while(true){
-                outStream.writeUTF("listening");
+                System.out.println(Commander.startCommand());
                 command = inStream.readUTF();
                 switch (command){
-                    case "saveFile":
+                    case "%fileC2S%":
                         saveFile(stdSocket);
                         break;
-                    case "lf":
+                    case "%list-folders%":
                         ObjectOutputStream obj = new ObjectOutputStream(outStream);
                         obj.writeObject(DataBank.getInstance().getFolders());
                         break;
+                    case "%fileS2C":
+                        //TODO: Send file Server -> Client
+                        break;
+                    case "%null%":
+                        outStream.writeUTF("HelloWorld");
+                        break;
                 }
-                outStream.writeUTF("done");
+                System.out.println(Commander.endCommand());
             }
         } catch (Exception e) {
             e.printStackTrace();
@@ -188,7 +197,7 @@ public class ClientThread extends Thread {
             System.out.println("Error closing socket "+stdSocket);
             e.printStackTrace();
         }finally{
-            clientThreads.remove(this);
+            //clientThreads.remove(this);
             this.interrupt();
         }
     }
