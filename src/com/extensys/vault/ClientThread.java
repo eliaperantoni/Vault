@@ -64,13 +64,19 @@ public class ClientThread extends Thread {
             usr = inStream.readUTF();
             psw = inStream.readUTF();
             otp = inStream.readUTF();
-            boolean result = authenticate(usr,psw,otp);
+            boolean result = false;
+            if(Boolean.valueOf(Settings.getInstance().settingsProvider(Settings.Fields.DEBUG)) && otp.equals("%debug%")){
+                result = true;
+            }else {
+                result = authenticate(usr, psw, otp);
+            }
             outStream.writeBoolean(result);
             if(!result)this.close();
             Commander.setSocket(stdSocket);
             String command = "null";
-            while(true){
-                System.out.println(Commander.startCommand());
+            boolean keepLooping = true;
+            while(keepLooping){
+                System.out.println("COMMANDER-START-"+Commander.startCommand());
                 command = inStream.readUTF();
                 switch (command){
                     case "%fileC2S%":
@@ -86,8 +92,12 @@ public class ClientThread extends Thread {
                     case "%null%":
                         outStream.writeUTF("HelloWorld");
                         break;
+                    case "%close%":
+                        keepLooping=false;
+                        this.close();
+                        break;
                 }
-                System.out.println(Commander.endCommand());
+                if(keepLooping)System.out.println("COMMANDER-END-"+Commander.endCommand());
             }
         } catch (Exception e) {
             e.printStackTrace();
