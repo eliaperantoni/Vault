@@ -1,3 +1,4 @@
+![](http://i.imgur.com/q2zMelh.png)
 # Vault
 
 Server file storage with native encryption and Yubikey two factor authentication
