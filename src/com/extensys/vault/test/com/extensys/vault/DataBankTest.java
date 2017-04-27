@@ -49,7 +49,7 @@ public class DataBankTest {
         System.out.println(DataBank.getInstance().initialize().getUsers().size());
         List<UUID> ids = new ArrayList<>();
         int lengthBefore = DataBank.getInstance().getUsers().size();
-        for (int i = 0; i < 100; i++) {
+        for (int i = 0; i < 1; i++) {
             User u =new User(
                     "TestUsername",
                     "TestPassword",
@@ -58,7 +58,7 @@ public class DataBankTest {
             assertTrue(DataBank.getInstance().getUsers().add(u));
             ids.add(u.getId());
         }
-        assert DataBank.getInstance().getUsers().size() == lengthBefore + 100;
+        assert DataBank.getInstance().getUsers().size() == lengthBefore + 1;
         for(User f:DataBank.getInstance().getUsers()){
             if(ids.contains(f.getId())){
                 DataBank.getInstance().getUsers().remove(f);
@@ -72,7 +72,7 @@ public class DataBankTest {
     public void insertGroups() {
         List<UUID> ids = new ArrayList<>();
         int lengthBefore = DataBank.getInstance().initialize().getGroups().size();
-        for (int i = 0; i < 100; i++) {
+        for (int i = 0; i < 1; i++) {
             Group g = new Group(
                     "TestName"
             );
@@ -81,7 +81,7 @@ public class DataBankTest {
         }
         System.out.println(lengthBefore);
         System.out.println(DataBank.getInstance().getGroups().size());
-        assert DataBank.getInstance().getGroups().size() == lengthBefore + 100;
+        assert DataBank.getInstance().getGroups().size() == lengthBefore + 1;
         for(Group f:DataBank.getInstance().getGroups()){
             if(ids.contains(f.getId())){
                 DataBank.getInstance().getGroups().remove(f);
@@ -95,17 +95,17 @@ public class DataBankTest {
     public void insertFiles() {
         List<UUID> ids = new ArrayList<>();
         int lengthBefore = DataBank.getInstance().initialize().getFiles().size();
-        for (int i = 0; i < 100; i++) {
+        for (int i = 0; i < 1; i++) {
             VaultFile file = new VaultFile(
-                    "TestName",
-                    null
+                    "TestNameX",
+                    DataBank.getInstance().getFoldersMap().get(UUID.fromString("1-1-1-1-1"))
             );
             assertTrue(DataBank.getInstance().getFiles().add(file));
             ids.add(file.getId());
         }
         System.out.println(lengthBefore);
         System.out.println(DataBank.getInstance().getFiles().size());
-        assert DataBank.getInstance().getFiles().size() == lengthBefore + 100;
+        assert DataBank.getInstance().getFiles().size() == lengthBefore + 1;
         for(VaultFile f:DataBank.getInstance().getFiles()){
             if(ids.contains(f.getId())){
                 DataBank.getInstance().getFiles().remove(f);
@@ -119,7 +119,7 @@ public class DataBankTest {
     public void insertFolders() {
         int lengthBefore = DataBank.getInstance().initialize().getFolders().size();
         List<UUID> ids = new ArrayList<>();
-        for (int i = 0; i < 100; i++) {
+        for (int i = 0; i < 1; i++) {
             Folder fold = new Folder(
                     "TestName"
             );
@@ -128,7 +128,7 @@ public class DataBankTest {
         }
         System.out.println(lengthBefore);
         System.out.println(DataBank.getInstance().getFolders().size());
-        assert DataBank.getInstance().getFolders().size() == lengthBefore + 100;
+        assert DataBank.getInstance().getFolders().size() == lengthBefore + 1;
         for(Folder f:DataBank.getInstance().getFolders()){
             if(ids.contains(f.getId())){
                 DataBank.getInstance().getFolders().remove(f);

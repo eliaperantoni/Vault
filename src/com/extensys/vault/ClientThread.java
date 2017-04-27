@@ -65,7 +65,7 @@ public class ClientThread extends Thread {
             psw = inStream.readUTF();
             otp = inStream.readUTF();
             boolean result = false;
-            if(Boolean.valueOf(Settings.getInstance().settingsProvider(Settings.Fields.DEBUG)) && otp.equals("%debug%")){
+            if(Settings.debug && otp.equals("%debug%")){
                 result = true;
             }else {
                 result = authenticate(usr, psw, otp);
@@ -76,7 +76,7 @@ public class ClientThread extends Thread {
             String command = "null";
             boolean keepLooping = true;
             while(keepLooping){
-                System.out.println("COMMANDER-START-"+Commander.startCommand());
+                Commander.startCommand();
                 command = inStream.readUTF();
                 switch (command){
                     case "%fileC2S%":
@@ -97,7 +97,7 @@ public class ClientThread extends Thread {
                         this.close();
                         break;
                 }
-                if(keepLooping)System.out.println("COMMANDER-END-"+Commander.endCommand());
+                if(keepLooping)Commander.endCommand();
             }
         } catch (Exception e) {
             e.printStackTrace();
