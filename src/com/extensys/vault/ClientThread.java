@@ -203,15 +203,17 @@ public class ClientThread extends Thread {
         } catch (Exception e) {
             e.printStackTrace();
         }
-
+        File enc = new File(f.getParent()+"\\"+f.getName().replaceAll(".transfer",".encrypted"));
         try {
-            CryptoUtils.encryptFile(vf.getKey(),toEnc,new File(f.getParent()+"\\"+f.getName().replaceAll(".transfer",".encrypted")));
+            CryptoUtils.encryptFile(vf.getKey(),toEnc,enc);
             System.out.println(String.format("KEY IS: %s", vf.getKey()));
         } catch (CryptoException e) {
             //e.printStackTrace();
         }
         Files.deleteIfExists(toEnc.toPath());
         DataBank bank = DataBank.getInstance();
+        vf.setEncrypted(true);
+        vf.setEncryptedFile(enc);
         if(!bank.getFiles().add(vf)){
             bank.getFiles().remove(vf);
             bank.getFiles().add(vf);

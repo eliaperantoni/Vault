@@ -16,8 +16,8 @@ public class VaultFile implements Serializable, HasId {
     private UUID id;
     private String fileName;
     private Folder parentFolder;
-    transient private File encryptedFile;
-    transient private File clearFile;
+    private File encryptedFile;
+    private File clearFile;
     private boolean isEncrypted;
     private String key;
     private List<Group> ownerGroups;

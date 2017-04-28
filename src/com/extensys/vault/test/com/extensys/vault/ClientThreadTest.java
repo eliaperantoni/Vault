@@ -163,6 +163,7 @@ public class ClientThreadTest {
 
     @Test
     public void sendFile(){
+        File toSend = new File("C:/Users/extensys/Desktop/One.txt");
         Socket sock = null;
         try {
             sock = new Socket("localhost", 9090);
@@ -197,8 +198,7 @@ public class ClientThreadTest {
             String keyTokenized = CryptoUtils.encryptString(key,token);
             System.out.println(keyTokenized);
 
-            File toSend = new File("C:/Users/extensys/Desktop/OneLine.txt");
-            File toSendEnc = new File(toSend.getParent()+"\\"+"OneLine.txt.transfer");
+            File toSendEnc = new File(toSend.getParent()+"\\"+toSend.getName()+".transfer");
             CryptoUtils.encryptFile(key,toSend,toSendEnc);
             dos.writeUTF("%fileC2S%");
             sendFile(toSendEnc.getAbsolutePath(),dos,"1-1-1-1-1");
