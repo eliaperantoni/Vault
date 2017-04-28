@@ -103,7 +103,8 @@ public class ClientThread extends Thread {
                         break;
                     case "%randomkey%":
                         String key = CryptoUtils.generate16BitsKey();
-                        outStream.writeUTF(key);
+                        System.out.println(String.format("RANDOM KEY IS: %s", key));
+                        outStream.writeUTF(CryptoUtils.encryptString(key,user.getToken()));
                         break;
                 }
                 if(keepLooping)Commander.endCommand();

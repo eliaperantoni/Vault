@@ -187,6 +187,8 @@ public class ClientThreadTest {
 
             dos.writeUTF("%randomkey%");
             String key = dis.readUTF();
+            key=CryptoUtils.decryptString(key,token);
+            System.out.println(String.format("DECRYPTED KEY IS: %s", key));
             commanderEnd(dis,dos);
             commanderStart(dis,dos);
             System.out.println(key);

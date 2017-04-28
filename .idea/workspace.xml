@@ -7,9 +7,7 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="1c51b184-97e9-42dc-97b8-2e3d797ace63" name="Default" comment="">
-      <change type="DELETED" beforePath="$PROJECT_DIR$/storage/root/test.txt.encrypted" afterPath="" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/db/files.bin" afterPath="$PROJECT_DIR$/db/files.bin" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/db/users.bin" afterPath="$PROJECT_DIR$/db/users.bin" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/com/extensys/vault/ClientThread.java" afterPath="$PROJECT_DIR$/src/com/extensys/vault/ClientThread.java" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/com/extensys/vault/test/com/extensys/vault/ClientThreadTest.java" afterPath="$PROJECT_DIR$/src/com/extensys/vault/test/com/extensys/vault/ClientThreadTest.java" />
@@ -46,8 +44,8 @@
       <file leaf-file-name="ClientThread.java" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/com/extensys/vault/ClientThread.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="305">
-              <caret line="175" column="72" lean-forward="false" selection-start-line="175" selection-start-column="72" selection-end-line="175" selection-end-column="72" />
+            <state relative-caret-position="685">
+              <caret line="105" column="81" lean-forward="false" selection-start-line="105" selection-start-column="81" selection-end-line="105" selection-end-column="81" />
               <folding />
             </state>
           </provider>
@@ -66,8 +64,8 @@
       <file leaf-file-name="ClientThreadTest.java" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/com/extensys/vault/test/com/extensys/vault/ClientThreadTest.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="395">
-              <caret line="197" column="39" lean-forward="false" selection-start-line="197" selection-start-column="39" selection-end-line="197" selection-end-column="39" />
+            <state relative-caret-position="376">
+              <caret line="175" column="25" lean-forward="false" selection-start-line="175" selection-start-column="25" selection-end-line="175" selection-end-column="25" />
               <folding>
                 <element signature="imports" expanded="true" />
               </folding>
@@ -169,8 +167,8 @@
         <option value="$PROJECT_DIR$/src/com/extensys/vault/DataBank.java" />
         <option value="$PROJECT_DIR$/src/com/extensys/vault/test/com/extensys/vault/SettingsTest.java" />
         <option value="$PROJECT_DIR$/src/com/extensys/vault/test/com/extensys/vault/DataBankTest.java" />
-        <option value="$PROJECT_DIR$/src/com/extensys/vault/test/com/extensys/vault/ClientThreadTest.java" />
         <option value="$PROJECT_DIR$/src/com/extensys/vault/ClientThread.java" />
+        <option value="$PROJECT_DIR$/src/com/extensys/vault/test/com/extensys/vault/ClientThreadTest.java" />
       </list>
     </option>
   </component>
@@ -694,9 +692,6 @@
     <servers />
   </component>
   <component name="TestHistory">
-    <history-entry file="ClientThreadTest_sendFile - 2017.04.28 at 15h 15m 59s.xml">
-      <configuration name="ClientThreadTest.sendFile" configurationId="JUnit" />
-    </history-entry>
     <history-entry file="ClientThreadTest_sendFile - 2017.04.28 at 15h 18m 02s.xml">
       <configuration name="ClientThreadTest.sendFile" configurationId="JUnit" />
     </history-entry>
@@ -724,6 +719,9 @@
     <history-entry file="ClientThreadTest_sendFile - 2017.04.28 at 15h 32m 31s.xml">
       <configuration name="ClientThreadTest.sendFile" configurationId="JUnit" />
     </history-entry>
+    <history-entry file="ClientThreadTest_sendFile - 2017.04.28 at 15h 37m 33s.xml">
+      <configuration name="ClientThreadTest.sendFile" configurationId="JUnit" />
+    </history-entry>
   </component>
   <component name="TodoView">
     <todo-panel id="selected-file">
@@ -736,6 +734,7 @@
   </component>
   <component name="ToolWindowManager">
     <frame x="-8" y="-8" width="1296" height="1000" extended-state="6" />
+    <editor active="true" />
     <layout>
       <window_info id="Palette" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.3298731" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
@@ -758,7 +757,7 @@
       <window_info id="UI Designer" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Theme Preview" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Favorites" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="2" side_tool="true" content_ui="tabs" />
-      <window_info id="Debug" active="true" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.39907727" sideWeight="0.58576053" order="3" side_tool="false" content_ui="tabs" />
+      <window_info id="Debug" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.39907727" sideWeight="0.58576053" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Cvs" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
       <window_info id="Message" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
       <window_info id="Commander" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.4" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
@@ -854,7 +853,7 @@
         </line-breakpoint>
         <line-breakpoint enabled="true" type="java-line">
           <url>file://$PROJECT_DIR$/src/com/extensys/vault/ClientThread.java</url>
-          <line>194</line>
+          <line>195</line>
           <properties />
           <option name="timeStamp" value="77" />
         </line-breakpoint>
@@ -1168,21 +1167,21 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/com/extensys/vault/test/com/extensys/vault/ClientThreadTest.java">
+    <entry file="file://$PROJECT_DIR$/src/com/extensys/vault/ClientThread.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="395">
-          <caret line="197" column="39" lean-forward="false" selection-start-line="197" selection-start-column="39" selection-end-line="197" selection-end-column="39" />
-          <folding>
-            <element signature="imports" expanded="true" />
-          </folding>
+        <state relative-caret-position="685">
+          <caret line="105" column="81" lean-forward="false" selection-start-line="105" selection-start-column="81" selection-end-line="105" selection-end-column="81" />
+          <folding />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/com/extensys/vault/ClientThread.java">
+    <entry file="file://$PROJECT_DIR$/src/com/extensys/vault/test/com/extensys/vault/ClientThreadTest.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="305">
-          <caret line="175" column="72" lean-forward="false" selection-start-line="175" selection-start-column="72" selection-end-line="175" selection-end-column="72" />
-          <folding />
+        <state relative-caret-position="376">
+          <caret line="175" column="25" lean-forward="false" selection-start-line="175" selection-start-column="25" selection-end-line="175" selection-end-column="25" />
+          <folding>
+            <element signature="imports" expanded="true" />
+          </folding>
         </state>
       </provider>
     </entry>
