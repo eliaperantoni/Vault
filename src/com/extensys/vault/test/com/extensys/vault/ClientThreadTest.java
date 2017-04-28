@@ -144,6 +144,8 @@ public class ClientThreadTest {
             String key = dis.readUTF();
             System.out.println(key);
             assertNotNull(key);
+            key=CryptoUtils.decryptString(key,token);
+            System.out.println(key);
             assert key.length()==16;
 
             commanderEnd(dis,dos);
