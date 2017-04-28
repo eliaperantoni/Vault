@@ -2,13 +2,16 @@ package com.extensys.vault;
 
 import java.io.File;
 import java.util.Arrays;
+import java.util.Date;
 import java.util.List;
 import java.util.Scanner;
+import java.util.concurrent.ArrayBlockingQueue;
 
 /**
  * Created by extensys on 07/04/2017.
  */
 public class Vash extends Thread {
+
     static String getVersion() {
         return String.format("VASH v%d.%d.%d", version[0], version[1], version[2]);
     }
@@ -79,6 +82,23 @@ public class Vash extends Thread {
                     for(String x:cmds){
                         System.out.println(x);
                     }
+                    break;
+                case "log":
+                    System.out.println("By proceeding you're authorising Vash to print sensible data to the terminal.\n" +
+                            "Type OK to proceed");
+                    if(!scan.nextLine().equals("OK"))break;
+                    System.out.println(String.format("Logging started at %s\nType EXIT to exit log", new Date().toString()));
+                    new Thread(new Runnable() {
+                        @Override
+                        public void run() {
+                            //TODO Blocking queue with logs
+                        }
+                    });
+                    String inpEnd="";
+                    while(!inpEnd.equals("EXIT")){
+                        inpEnd=scan.nextLine();
+                    }
+                    System.out.println(String.format("Exiting logging at %s\nType EXIT to exit log", new Date().toString()));
                     break;
                 default:
                     System.out.println("Command not found, use \'cmds\' for a list of available commands");
