@@ -5,15 +5,18 @@ import com.extensys.vault.crypto.CryptoUtils;
 import com.extensys.vault.obj.Folder;
 import com.extensys.vault.obj.User;
 import com.extensys.vault.obj.VaultFile;
+import com.google.common.collect.Iterables;
 import com.google.common.hash.Hashing;
 
 import com.yubico.client.v2.VerificationResponse;
 import com.yubico.client.v2.YubicoClient;
 import com.yubico.client.v2.exceptions.*;
 
+import javax.xml.crypto.Data;
 import java.io.*;
 import java.net.Socket;
 import java.nio.charset.StandardCharsets;
+import java.nio.file.Files;
 import java.util.*;
 
 /**
@@ -23,6 +26,7 @@ public class ClientThread extends Thread {
     private Socket stdSocket;
     private Socket vashSocket;
     private UUID uuid;
+    private User user;
     private DataInputStream inStream;
     private DataOutputStream outStream;
     private List<ClientThread> clientThreads;
@@ -72,6 +76,7 @@ public class ClientThread extends Thread {
             }
             outStream.writeBoolean(result);
             if(!result)this.close();
+            user = DataBank.getInstance().getUsers().stream().filter(user1 -> user1.getUsername().equals(usr)).findFirst().get();
             Commander.setSocket(stdSocket);
             String command = "null";
             boolean keepLooping = true;
@@ -95,6 +100,10 @@ public class ClientThread extends Thread {
                     case "%close%":
                         keepLooping=false;
                         this.close();
+                        break;
+                    case "%randomkey%":
+                        String key = CryptoUtils.generate16BitsKey();
+                        outStream.writeUTF(key);
                         break;
                 }
                 if(keepLooping)Commander.endCommand();
@@ -164,7 +173,7 @@ public class ClientThread extends Thread {
         DataInputStream dis = new DataInputStream(clientSock.getInputStream());
         Folder container = DataBank.getInstance().getFoldersMap().get(UUID.fromString(dis.readUTF()));
         String fileName = dis.readUTF();
-        VaultFile vf = new VaultFile(fileName,container);
+        VaultFile vf = new VaultFile(fileName.replaceAll(".transfer",""),container);
         String path = FileSystem.createFile(vf);
         File f = new File(path+"/"+fileName);
         FileOutputStream fos = new FileOutputStream(f);
@@ -183,14 +192,29 @@ public class ClientThread extends Thread {
         }
 
         fos.close();
+        File toEnc = new File(f.getParent()+"\\"+f.getName().replaceAll(".transfer",""));
+
         try {
-            CryptoUtils.encryptFile(vf.getKey(),new File(path+"/"+fileName),new File(path+"/"+fileName+".encrypted"));
-        } catch (CryptoException e) {
+            String keyClear = CryptoUtils.decryptString(dis.readUTF(),user.getToken());
+            System.out.println(keyClear);
+            CryptoUtils.decryptFile(keyClear,f,toEnc);
+            Files.deleteIfExists(f.toPath());
+        } catch (Exception e) {
             e.printStackTrace();
         }
-        new File(path+"/"+fileName).delete();
+
+        try {
+            CryptoUtils.encryptFile(vf.getKey(),toEnc,new File(f.getParent()+"\\"+f.getName().replaceAll(".transfer",".encrypted")));
+            System.out.println(String.format("KEY IS: %s", vf.getKey()));
+        } catch (CryptoException e) {
+            //e.printStackTrace();
+        }
+        Files.deleteIfExists(toEnc.toPath());
         DataBank bank = DataBank.getInstance();
-        bank.getFiles().add(vf);
+        if(!bank.getFiles().add(vf)){
+            bank.getFiles().remove(vf);
+            bank.getFiles().add(vf);
+        }
         bank.saveFiles();
         bank.saveFolders();
     }
