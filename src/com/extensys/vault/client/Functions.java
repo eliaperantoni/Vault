@@ -1,10 +1,14 @@
 package com.extensys.vault.client;
 
 import com.extensys.vault.crypto.CryptoUtils;
+import com.extensys.vault.obj.Folder;
 
 import java.io.*;
 import java.net.Socket;
 import java.util.Scanner;
+import java.util.Set;
+
+import static org.junit.Assert.assertNotNull;
 
 
 /**
@@ -17,7 +21,9 @@ public class Functions {
     static final String otp = "%debug%";
 
     public static void main(String[] args) {
-        System.out.println(requestKey());
+        Socket sock = connect();
+        Set<Folder> folders = listFolders(sock);
+        close(sock);
     }
 
     public static Socket connect() {
@@ -43,9 +49,18 @@ public class Functions {
         return sock;
     }
 
-    public static String requestKey() {
+    public static void close(Socket sock){
+        try{
+            DataInputStream dis = new DataInputStream(sock.getInputStream());
+            DataOutputStream dos = new DataOutputStream(sock.getOutputStream());
+            commanderStart(dis, dos);
+            dos.writeUTF("%close%");
+        }catch(Exception e){
+        }
+    }
+
+    public static String requestKey(Socket sock) {
         String key = null;
-        Socket sock = connect();
         try {
             DataInputStream dis = new DataInputStream(sock.getInputStream());
             DataOutputStream dos = new DataOutputStream(sock.getOutputStream());
@@ -54,13 +69,7 @@ public class Functions {
             key = dis.readUTF();
             key = CryptoUtils.decryptString(key, token);
             assert key.length() == 16;
-
             commanderEnd(dis, dos);
-            commanderStart(dis, dos);
-
-            dos.writeUTF("%close%");
-
-            //commanderEnd(dis,dos); NOT NECESSARY AFTER CLOSE COMMAND
 
 
         } catch (Exception e) {
@@ -87,5 +96,102 @@ public class Functions {
             return false;
         }
         return true;
+    }
+
+    static int getSize(byte[] buffer, long remaining) {
+        try {
+            return Math.toIntExact(Math.min(((long) buffer.length), remaining));
+        } catch (ArithmeticException e) {
+            return 4096;
+        }
+    }
+
+    static void sendFile(String file, DataOutputStream outStream, String parentUUID) {
+        try {
+
+            File f = new File(file);
+            System.out.println(String.format("File size is: %s", String.valueOf(f.length())));
+            outStream.writeUTF(parentUUID);
+            outStream.writeUTF(f.getName());
+            outStream.writeLong(f.length());
+            FileInputStream fis = new FileInputStream(f);
+            byte[] buffer = new byte[4096];
+            int count;
+            while ((count = fis.read(buffer)) > 0) {
+                outStream.write(buffer, 0, count);
+                System.out.println(count);
+            }
+
+            fis.close();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
+    }
+
+    static void saveFile(Socket clientSock, DataInputStream dis) throws IOException {
+
+        String fileName = dis.readUTF();
+        File f = new File(fileName);
+        FileOutputStream fos = new FileOutputStream(f);
+        byte[] buffer = new byte[4096];
+
+        long filesize = dis.readLong();
+        int read = 0;
+        int totalRead = 0;
+        long remaining = filesize;
+
+        while ((read = dis.read(buffer, 0, getSize(buffer, remaining))) > 0) {
+            totalRead += read;
+            remaining -= read;
+            System.out.println("read " + totalRead + " bytes.");
+            fos.write(buffer, 0, read);
+        }
+
+        fos.close();
+    }
+
+    static Set<Folder> listFolders(Socket sock){
+        Set<Folder> folders = null;
+        try {
+            DataInputStream dis = new DataInputStream(sock.getInputStream());
+            DataOutputStream dos = new DataOutputStream(sock.getOutputStream());
+
+            commanderStart(dis,dos);
+            dos.writeUTF("%list-folders%");
+            ObjectInputStream obj = new ObjectInputStream(sock.getInputStream());
+            folders = (Set<Folder>) obj.readObject();
+            commanderEnd(dis,dos);
+        }catch(Exception e){
+            e.printStackTrace();
+        }
+        return folders;
+    }
+
+    static void sendFileToServer(String path){
+        File toSend = new File(path);
+        Socket sock = null;
+        try {
+            sock = connect();
+            DataInputStream dis = new DataInputStream(sock.getInputStream());
+            DataOutputStream dos = new DataOutputStream(sock.getOutputStream());
+            String key = requestKey(sock);
+            System.out.println(String.format("DECRYPTED KEY IS: %s", key));
+            commanderStart(dis, dos);
+            System.out.println(key);
+            String keyTokenized = CryptoUtils.encryptString(key, token);
+            System.out.println(keyTokenized);
+
+            File toSendEnc = new File(toSend.getParent() + "\\" + toSend.getName() + ".transfer");
+            CryptoUtils.encryptFile(key, toSend, toSendEnc);
+            dos.writeUTF("%fileC2S%");
+            sendFile(toSendEnc.getAbsolutePath(), dos, "1-1-1-1-1");
+            dos.writeUTF(keyTokenized);
+            commanderEnd(dis, dos);
+
+
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
     }
 }

@@ -90,6 +90,7 @@ public class ClientThread extends Thread {
                     case "%list-folders%":
                         ObjectOutputStream obj = new ObjectOutputStream(outStream);
                         obj.writeObject(DataBank.getInstance().getFolders());
+                        obj.flush();
                         break;
                     case "%fileS2C":
                         //TODO: Send file Server -> Client
