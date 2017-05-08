@@ -22,7 +22,7 @@ public class Functions {
 
     public static void main(String[] args) {
         Socket sock = connect();
-        Set<Folder> folders = listFolders(sock);
+        sendFileToServer("C:/Users/extensys/Desktop/Screenshot_1.png",listFolders(sock).stream().filter(folder -> folder.getName().equals("root")).findFirst().get());
         close(sock);
     }
 
@@ -49,13 +49,13 @@ public class Functions {
         return sock;
     }
 
-    public static void close(Socket sock){
-        try{
+    public static void close(Socket sock) {
+        try {
             DataInputStream dis = new DataInputStream(sock.getInputStream());
             DataOutputStream dos = new DataOutputStream(sock.getOutputStream());
             commanderStart(dis, dos);
             dos.writeUTF("%close%");
-        }catch(Exception e){
+        } catch (Exception e) {
         }
     }
 
@@ -151,46 +151,72 @@ public class Functions {
         fos.close();
     }
 
-    static Set<Folder> listFolders(Socket sock){
+    static Set<Folder> listFolders(Socket sock) {
         Set<Folder> folders = null;
         try {
             DataInputStream dis = new DataInputStream(sock.getInputStream());
             DataOutputStream dos = new DataOutputStream(sock.getOutputStream());
 
-            commanderStart(dis,dos);
+            commanderStart(dis, dos);
             dos.writeUTF("%list-folders%");
             ObjectInputStream obj = new ObjectInputStream(sock.getInputStream());
             folders = (Set<Folder>) obj.readObject();
-            commanderEnd(dis,dos);
-        }catch(Exception e){
+            commanderEnd(dis, dos);
+        } catch (Exception e) {
             e.printStackTrace();
         }
         return folders;
     }
 
-    static void sendFileToServer(String path){
+    static void sendFileToServer(String path, Folder parent) {
         File toSend = new File(path);
         Socket sock = null;
         try {
-            sock = connect();
+            sock = new Socket("localhost", 9090);
+            assertNotNull(sock);
             DataInputStream dis = new DataInputStream(sock.getInputStream());
             DataOutputStream dos = new DataOutputStream(sock.getOutputStream());
-            String key = requestKey(sock);
+            dos.writeUTF("null");
+            String myId = dis.readUTF();
+            Socket vash = new Socket("localhost", 9090);
+            DataInputStream vdis = new DataInputStream(vash.getInputStream());
+            DataOutputStream vdos = new DataOutputStream(vash.getOutputStream());
+            vdos.writeUTF(myId);
+            if (!vdis.readUTF().equals("ok")) System.exit(1);
+            String usr, psw, otp;
+            System.out.println("OTP:");
+            otp = "%debug%";
+            dos.writeUTF("hellix");
+            String token = "39672a9849cf4529";//ASSOCIATED WITH USER hellix
+            dos.writeUTF("abc");
+            dos.writeUTF(otp);
+            System.out.println(dis.readBoolean());
+
+            commanderStart(dis,dos);
+
+            dos.writeUTF("%randomkey%");
+            String key = dis.readUTF();
+            key=CryptoUtils.decryptString(key,token);
             System.out.println(String.format("DECRYPTED KEY IS: %s", key));
-            commanderStart(dis, dos);
+            commanderEnd(dis,dos);
+            commanderStart(dis,dos);
             System.out.println(key);
-            String keyTokenized = CryptoUtils.encryptString(key, token);
+            String keyTokenized = CryptoUtils.encryptString(key,token);
             System.out.println(keyTokenized);
 
-            File toSendEnc = new File(toSend.getParent() + "\\" + toSend.getName() + ".transfer");
-            CryptoUtils.encryptFile(key, toSend, toSendEnc);
+            File toSendEnc = new File(toSend.getParent()+"\\"+toSend.getName()+".transfer");
+            CryptoUtils.encryptFile(key,toSend,toSendEnc);
             dos.writeUTF("%fileC2S%");
-            sendFile(toSendEnc.getAbsolutePath(), dos, "1-1-1-1-1");
+            sendFile(toSendEnc.getAbsolutePath(),dos,parent.getId().toString());
             dos.writeUTF(keyTokenized);
-            commanderEnd(dis, dos);
+            commanderEnd(dis,dos);
+            commanderStart(dis,dos);
+            dos.writeUTF("%close%");
+
+            //commanderEnd(dis,dos); NOT NECESSARY AFTER CLOSE COMMAND
 
 
-        } catch (Exception e) {
+        }catch(Exception e){
             e.printStackTrace();
         }
     }

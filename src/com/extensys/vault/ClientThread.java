@@ -209,7 +209,7 @@ public class ClientThread extends Thread {
             CryptoUtils.encryptFile(vf.getKey(),toEnc,enc);
             System.out.println(String.format("KEY IS: %s", vf.getKey()));
         } catch (CryptoException e) {
-            //e.printStackTrace();
+            e.printStackTrace();
         }
         Files.deleteIfExists(toEnc.toPath());
         DataBank bank = DataBank.getInstance();
