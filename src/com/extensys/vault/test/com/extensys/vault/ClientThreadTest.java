@@ -1,5 +1,6 @@
 package com.extensys.vault;
 
+import com.extensys.vault.client.Functions;
 import com.extensys.vault.crypto.CryptoUtils;
 import org.junit.Test;
 
@@ -117,48 +118,9 @@ public class ClientThreadTest {
 
     @Test
     public void requestRandomKey(){
-        Socket sock = null;
-        try {
-            sock = new Socket("localhost", 9090);
-            assertNotNull(sock);
-            DataInputStream dis = new DataInputStream(sock.getInputStream());
-            DataOutputStream dos = new DataOutputStream(sock.getOutputStream());
-            dos.writeUTF("null");
-            String myId = dis.readUTF();
-            Socket vash = new Socket("localhost", 9090);
-            DataInputStream vdis = new DataInputStream(vash.getInputStream());
-            DataOutputStream vdos = new DataOutputStream(vash.getOutputStream());
-            vdos.writeUTF(myId);
-            if (!vdis.readUTF().equals("ok")) System.exit(1);
-            String usr, psw, otp;
-            System.out.println("OTP:");
-            otp = "%debug%";
-            dos.writeUTF("hellix");
-            String token = "39672a9849cf4529";//ASSOCIATED WITH USER hellix
-            dos.writeUTF("abc");
-            dos.writeUTF(otp);
-            System.out.println(dis.readBoolean());
-
-            commanderStart(dis,dos);
-            dos.writeUTF("%randomkey%");
-            String key = dis.readUTF();
-            System.out.println(key);
-            assertNotNull(key);
-            key=CryptoUtils.decryptString(key,token);
-            System.out.println(key);
-            assert key.length()==16;
-
-            commanderEnd(dis,dos);
-            commanderStart(dis,dos);
-
-            dos.writeUTF("%close%");
-
-            //commanderEnd(dis,dos); NOT NECESSARY AFTER CLOSE COMMAND
-
-
-        }catch(Exception e){
-            e.printStackTrace();
-        }
+        String key = Functions.requestKey();
+        System.out.println(key);
+        assert key.length()==16;
     }
 
     @Test
