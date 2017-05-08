@@ -86,12 +86,27 @@ public class Folder implements Serializable, HasId {
 
     @Override
     public int hashCode() {
-        return id.hashCode();
+        return name.hashCode();
     }
 
     @Override
     public boolean equals(Object obj) {
-        return this.hashCode() == ((Folder) this).hashCode();
+        if (this == obj) {
+            return true;
+        }
+
+        if (!(obj instanceof Folder)) {
+            return false;
+        }
+        Folder f = (Folder) obj;
+        if(this.id.equals(f.getId())){
+            return true;
+        }
+        if(this.parent.getId().equals(f.getParent().getId()) && this.name.equals(f.getName())){
+            return true;
+        }
+        return false;
     }
+
 }
 

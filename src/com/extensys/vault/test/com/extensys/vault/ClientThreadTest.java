@@ -18,6 +18,7 @@ public class ClientThreadTest {
     public void connect() {
         Socket sock = Functions.connect();
         assertNotNull(sock);
+        Functions.close(sock);
 
     }
 

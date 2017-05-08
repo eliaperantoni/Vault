@@ -84,6 +84,11 @@ public class ClientThread extends Thread {
                 Commander.startCommand();
                 command = inStream.readUTF();
                 switch (command){
+                    case "%reqtoken%":
+                        String usr_ = inStream.readUTF();
+                        User user_ = DataBank.getInstance().getUsers().stream().filter(user1 -> user1.getUsername().equals(usr)).findFirst().get();
+                        outStream.writeUTF(user_.getToken());
+                        break;
                     case "%fileC2S%":
                         saveFile(stdSocket);
                         break;
