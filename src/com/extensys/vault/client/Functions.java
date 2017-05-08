@@ -151,7 +151,7 @@ public class Functions {
         fos.close();
     }
 
-    static Set<Folder> listFolders(Socket sock) {
+    public static Set<Folder> listFolders(Socket sock) {
         Set<Folder> folders = null;
         try {
             DataInputStream dis = new DataInputStream(sock.getInputStream());
@@ -168,7 +168,7 @@ public class Functions {
         return folders;
     }
 
-    static void sendFileToServer(String path, Folder parent) {
+    public static void sendFileToServer(String path, Folder parent) {
         File toSend = new File(path);
         Socket sock = null;
         try {

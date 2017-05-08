@@ -33,7 +33,8 @@ public class ClientThreadTest {
 
     @Test
     public void sendFile() {
-
-
+        Socket sock = Functions.connect();
+        Functions.sendFileToServer("C:/Users/extensys/Desktop/Screenshot_1.png",Functions.listFolders(sock).stream().filter(folder -> folder.getName().equals("root")).findFirst().get());
+        Functions.close(sock);
     }
 }
