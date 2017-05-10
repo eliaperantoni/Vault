@@ -95,6 +95,9 @@ public class ClientThread extends Thread {
                 case "%fileS2C":
                     //TODO: Send file Server -> Client
                     break;
+                case "%ping%":
+                    outStream.writeUTF("pong");
+                    break;
                 case "%null%":
                     outStream.writeUTF("HelloWorld");
                     break;

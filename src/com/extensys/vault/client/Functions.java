@@ -6,6 +6,7 @@ import com.google.common.base.MoreObjects;
 
 import java.io.*;
 import java.net.Socket;
+import java.nio.file.Files;
 import java.util.*;
 
 import static org.junit.Assert.assertNotNull;
@@ -31,6 +32,7 @@ public class Functions {
             System.out.println("OTP: ");
             otp = scan.nextLine();
         }
+        if(!ping(connect().get("std")).equals("pong"))System.exit(1);
 
         String inp;
         System.out.print("~ ");
@@ -39,6 +41,9 @@ public class Functions {
             Socket sock = response.get("std");
             Socket vash = response.get("vash");
             switch (inp.split(" ")[0]) {
+                case "ping":
+                    System.out.println(ping(sock));
+                    break;
                 case "reqtok":
                     boolean useUsr;
                     try {
@@ -64,6 +69,9 @@ public class Functions {
                             showPassword ? psw : "*****",
                             otp,
                             token));
+                    System.out.println(sock);
+                    System.out.println(vash);
+
                     break;
                 case "lf":
                     for (Folder x : listFolders(sock)) {
@@ -75,13 +83,50 @@ public class Functions {
                         } catch (NullPointerException e) {
                             parentName = "";
                         }
-                        System.out.println(String.format("Folder: {Name: %s, Parent: %s, Children count: %s}", x.getName(), parentName, String.valueOf(x.getChildren().size())));
+                        System.out.println(String.format("Folder: {Id: %s, Name: %s, Parent: %s, Children count: %s}", String.valueOf(x.getInteger()),  x.getName(), parentName, String.valueOf(x.getChildren().size())));
                     }
+                    break;
+                case "folderinfo":
+                    try {
+                        final int id = Integer.valueOf(inp.split(" ")[1]);
+                        Folder f= listFolders(connect().get("std")).stream().filter(folder -> folder.getInteger()==id).findFirst().get();
+                        System.out.println("WIP");
+                    }catch (Exception e){
+                        System.out.println("No such id");
+                    }
+                    break;
+                case "sendfile":
+
+
+                    try {
+                        final int id = Integer.valueOf(inp.split(" ")[1]);
+
+                        String filepath = inp.split(" ")[2];
+                        sendFileToServer(filepath,listFolders(connect().get("std")).stream().filter(folder -> folder.getInteger()==id).findFirst().get());
+                    } catch (Exception e) {
+                        e.printStackTrace();
+
+                        break;
+                    }
+                    break;
+                case "test":
+                    sendFileToServer("C:\\Users\\extensys\\Desktop\\link.txt",listFolders(connect().get("std")).stream().filter(folder -> folder.getName().equals("root")).findFirst().get());
                     break;
             }
             System.out.print("~ ");
         }
         //sendFileToServer("C:/Users/extensys/Desktop/Screenshot_1.png", listFolders(sock).stream().filter(folder -> folder.getName().equals("root")).findFirst().get());
+    }
+
+    public static String ping(Socket sock){
+        String resp = "";
+        try {
+            new DataOutputStream(sock.getOutputStream()).writeUTF("%ping%");
+            resp = new DataInputStream(sock.getInputStream()).readUTF();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        return resp;
     }
 
     public static Map<String, Socket> connect() {
@@ -103,6 +148,7 @@ public class Functions {
             dos.writeUTF(psw);
             dos.writeUTF(otp);
             success = dis.readBoolean();
+            if(success)response.put("allgood",null);
             response.put("std", sock);
             response.put("vash", vash);
         } catch (Exception e) {
@@ -210,56 +256,29 @@ public class Functions {
         }
         return folders;
     }
-/*
+
     public static void sendFileToServer(String path, Folder parent) {
         File toSend = new File(path);
-        Socket sock = null;
         try {
-            sock = new Socket("localhost", 9090);
-            assertNotNull(sock);
-            DataInputStream dis = new DataInputStream(sock.getInputStream());
-            DataOutputStream dos = new DataOutputStream(sock.getOutputStream());
-            dos.writeUTF("null");
-            String myId = dis.readUTF();
-            Socket vash = new Socket("localhost", 9090);
-            DataInputStream vdis = new DataInputStream(vash.getInputStream());
-            DataOutputStream vdos = new DataOutputStream(vash.getOutputStream());
-            vdos.writeUTF(myId);
-            if (!vdis.readUTF().equals("ok")) System.exit(1);
-            String usr, psw, otp;
-            System.out.println("OTP:");
-            otp = "%debug%";
-            dos.writeUTF("hellix");
-            dos.writeUTF("abc");
-            dos.writeUTF(otp);
-            System.out.println(dis.readBoolean());
 
-            commanderStart(dis, dos);
-
-            dos.writeUTF("%randomkey%");
-            String key = dis.readUTF();
-            key = CryptoUtils.decryptString(key, token);
-            System.out.println(String.format("DECRYPTED KEY IS: %s", key));
-            commanderEnd(dis, dos);
-            commanderStart(dis, dos);
+            String key = requestKey(connect().get("std"));
             System.out.println(key);
             String keyTokenized = CryptoUtils.encryptString(key, token);
             System.out.println(keyTokenized);
 
             File toSendEnc = new File(toSend.getParent() + "\\" + toSend.getName() + ".transfer");
             CryptoUtils.encryptFile(key, toSend, toSendEnc);
+            Socket sock = connect().get("std");
+            DataOutputStream dos = new DataOutputStream(sock.getOutputStream());
             dos.writeUTF("%fileC2S%");
             sendFile(toSendEnc.getAbsolutePath(), dos, parent.getId().toString());
             dos.writeUTF(keyTokenized);
-            commanderEnd(dis, dos);
-            commanderStart(dis, dos);
-            dos.writeUTF("%close%");
+            Files.deleteIfExists(toSendEnc.toPath());
 
-            //commanderEnd(dis,dos); NOT NECESSARY AFTER CLOSE COMMAND
 
 
         } catch (Exception e) {
             e.printStackTrace();
         }
-    }*/
+    }
 }
