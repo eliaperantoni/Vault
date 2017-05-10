@@ -16,26 +16,15 @@ import static org.junit.Assert.*;
 public class ClientThreadTest {
     @Test
     public void connect() {
-        Socket sock = Functions.connect();
-        assertNotNull(sock);
-        Functions.close(sock);
 
     }
 
 
     @Test
     public void requestRandomKey() {
-        Socket sock = Functions.connect();
-        String key = Functions.requestKey(sock);
-        Functions.close(sock);
-        System.out.println(key);
-        assert key.length() == 16;
     }
 
     @Test
     public void sendFile() {
-        Socket sock = Functions.connect();
-        Functions.sendFileToServer("C:/Users/extensys/Desktop/Screenshot_1.png",Functions.listFolders(sock).stream().filter(folder -> folder.getName().equals("root")).findFirst().get());
-        Functions.close(sock);
     }
 }

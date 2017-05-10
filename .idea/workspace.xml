@@ -7,14 +7,10 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="1c51b184-97e9-42dc-97b8-2e3d797ace63" name="Default" comment="">
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/db/files.bin" afterPath="$PROJECT_DIR$/db/files.bin" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/db/folders.bin" afterPath="$PROJECT_DIR$/db/folders.bin" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/db/users.bin" afterPath="$PROJECT_DIR$/db/users.bin" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/storage/root/Screenshot_1.png.encrypted" afterPath="$PROJECT_DIR$/storage/root/Screenshot_1.png.encrypted" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/src/com/extensys/vault/Commander.java" afterPath="" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/com/extensys/vault/ClientThread.java" afterPath="$PROJECT_DIR$/src/com/extensys/vault/ClientThread.java" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/com/extensys/vault/client/Functions.java" afterPath="$PROJECT_DIR$/src/com/extensys/vault/client/Functions.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/com/extensys/vault/obj/Folder.java" afterPath="$PROJECT_DIR$/src/com/extensys/vault/obj/Folder.java" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/com/extensys/vault/test/com/extensys/vault/ClientThreadTest.java" afterPath="$PROJECT_DIR$/src/com/extensys/vault/test/com/extensys/vault/ClientThreadTest.java" />
     </list>
     <ignored path="$PROJECT_DIR$/out/" />
@@ -46,45 +42,34 @@
   </component>
   <component name="FileEditorManager">
     <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
-      <file leaf-file-name="Folder.java" pinned="false" current-in-tab="true">
-        <entry file="file://$PROJECT_DIR$/src/com/extensys/vault/obj/Folder.java">
+      <file leaf-file-name="ClientThread.java" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/com/extensys/vault/ClientThread.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="1596">
-              <caret line="104" column="92" lean-forward="false" selection-start-line="104" selection-start-column="92" selection-end-line="104" selection-end-column="92" />
+            <state relative-caret-position="-43">
+              <caret line="79" column="0" lean-forward="false" selection-start-line="79" selection-start-column="0" selection-end-line="79" selection-end-column="0" />
               <folding>
-                <element signature="e#1922#1923#0" expanded="true" />
-                <element signature="e#1960#1961#0" expanded="true" />
+                <element signature="e#932#933#0" expanded="true" />
+                <element signature="method#authenticate#0;class#ClientThread#0" expanded="false" />
+                <element signature="method#sendFile#0;class#ClientThread#0" expanded="false" />
+                <element signature="method#getSize#0;class#ClientThread#0" expanded="false" />
+                <element signature="method#saveFile#0;class#ClientThread#0" expanded="false" />
               </folding>
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="VaultFile.java" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/com/extensys/vault/obj/VaultFile.java">
+      <file leaf-file-name="Functions.java" pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/src/com/extensys/vault/client/Functions.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="376">
-              <caret line="114" column="8" lean-forward="false" selection-start-line="114" selection-start-column="8" selection-end-line="128" selection-end-column="21" />
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="Main.java" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/com/extensys/vault/Main.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="19">
-              <caret line="45" column="0" lean-forward="false" selection-start-line="45" selection-start-column="0" selection-end-line="45" selection-end-column="0" />
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="DataBank.java" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/com/extensys/vault/DataBank.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="-1729">
-              <caret line="14" column="48" lean-forward="false" selection-start-line="14" selection-start-column="48" selection-end-line="14" selection-end-column="48" />
-              <folding />
+            <state relative-caret-position="218">
+              <caret line="48" column="92" lean-forward="false" selection-start-line="48" selection-start-column="92" selection-end-line="48" selection-end-column="92" />
+              <folding>
+                <element signature="docComment;class#Functions#0" expanded="false" />
+                <element signature="method#connect#0;class#Functions#0" expanded="false" />
+                <element signature="method#getSize#0;class#Functions#0" expanded="false" />
+                <element signature="method#sendFile#0;class#Functions#0" expanded="false" />
+                <element signature="method#saveFile#0;class#Functions#0" expanded="false" />
+              </folding>
             </state>
           </provider>
         </entry>
@@ -92,8 +77,8 @@
       <file leaf-file-name="ClientThreadTest.java" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/com/extensys/vault/test/com/extensys/vault/ClientThreadTest.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="305">
-              <caret line="20" column="28" lean-forward="false" selection-start-line="20" selection-start-column="28" selection-end-line="20" selection-end-column="28" />
+            <state relative-caret-position="323">
+              <caret line="17" column="27" lean-forward="false" selection-start-line="17" selection-start-column="27" selection-end-line="17" selection-end-column="27" />
               <folding>
                 <element signature="imports" expanded="true" />
               </folding>
@@ -162,10 +147,10 @@
         <option value="$PROJECT_DIR$/src/com/extensys/vault/test/com/extensys/vault/DataBankTest.java" />
         <option value="$PROJECT_DIR$/src/com/extensys/vault/obj/VaultFile.java" />
         <option value="$PROJECT_DIR$/src/com/extensys/vault/Vash.java" />
-        <option value="$PROJECT_DIR$/src/com/extensys/vault/test/com/extensys/vault/ClientThreadTest.java" />
-        <option value="$PROJECT_DIR$/src/com/extensys/vault/ClientThread.java" />
-        <option value="$PROJECT_DIR$/src/com/extensys/vault/client/Functions.java" />
         <option value="$PROJECT_DIR$/src/com/extensys/vault/obj/Folder.java" />
+        <option value="$PROJECT_DIR$/src/com/extensys/vault/ClientThread.java" />
+        <option value="$PROJECT_DIR$/src/com/extensys/vault/test/com/extensys/vault/ClientThreadTest.java" />
+        <option value="$PROJECT_DIR$/src/com/extensys/vault/client/Functions.java" />
       </list>
     </option>
   </component>
@@ -193,6 +178,7 @@
       <foldersAlwaysOnTop value="true" />
     </navigator>
     <panes>
+      <pane id="PackagesPane" />
       <pane id="ProjectPane">
         <subPane>
           <PATH>
@@ -295,37 +281,14 @@
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
             <PATH_ELEMENT>
-              <option name="myItemId" value="obj" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-          </PATH>
-          <PATH>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="Vault" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="Vault" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="src" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="vault" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
               <option name="myItemId" value="client" />
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
           </PATH>
         </subPane>
       </pane>
-      <pane id="Scope" />
       <pane id="Scratches" />
-      <pane id="PackagesPane" />
+      <pane id="Scope" />
     </panes>
   </component>
   <component name="PropertiesComponent">
@@ -360,7 +323,7 @@
       </list>
     </option>
   </component>
-  <component name="RunManager" selected="Application.Main">
+  <component name="RunManager" selected="Application.Functions">
     <configuration default="false" name="Main" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
       <extension name="coverage" enabled="false" merge="false" sample_coverage="true" runner="idea" />
       <option name="MAIN_CLASS_NAME" value="com.extensys.vault.Main" />
@@ -687,9 +650,9 @@
     </list>
     <recent_temporary>
       <list size="5">
-        <item index="0" class="java.lang.String" itemvalue="Application.Main" />
-        <item index="1" class="java.lang.String" itemvalue="JUnit.ClientThreadTest.sendFile" />
-        <item index="2" class="java.lang.String" itemvalue="Application.Functions" />
+        <item index="0" class="java.lang.String" itemvalue="Application.Functions" />
+        <item index="1" class="java.lang.String" itemvalue="Application.Main" />
+        <item index="2" class="java.lang.String" itemvalue="JUnit.ClientThreadTest.sendFile" />
         <item index="3" class="java.lang.String" itemvalue="JUnit.ClientThreadTest.connect" />
         <item index="4" class="java.lang.String" itemvalue="JUnit.ClientThreadTest.requestRandomKey" />
       </list>
@@ -774,10 +737,10 @@
       <window_info id="Palette&#9;" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Image Layers" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Capture Analysis" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
-      <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.43367934" sideWeight="0.3923948" order="7" side_tool="true" content_ui="tabs" />
+      <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.39907727" sideWeight="0.4142395" order="7" side_tool="true" content_ui="tabs" />
       <window_info id="Maven Projects" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32928804" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.3298731" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
-      <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.44405997" sideWeight="0.60760516" order="2" side_tool="false" content_ui="tabs" x="127" y="660" width="975" height="425" />
+      <window_info id="Run" active="true" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.29296425" sideWeight="0.65129447" order="2" side_tool="false" content_ui="tabs" x="127" y="660" width="975" height="425" />
       <window_info id="Properties" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Terminal" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.3298731" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Capture Tool" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
@@ -788,7 +751,7 @@
       <window_info id="UI Designer" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Theme Preview" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Favorites" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="2" side_tool="true" content_ui="tabs" />
-      <window_info id="Debug" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.39677048" sideWeight="0.58576053" order="3" side_tool="false" content_ui="tabs" />
+      <window_info id="Debug" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.39907727" sideWeight="0.58576053" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Cvs" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
       <window_info id="Palette" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Nl-Palette" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
@@ -805,7 +768,6 @@
       <window_info id="UI Designer" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Debug" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.39907727" sideWeight="0.58576053" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.3298731" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
-      <window_info id="Messages" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32871974" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Palette&#9;" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Image Layers" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Capture Analysis" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
@@ -888,33 +850,9 @@
         </line-breakpoint>
         <line-breakpoint enabled="true" type="java-line">
           <url>file://$PROJECT_DIR$/src/com/extensys/vault/ClientThread.java</url>
-          <line>80</line>
-          <properties />
-          <option name="timeStamp" value="73" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" type="java-line">
-          <url>file://$PROJECT_DIR$/src/com/extensys/vault/Commander.java</url>
-          <line>34</line>
-          <properties />
-          <option name="timeStamp" value="74" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" type="java-line">
-          <url>file://$PROJECT_DIR$/src/com/extensys/vault/ClientThread.java</url>
-          <line>71</line>
-          <properties />
-          <option name="timeStamp" value="75" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" type="java-line">
-          <url>file://$PROJECT_DIR$/src/com/extensys/vault/ClientThread.java</url>
-          <line>201</line>
+          <line>194</line>
           <properties />
           <option name="timeStamp" value="77" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" type="java-line">
-          <url>file://$PROJECT_DIR$/src/com/extensys/vault/ClientThread.java</url>
-          <line>85</line>
-          <properties />
-          <option name="timeStamp" value="85" />
         </line-breakpoint>
       </breakpoints>
       <breakpoints-dialog>
@@ -1107,16 +1045,6 @@
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/storage/root/test.txt" />
-    <entry file="file://$PROJECT_DIR$/src/com/extensys/vault/FileSystem.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="399">
-          <caret line="21" column="20" lean-forward="false" selection-start-line="21" selection-start-column="20" selection-end-line="21" selection-end-column="20" />
-          <folding>
-            <element signature="imports" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/com/extensys/vault/obj/Group.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="437">
@@ -1207,20 +1135,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/com/extensys/vault/client/Functions.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="57">
-          <caret line="21" column="30" lean-forward="true" selection-start-line="21" selection-start-column="30" selection-end-line="21" selection-end-column="30" />
-          <folding>
-            <element signature="docComment;class#Functions#0" expanded="false" />
-            <element signature="method#commanderEnd#0;class#Functions#0" expanded="false" />
-            <element signature="method#getSize#0;class#Functions#0" expanded="false" />
-            <element signature="method#sendFile#0;class#Functions#0" expanded="false" />
-            <element signature="method#saveFile#0;class#Functions#0" expanded="false" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/com/extensys/vault/Commander.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="417">
@@ -1229,43 +1143,17 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/com/extensys/vault/ClientThread.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="155">
-          <caret line="85" column="0" lean-forward="false" selection-start-line="85" selection-start-column="0" selection-end-line="85" selection-end-column="0" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/com/extensys/vault/obj/VaultFile.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="376">
+        <state relative-caret-position="1406">
           <caret line="114" column="8" lean-forward="false" selection-start-line="114" selection-start-column="8" selection-end-line="128" selection-end-column="21" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/com/extensys/vault/test/com/extensys/vault/ClientThreadTest.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="305">
-          <caret line="20" column="28" lean-forward="false" selection-start-line="20" selection-start-column="28" selection-end-line="20" selection-end-column="28" />
-          <folding>
-            <element signature="imports" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/com/extensys/vault/Main.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="19">
-          <caret line="45" column="0" lean-forward="false" selection-start-line="45" selection-start-column="0" selection-end-line="45" selection-end-column="0" />
           <folding />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/src/com/extensys/vault/DataBank.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-1729">
+        <state relative-caret-position="152">
           <caret line="14" column="48" lean-forward="false" selection-start-line="14" selection-start-column="48" selection-end-line="14" selection-end-column="48" />
           <folding />
         </state>
@@ -1273,11 +1161,64 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/src/com/extensys/vault/obj/Folder.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="1596">
-          <caret line="104" column="92" lean-forward="false" selection-start-line="104" selection-start-column="92" selection-end-line="104" selection-end-column="92" />
+        <state relative-caret-position="571">
+          <caret line="106" column="9" lean-forward="true" selection-start-line="106" selection-start-column="9" selection-end-line="106" selection-end-column="9" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/com/extensys/vault/Main.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="-38">
+          <caret line="45" column="0" lean-forward="false" selection-start-line="45" selection-start-column="0" selection-end-line="45" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/com/extensys/vault/FileSystem.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="399">
+          <caret line="21" column="20" lean-forward="false" selection-start-line="21" selection-start-column="20" selection-end-line="21" selection-end-column="20" />
           <folding>
-            <element signature="e#1922#1923#0" expanded="true" />
-            <element signature="e#1960#1961#0" expanded="true" />
+            <element signature="imports" expanded="false" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/com/extensys/vault/test/com/extensys/vault/ClientThreadTest.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="323">
+          <caret line="17" column="27" lean-forward="false" selection-start-line="17" selection-start-column="27" selection-end-line="17" selection-end-column="27" />
+          <folding>
+            <element signature="imports" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/com/extensys/vault/ClientThread.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="-43">
+          <caret line="79" column="0" lean-forward="false" selection-start-line="79" selection-start-column="0" selection-end-line="79" selection-end-column="0" />
+          <folding>
+            <element signature="e#932#933#0" expanded="true" />
+            <element signature="method#authenticate#0;class#ClientThread#0" expanded="false" />
+            <element signature="method#sendFile#0;class#ClientThread#0" expanded="false" />
+            <element signature="method#getSize#0;class#ClientThread#0" expanded="false" />
+            <element signature="method#saveFile#0;class#ClientThread#0" expanded="false" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/com/extensys/vault/client/Functions.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="218">
+          <caret line="48" column="92" lean-forward="false" selection-start-line="48" selection-start-column="92" selection-end-line="48" selection-end-column="92" />
+          <folding>
+            <element signature="docComment;class#Functions#0" expanded="false" />
+            <element signature="method#connect#0;class#Functions#0" expanded="false" />
+            <element signature="method#getSize#0;class#Functions#0" expanded="false" />
+            <element signature="method#sendFile#0;class#Functions#0" expanded="false" />
+            <element signature="method#saveFile#0;class#Functions#0" expanded="false" />
           </folding>
         </state>
       </provider>

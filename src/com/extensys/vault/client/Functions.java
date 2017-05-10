@@ -6,9 +6,7 @@ import com.google.common.base.MoreObjects;
 
 import java.io.*;
 import java.net.Socket;
-import java.util.Optional;
-import java.util.Scanner;
-import java.util.Set;
+import java.util.*;
 
 import static org.junit.Assert.assertNotNull;
 
@@ -26,31 +24,39 @@ public class Functions {
         Scanner scan = new Scanner(System.in);
         System.out.println("Username: ");
         String usr_ = scan.nextLine();
-        if(!usr_.equals("debug")){
-            usr=usr_;
+        if (!usr_.equals("debug")) {
+            usr = usr_;
             System.out.println("Password: ");
-            psw=scan.nextLine();
+            psw = scan.nextLine();
             System.out.println("OTP: ");
             otp = scan.nextLine();
         }
-        Socket sock = connect();
-        token=getToken(sock,usr);
-        if(sock==null){ close(sock);return;}
+
         String inp;
         System.out.print("~ ");
         while (!((inp = scan.nextLine()).equals("exit"))) {
+            Map<String, Socket> response = connect();
+            Socket sock = response.get("std");
+            Socket vash = response.get("vash");
             switch (inp.split(" ")[0]) {
-                case "exit":
-                    close(sock);
+                case "reqtok":
+                    boolean useUsr;
+                    try {
+                        useUsr = inp.split(" ")[1].equals("-s");
+                    } catch (Exception e) {
+                        useUsr = false;
+                    }
+                    String out = useUsr ? getToken(sock,usr) : getToken(sock,inp.split(" ")[1]);
+                    System.out.println(out);
                     break;
-                case "gettok":
-                    System.out.println(getToken(sock,inp.split(" ")[1]));
+                case "key":
+                    System.out.println(requestKey(sock));
                     break;
                 case "sout":
                     boolean showPassword;
                     try {
                         showPassword = inp.split(" ")[1].equals("-p");
-                    }catch (Exception e){
+                    } catch (Exception e) {
                         showPassword = false;
                     }
                     System.out.println(String.format("Username: %s\nPassword: %s\nOTP: %s\nToken: %s",
@@ -60,14 +66,14 @@ public class Functions {
                             token));
                     break;
                 case "lf":
-                    for(Folder x: listFolders(sock)){
+                    for (Folder x : listFolders(sock)) {
                         Folder parent = x.getParent();
                         String parentName;
-                        try{
+                        try {
 
                             parentName = parent.getName();
-                        }catch (NullPointerException e){
-                            parentName="";
+                        } catch (NullPointerException e) {
+                            parentName = "";
                         }
                         System.out.println(String.format("Folder: {Name: %s, Parent: %s, Children count: %s}", x.getName(), parentName, String.valueOf(x.getChildren().size())));
                     }
@@ -78,7 +84,8 @@ public class Functions {
         //sendFileToServer("C:/Users/extensys/Desktop/Screenshot_1.png", listFolders(sock).stream().filter(folder -> folder.getName().equals("root")).findFirst().get());
     }
 
-    public static Socket connect() {
+    public static Map<String, Socket> connect() {
+        Map<String, Socket> response = new HashMap<>();
         boolean success = false;
         Socket sock = null;
         try {
@@ -96,22 +103,21 @@ public class Functions {
             dos.writeUTF(psw);
             dos.writeUTF(otp);
             success = dis.readBoolean();
+            response.put("std", sock);
+            response.put("vash", vash);
         } catch (Exception e) {
             e.printStackTrace();
         }
-        return success ? sock : null;
+        return response;
     }
-
     public static String getToken(Socket sock,String username){
         String token = null;
         try {
             DataInputStream dis = new DataInputStream(sock.getInputStream());
             DataOutputStream dos = new DataOutputStream(sock.getOutputStream());
-            commanderStart(dis, dos);
             dos.writeUTF("%reqtoken%");
             dos.writeUTF(username);
             token = dis.readUTF();
-            commanderEnd(dis, dos);
 
 
         } catch (Exception e) {
@@ -119,28 +125,15 @@ public class Functions {
         }
         return token;
     }
-
-    public static void close(Socket sock) {
-        try {
-            DataInputStream dis = new DataInputStream(sock.getInputStream());
-            DataOutputStream dos = new DataOutputStream(sock.getOutputStream());
-            commanderStart(dis, dos);
-            dos.writeUTF("%close%");
-        } catch (Exception e) {
-        }
-    }
-
     public static String requestKey(Socket sock) {
         String key = null;
         try {
             DataInputStream dis = new DataInputStream(sock.getInputStream());
             DataOutputStream dos = new DataOutputStream(sock.getOutputStream());
-            commanderStart(dis, dos);
             dos.writeUTF("%randomkey%");
             key = dis.readUTF();
             key = CryptoUtils.decryptString(key, token);
             assert key.length() == 16;
-            commanderEnd(dis, dos);
 
 
         } catch (Exception e) {
@@ -149,25 +142,6 @@ public class Functions {
         return key;
     }
 
-    public static boolean commanderStart(DataInputStream dis, DataOutputStream dos) {
-        try {
-            if (!dis.readUTF().equals("%listening%")) return false;
-            dos.writeUTF("%listening=ack%");
-        } catch (Exception e) {
-            return false;
-        }
-        return true;
-    }
-
-    public static boolean commanderEnd(DataInputStream dis, DataOutputStream dos) {
-        try {
-            if (!dis.readUTF().equals("%end%")) return false;
-            dos.writeUTF("%end=ack%");
-        } catch (Exception e) {
-            return false;
-        }
-        return true;
-    }
 
     static int getSize(byte[] buffer, long remaining) {
         try {
@@ -228,17 +202,15 @@ public class Functions {
             DataInputStream dis = new DataInputStream(sock.getInputStream());
             DataOutputStream dos = new DataOutputStream(sock.getOutputStream());
 
-            commanderStart(dis, dos);
             dos.writeUTF("%list-folders%");
             ObjectInputStream obj = new ObjectInputStream(sock.getInputStream());
             folders = (Set<Folder>) obj.readObject();
-            commanderEnd(dis, dos);
         } catch (Exception e) {
             e.printStackTrace();
         }
         return folders;
     }
-
+/*
     public static void sendFileToServer(String path, Folder parent) {
         File toSend = new File(path);
         Socket sock = null;
@@ -289,5 +261,5 @@ public class Functions {
         } catch (Exception e) {
             e.printStackTrace();
         }
-    }
+    }*/
 }

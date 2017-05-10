@@ -29,10 +29,9 @@ public class ClientThread extends Thread {
     private User user;
     private DataInputStream inStream;
     private DataOutputStream outStream;
-    private List<ClientThread> clientThreads;
 
-    public ClientThread(UUID uuid){
-        this.uuid=uuid;
+    public ClientThread(UUID uuid) {
+        this.uuid = uuid;
     }
 
     public Socket getStdSocket() {
@@ -69,62 +68,55 @@ public class ClientThread extends Thread {
             psw = inStream.readUTF();
             otp = inStream.readUTF();
             boolean result = false;
-            if(Settings.debug && otp.equals("%debug%")){
+            if (Settings.debug && otp.equals("%debug%")) {
                 result = true;
-            }else {
+            } else {
                 result = authenticate(usr, psw, otp);
             }
             outStream.writeBoolean(result);
-            if(!result)this.close();
+            if (!result) this.close();
             user = DataBank.getInstance().getUsers().stream().filter(user1 -> user1.getUsername().equals(usr)).findFirst().get();
-            Commander.setSocket(stdSocket);
-            String command = "null";
-            boolean keepLooping = true;
-            while(keepLooping){
-                Commander.startCommand();
-                command = inStream.readUTF();
-                switch (command){
-                    case "%reqtoken%":
-                        String usr_ = inStream.readUTF();
-                        User user_ = DataBank.getInstance().getUsers().stream().filter(user1 -> user1.getUsername().equals(usr)).findFirst().get();
-                        outStream.writeUTF(user_.getToken());
-                        break;
-                    case "%fileC2S%":
-                        saveFile(stdSocket);
-                        break;
-                    case "%list-folders%":
-                        ObjectOutputStream obj = new ObjectOutputStream(outStream);
-                        obj.writeObject(DataBank.getInstance().getFolders());
-                        obj.flush();
-                        break;
-                    case "%fileS2C":
-                        //TODO: Send file Server -> Client
-                        break;
-                    case "%null%":
-                        outStream.writeUTF("HelloWorld");
-                        break;
-                    case "%close%":
-                        keepLooping=false;
-                        this.close();
-                        break;
-                    case "%randomkey%":
-                        String key = CryptoUtils.generate16BitsKey();
-                        System.out.println(String.format("RANDOM KEY IS: %s", key));
-                        outStream.writeUTF(CryptoUtils.encryptString(key,user.getToken()));
-                        break;
-                }
-                if(keepLooping)Commander.endCommand();
+
+            String request = inStream.readUTF();
+            switch (request) {
+                case "%reqtoken%":
+                    String usr_ = inStream.readUTF();
+                    User user_ = DataBank.getInstance().getUsers().stream().filter(user1 -> user1.getUsername().equals(usr)).findFirst().get();
+                    outStream.writeUTF(user_.getToken());
+                    break;
+                case "%fileC2S%":
+                    saveFile(stdSocket);
+                    break;
+                case "%list-folders%":
+                    ObjectOutputStream obj = new ObjectOutputStream(outStream);
+                    obj.writeObject(DataBank.getInstance().getFolders());
+                    obj.flush();
+                    break;
+                case "%fileS2C":
+                    //TODO: Send file Server -> Client
+                    break;
+                case "%null%":
+                    outStream.writeUTF("HelloWorld");
+                    break;
+                case "%close%":
+                    this.close();
+                    break;
+                case "%randomkey%":
+                    String key = CryptoUtils.generate16BitsKey();
+                    System.out.println(String.format("RANDOM KEY IS: %s", key));
+                    outStream.writeUTF(CryptoUtils.encryptString(key, user.getToken()));
+                    break;
             }
-        } catch (Exception e) {
+        } catch (Exception e){
             e.printStackTrace();
         }
     }
 
     boolean authenticate(String usr, String psw, String otp) {
         Set<User> usersList = DataBank.getInstance().getUsers();
-        Map<String,User> users = new HashMap<>();
-        for(User x:usersList){
-            users.put(x.getUsername(),x);
+        Map<String, User> users = new HashMap<>();
+        for (User x : usersList) {
+            users.put(x.getUsername(), x);
         }
         if (users.containsKey(usr) && users.get(usr).getPassword().equals(Hashing.sha256()
                 .hashString(psw, StandardCharsets.UTF_8)
@@ -133,11 +125,9 @@ public class ClientThread extends Thread {
             VerificationResponse response = null;
             try {
                 response = client.verify(otp);
-            }
-            catch(IllegalArgumentException e){
+            } catch (IllegalArgumentException e) {
                 return false;
-            }
-            catch (YubicoVerificationException e) {
+            } catch (YubicoVerificationException e) {
                 e.printStackTrace();
             } catch (YubicoValidationFailure yubicoValidationFailure) {
                 yubicoValidationFailure.printStackTrace();
@@ -151,7 +141,8 @@ public class ClientThread extends Thread {
             return false;
         }
     }
-    void sendFile(String file){
+
+    void sendFile(String file) {
         try {
             File f = new File(file);
             outStream.writeUTF(file);
@@ -164,25 +155,27 @@ public class ClientThread extends Thread {
             }
 
             fis.close();
-        }catch(Exception e){
+        } catch (Exception e) {
             e.printStackTrace();
         }
 
     }
-    int getSize(byte[] buffer,long remaining){
+
+    int getSize(byte[] buffer, long remaining) {
         try {
             return Math.toIntExact(Math.min(((long) buffer.length), remaining));
-        }catch(ArithmeticException e){
+        } catch (ArithmeticException e) {
             return 4096;
         }
     }
+
     void saveFile(Socket clientSock) throws IOException {
         DataInputStream dis = new DataInputStream(clientSock.getInputStream());
         Folder container = DataBank.getInstance().getFoldersMap().get(UUID.fromString(dis.readUTF()));
         String fileName = dis.readUTF();
-        VaultFile vf = new VaultFile(fileName.replaceAll(".transfer",""),container);
+        VaultFile vf = new VaultFile(fileName.replaceAll(".transfer", ""), container);
         String path = FileSystem.createFile(vf);
-        File f = new File(path+"/"+fileName);
+        File f = new File(path + "/" + fileName);
         FileOutputStream fos = new FileOutputStream(f);
         byte[] buffer = new byte[4096];
 
@@ -191,7 +184,7 @@ public class ClientThread extends Thread {
         int totalRead = 0;
         long remaining = filesize;
 
-        while((read = dis.read(buffer, 0, getSize(buffer,remaining))) > 0) {
+        while ((read = dis.read(buffer, 0, getSize(buffer, remaining))) > 0) {
             totalRead += read;
             remaining -= read;
             System.out.println(read);
@@ -199,19 +192,19 @@ public class ClientThread extends Thread {
         }
 
         fos.close();
-        File toEnc = new File(f.getParent()+"\\"+f.getName().replaceAll(".transfer",""));
+        File toEnc = new File(f.getParent() + "\\" + f.getName().replaceAll(".transfer", ""));
 
         try {
-            String keyClear = CryptoUtils.decryptString(dis.readUTF(),user.getToken());
+            String keyClear = CryptoUtils.decryptString(dis.readUTF(), user.getToken());
             System.out.println(keyClear);
-            CryptoUtils.decryptFile(keyClear,f,toEnc);
+            CryptoUtils.decryptFile(keyClear, f, toEnc);
             Files.deleteIfExists(f.toPath());
         } catch (Exception e) {
             e.printStackTrace();
         }
-        File enc = new File(f.getParent()+"\\"+f.getName().replaceAll(".transfer",".encrypted"));
+        File enc = new File(f.getParent() + "\\" + f.getName().replaceAll(".transfer", ".encrypted"));
         try {
-            CryptoUtils.encryptFile(vf.getKey(),toEnc,enc);
+            CryptoUtils.encryptFile(vf.getKey(), toEnc, enc);
             System.out.println(String.format("KEY IS: %s", vf.getKey()));
         } catch (CryptoException e) {
             e.printStackTrace();
@@ -220,7 +213,7 @@ public class ClientThread extends Thread {
         DataBank bank = DataBank.getInstance();
         vf.setEncrypted(true);
         vf.setEncryptedFile(enc);
-        if(!bank.getFiles().add(vf)){
+        if (!bank.getFiles().add(vf)) {
             bank.getFiles().remove(vf);
             bank.getFiles().add(vf);
         }
@@ -228,24 +221,22 @@ public class ClientThread extends Thread {
         bank.saveFolders();
     }
 
-    void close(){
+    void close() {
         try {
-            outStream.writeUTF("exit");
             stdSocket.shutdownInput();
             stdSocket.shutdownOutput();
             inStream.close();
             outStream.close();
             stdSocket.close();
-        }catch(Exception e){
-            System.out.println("Error closing socket "+stdSocket);
+            vashSocket.shutdownInput();
+            vashSocket.shutdownOutput();
+            vashSocket.close();
+        } catch (Exception e) {
+            System.out.println("Error closing socket " + stdSocket);
             e.printStackTrace();
-        }finally{
+        } finally {
             //clientThreads.remove(this);
             this.interrupt();
         }
-    }
-
-    boolean checkConn(){
-        return !stdSocket.isClosed();
     }
 }
