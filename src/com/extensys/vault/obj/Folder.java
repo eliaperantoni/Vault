@@ -1,5 +1,6 @@
 package com.extensys.vault.obj;
 
+import com.extensys.vault.Colors;
 import com.extensys.vault.DataBank;
 
 import javax.xml.crypto.Data;
@@ -145,7 +146,7 @@ public class Folder implements Serializable, HasId {
         for(VaultFile x: this.getFiles()){
 
             if(x.getParentFolder().equals(this)){
-                list.add(new TreeNode(x.getFileName(),new ArrayList<>()));
+                list.add(new TreeNode(Colors.ANSI_CYAN+x.getFileName()+Colors.ANSI_RESET,new ArrayList<>()));
             }
         }
         return list;
