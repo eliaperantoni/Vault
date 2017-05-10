@@ -127,5 +127,14 @@ public class Folder implements Serializable, HasId {
         return false;
     }
 
+    public List<TreeNode> toNodeList(){
+        List<TreeNode> list = new ArrayList<>();
+        for(Folder x:this.getChildren()){
+            list.add(new TreeNode("F: "+x.getName(), x.toNodeList()));
+        }
+        Set<VaultFile> files = DataBank.getInstance().getFiles();
+        System.out.println(files.size());
+        return list;
+    }
 }
 

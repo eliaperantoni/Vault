@@ -92,6 +92,11 @@ public class ClientThread extends Thread {
                     obj.writeObject(DataBank.getInstance().getFolders());
                     obj.flush();
                     break;
+                case "%list-files%":
+                    ObjectOutputStream obj_ = new ObjectOutputStream(outStream);
+                    obj_.writeObject(DataBank.getInstance().getFiles());
+                    obj_.flush();
+                    break;
                 case "%fileS2C":
                     //TODO: Send file Server -> Client
                     break;

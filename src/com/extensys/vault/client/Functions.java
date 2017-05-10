@@ -2,6 +2,8 @@ package com.extensys.vault.client;
 
 import com.extensys.vault.crypto.CryptoUtils;
 import com.extensys.vault.obj.Folder;
+import com.extensys.vault.obj.TreeNode;
+import com.extensys.vault.obj.VaultFile;
 import com.google.common.base.MoreObjects;
 
 import java.io.*;
@@ -57,6 +59,11 @@ public class Functions {
                 case "key":
                     System.out.println(requestKey(sock));
                     break;
+                case "lfi":
+                    for(VaultFile x:listFiles(sock)){
+                        System.out.println(x.getFileName());
+                    }
+                    break;
                 case "sout":
                     boolean showPassword;
                     try {
@@ -109,14 +116,38 @@ public class Functions {
                         break;
                     }
                     break;
-                case "test":
-                    sendFileToServer("C:\\Users\\extensys\\Desktop\\link.txt",listFolders(connect().get("std")).stream().filter(folder -> folder.getName().equals("root")).findFirst().get());
+                case "tree":
+                    Set<Folder> folders = listFolders(connect().get("std"));
+                    Folder root = folders.stream().filter(folder -> folder.getName().equals("root")).findFirst().get();
+                    //Set<VaultFile> files = listFiles(connect().get("std"));
+
+                    TreeNode rootNode = new TreeNode("F: "+root.getName(),root.toNodeList());
+                    rootNode.print();
+                    break;
+                default:
+                    System.out.println("Command not found");
                     break;
             }
             System.out.print("~ ");
         }
         //sendFileToServer("C:/Users/extensys/Desktop/Screenshot_1.png", listFolders(sock).stream().filter(folder -> folder.getName().equals("root")).findFirst().get());
     }
+
+    public static Set<VaultFile> listFiles(Socket sock) {
+        Set<VaultFile> files = null;
+        try {
+            DataInputStream dis = new DataInputStream(sock.getInputStream());
+            DataOutputStream dos = new DataOutputStream(sock.getOutputStream());
+
+            dos.writeUTF("%list-files%");
+            ObjectInputStream obj = new ObjectInputStream(sock.getInputStream());
+            files = (Set<VaultFile>) obj.readObject();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return files;
+    }
+
 
     public static String ping(Socket sock){
         String resp = "";
