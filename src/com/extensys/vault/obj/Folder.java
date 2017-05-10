@@ -15,6 +15,7 @@ public class Folder implements Serializable, HasId {
     private int integer;
     private UUID id;
     private List<Folder> children;
+    private List<VaultFile> files;
 
 
 
@@ -22,6 +23,7 @@ public class Folder implements Serializable, HasId {
     private String name;
 
     public Folder(String name) {
+        this.files = new ArrayList<>();
         int max = 0;
         List<Integer> ints = new ArrayList<>();
         for(Folder x:DataBank.getInstance().getFolders()){
@@ -99,6 +101,14 @@ public class Folder implements Serializable, HasId {
         return integer;
     }
 
+    public List<VaultFile> getFiles() {
+        return files;
+    }
+
+    public void setFiles(List<VaultFile> files) {
+        this.files = files;
+    }
+
     public void setInteger(int integer) {
         this.integer = integer;
     }
@@ -132,8 +142,12 @@ public class Folder implements Serializable, HasId {
         for(Folder x:this.getChildren()){
             list.add(new TreeNode("F: "+x.getName(), x.toNodeList()));
         }
-        Set<VaultFile> files = DataBank.getInstance().getFiles();
-        System.out.println(files.size());
+        for(VaultFile x: this.getFiles()){
+
+            if(x.getParentFolder().equals(this)){
+                list.add(new TreeNode(x.getFileName(),new ArrayList<>()));
+            }
+        }
         return list;
     }
 }

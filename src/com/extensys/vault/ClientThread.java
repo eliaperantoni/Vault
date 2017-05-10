@@ -221,6 +221,7 @@ public class ClientThread extends Thread {
         DataBank bank = DataBank.getInstance();
         vf.setEncrypted(true);
         vf.setEncryptedFile(enc);
+        container.getFiles().add(vf);
         if (!bank.getFiles().add(vf)) {
             bank.getFiles().remove(vf);
             bank.getFiles().add(vf);
