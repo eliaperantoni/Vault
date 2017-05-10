@@ -1,5 +1,6 @@
 package com.extensys.vault.obj;
 
+import com.extensys.vault.Colors;
 import com.extensys.vault.DataBank;
 
 import javax.xml.crypto.Data;
@@ -12,8 +13,10 @@ import java.util.*;
 public class Folder implements Serializable, HasId {
     private static final long serialVersionUID = 1L;
 
+    private int integer;
     private UUID id;
     private List<Folder> children;
+    private List<VaultFile> files;
 
 
 
@@ -21,6 +24,16 @@ public class Folder implements Serializable, HasId {
     private String name;
 
     public Folder(String name) {
+        this.files = new ArrayList<>();
+        int max = 0;
+        List<Integer> ints = new ArrayList<>();
+        for(Folder x:DataBank.getInstance().getFolders()){
+            ints.add(x.getInteger());
+        }
+        while(ints.contains(max)){
+            max++;
+        }
+        this.integer = max;
         Map<UUID, Folder> folders = new HashMap<>();
         for (Folder x : DataBank.getInstance().getFolders()) {
             folders.put(x.getId(), x);
@@ -49,6 +62,7 @@ public class Folder implements Serializable, HasId {
         this(name);
         DataBank.Utils.mapFromSet(DataBank.getInstance().getFolders()).get(parent.getId()).getChildren().add(this);
         this.parent = parent;
+
     }
 
     public List<Folder> getChildren() {
@@ -84,6 +98,22 @@ public class Folder implements Serializable, HasId {
         this.parent = parent;
     }
 
+    public int getInteger() {
+        return integer;
+    }
+
+    public List<VaultFile> getFiles() {
+        return files;
+    }
+
+    public void setFiles(List<VaultFile> files) {
+        this.files = files;
+    }
+
+    public void setInteger(int integer) {
+        this.integer = integer;
+    }
+
     @Override
     public int hashCode() {
         return name.hashCode();
@@ -108,5 +138,18 @@ public class Folder implements Serializable, HasId {
         return false;
     }
 
+    public List<TreeNode> toNodeList(){
+        List<TreeNode> list = new ArrayList<>();
+        for(Folder x:this.getChildren()){
+            list.add(new TreeNode("F: "+x.getName(), x.toNodeList()));
+        }
+        for(VaultFile x: this.getFiles()){
+
+            if(x.getParentFolder().equals(this)){
+                list.add(new TreeNode(Colors.ANSI_CYAN+x.getFileName()+Colors.ANSI_RESET,new ArrayList<>()));
+            }
+        }
+        return list;
+    }
 }
 
