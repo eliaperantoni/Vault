@@ -121,7 +121,7 @@ public class Functions {
                     Folder root = folders.stream().filter(folder -> folder.getName().equals("root")).findFirst().get();
                     //Set<VaultFile> files = listFiles(connect().get("std"));
 
-                    TreeNode rootNode = new TreeNode("F: "+root.getName(),root.toNodeList());
+                    TreeNode rootNode = new TreeNode(String.format("F %s: ", root.getInteger())+root.getName(),root.toNodeList());
                     rootNode.print();
                     break;
                 default:

@@ -7,6 +7,7 @@ import com.google.common.hash.Hashing;
 import com.google.common.io.ByteSource;
 import com.google.common.io.Files;
 import org.apache.commons.codec.binary.Base64;
+import org.encryptor4j.util.FileEncryptor;
 import org.jasypt.util.text.BasicTextEncryptor;
 
 import java.io.*;
@@ -28,12 +29,14 @@ public class CryptoUtils {
 
     public static void encryptFile(String key, File inputFile, File outputFile)
             throws CryptoException {
-        doCrypto(Cipher.ENCRYPT_MODE, key, inputFile, outputFile);
+        encryptFile4j(key,inputFile,outputFile);
+        //doCrypto(Cipher.ENCRYPT_MODE, key, inputFile, outputFile);
     }
 
     public static void decryptFile(String key, File inputFile, File outputFile)
             throws CryptoException {
-        doCrypto(Cipher.DECRYPT_MODE, key, inputFile, outputFile);
+        decryptFile4j(key,inputFile,outputFile);
+        //doCrypto(Cipher.DECRYPT_MODE, key, inputFile, outputFile);
     }
 
     private static void doCrypto(int cipherMode, String key, File inputFile,
@@ -90,5 +93,27 @@ public class CryptoUtils {
 
     public static String calculateMD5(String f) {
         return calculateMD5(new File(f));
+    }
+
+    public static void encryptFile4j(String key, File in, File out){
+        FileEncryptor fe = new FileEncryptor(key);
+        try {
+            fe.encrypt(in, out);
+        } catch (GeneralSecurityException e) {
+            e.printStackTrace();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
+    public static void decryptFile4j(String key, File in, File out){
+        FileEncryptor fe = new FileEncryptor(key);
+        try {
+            fe.decrypt(in,out);
+        } catch (GeneralSecurityException e) {
+            e.printStackTrace();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
     }
 }

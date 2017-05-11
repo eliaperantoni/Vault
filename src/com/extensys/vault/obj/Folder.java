@@ -141,7 +141,7 @@ public class Folder implements Serializable, HasId {
     public List<TreeNode> toNodeList(){
         List<TreeNode> list = new ArrayList<>();
         for(Folder x:this.getChildren()){
-            list.add(new TreeNode("F: "+x.getName(), x.toNodeList()));
+            list.add(new TreeNode(String.format("F %s: ", x.integer)+x.getName(), x.toNodeList()));
         }
         for(VaultFile x: this.getFiles()){
 
