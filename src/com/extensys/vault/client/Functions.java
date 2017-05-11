@@ -128,22 +128,7 @@ public class Functions {
                     }
                     break;
                 case "tree":
-                    Set<Folder> folders = listFolders(connect().get("std"));
-                    for(Folder x:folders){
-                        x.setFiles(new ArrayList<>());
-                    }
-                    for(VaultFile x: listFiles(connect().get("std"))){
-                        for(Folder y: folders){
-                            if(x.getParentFolder().equals(y)){
-                                y.getFiles().add(x);
-                            }
-                        }
-                    }
-                    Folder root = folders.stream().filter(folder -> folder.getName().equals("root")).findFirst().get();
-                    //Set<VaultFile> files = listFiles(connect().get("std"));
-
-                    TreeNode rootNode = new TreeNode(String.format("F %s: ", root.getInteger()) + root.getName(), root.toNodeList());
-                    rootNode.print();
+                    prepareTree(sock).print();
                     break;
                 default:
                     System.out.println("Command not found");
@@ -152,6 +137,25 @@ public class Functions {
             System.out.print("~ ");
         }
         //sendFileToServer("C:/Users/extensys/Desktop/Screenshot_1.png", listFolders(sock).stream().filter(folder -> folder.getName().equals("root")).findFirst().get());
+    }
+
+    public static TreeNode prepareTree(Socket sock){
+        Set<Folder> folders = listFolders(sock);
+        for(Folder x:folders){
+            x.setFiles(new ArrayList<>());
+        }
+        for(VaultFile x: listFiles(connect().get("std"))){
+            for(Folder y: folders){
+                if(x.getParentFolder().equals(y)){
+                    y.getFiles().add(x);
+                }
+            }
+        }
+        Folder root = folders.stream().filter(folder -> folder.getName().equals("root")).findFirst().get();
+        //Set<VaultFile> files = listFiles(connect().get("std"));
+
+        TreeNode rootNode = new TreeNode(String.format("F %s: ", root.getInteger()) + root.getName(), root.toNodeList());
+        return rootNode;
     }
 
     public static void deleteFile(Socket sock, int id, String name){
