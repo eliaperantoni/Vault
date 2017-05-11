@@ -256,7 +256,7 @@ public class Functions {
         return key;
     }
 
-    static int getSize(byte[] buffer, long remaining) {
+    public static int getSize(byte[] buffer, long remaining) {
         try {
             return Math.toIntExact(Math.min(((long) buffer.length), remaining));
         } catch (ArithmeticException e) {
@@ -264,7 +264,7 @@ public class Functions {
         }
     }
 
-    static void downloadFile(Socket clientSock, DataInputStream dis) throws IOException {
+    public static void downloadFile(Socket clientSock, DataInputStream dis) throws IOException {
 
         String fileName = dis.readUTF();
         File f = new File(fileName);
