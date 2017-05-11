@@ -131,9 +131,12 @@ public class Folder implements Serializable, HasId {
         Folder f = (Folder) obj;
         if(this.id.equals(f.getId())){
             return true;
-        }
+        }try{
         if(this.parent.getId().equals(f.getParent().getId()) && this.name.equals(f.getName())){
             return true;
+        }}catch(NullPointerException e){
+
+            return false;
         }
         return false;
     }

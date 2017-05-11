@@ -71,7 +71,11 @@ public class ClientThread extends Thread {
             if (Settings.debug && otp.equals("%debug%")) {
                 result = true;
             } else {
-                result = authenticate(usr, psw, otp);
+                try {
+                    result = authenticate(usr, psw, otp);
+                }catch (Exception e){
+                    result = false;
+                }
             }
             outStream.writeBoolean(result);
             if (!result) this.close();
@@ -86,6 +90,18 @@ public class ClientThread extends Thread {
                     break;
                 case "%fileC2S%":
                     saveFile(stdSocket);
+                    break;
+                case "%delete-file%":
+                    int id = inStream.readInt();
+                    String name = inStream.readUTF();
+                    System.out.println(String.format("Deleting file %s in folder %d", name, id));
+                    DataBank.getInstance().getFiles().remove(DataBank.getInstance().getFiles().stream().filter(
+                            vaultFile -> vaultFile.getFileName().equals(name) && vaultFile.getParentFolder()
+                                    .equals(DataBank.getInstance().getFolders().stream().filter(
+                                            folder -> folder.getInteger() == id
+                                    ).findFirst().get())
+                    ).findFirst().get());
+
                     break;
                 case "%list-folders%":
                     ObjectOutputStream obj = new ObjectOutputStream(outStream);
@@ -115,7 +131,7 @@ public class ClientThread extends Thread {
                     outStream.writeUTF(CryptoUtils.encryptString(key, user.getToken()));
                     break;
             }
-        } catch (Exception e){
+        } catch (Exception e) {
             e.printStackTrace();
         }
     }

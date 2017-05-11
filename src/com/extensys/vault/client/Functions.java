@@ -34,7 +34,7 @@ public class Functions {
             System.out.println("OTP: ");
             otp = scan.nextLine();
         }
-        if(!ping(connect().get("std")).equals("pong"))System.exit(1);
+        if (!ping(connect().get("std")).equals("pong")) System.exit(1);
 
         String inp;
         System.out.print("~ ");
@@ -53,14 +53,14 @@ public class Functions {
                     } catch (Exception e) {
                         useUsr = false;
                     }
-                    String out = useUsr ? getToken(sock,usr) : getToken(sock,inp.split(" ")[1]);
+                    String out = useUsr ? getToken(sock, usr) : getToken(sock, inp.split(" ")[1]);
                     System.out.println(out);
                     break;
                 case "key":
                     System.out.println(requestKey(sock));
                     break;
                 case "lfi":
-                    for(VaultFile x:listFiles(sock)){
+                    for (VaultFile x : listFiles(sock)) {
                         System.out.println(x.getFileName());
                     }
                     break;
@@ -90,26 +90,37 @@ public class Functions {
                         } catch (NullPointerException e) {
                             parentName = "";
                         }
-                        System.out.println(String.format("Folder: {Id: %s, Name: %s, Parent: %s, Children count: %s}", String.valueOf(x.getInteger()),  x.getName(), parentName, String.valueOf(x.getChildren().size())));
+                        System.out.println(String.format("Folder: {Id: %s, Name: %s, Parent: %s, Children count: %s}", String.valueOf(x.getInteger()), x.getName(), parentName, String.valueOf(x.getChildren().size())));
                     }
                     break;
                 case "folderinfo":
                     try {
                         final int id = Integer.valueOf(inp.split(" ")[1]);
-                        Folder f= listFolders(connect().get("std")).stream().filter(folder -> folder.getInteger()==id).findFirst().get();
+                        Folder f = listFolders(connect().get("std")).stream().filter(folder -> folder.getInteger() == id).findFirst().get();
                         System.out.println("WIP");
-                    }catch (Exception e){
+                    } catch (Exception e) {
                         System.out.println("No such id");
                     }
                     break;
-                case "sendfile":
+                case "upload":
 
 
                     try {
                         final int id = Integer.valueOf(inp.split(" ")[1]);
 
                         String filepath = inp.split(" ")[2];
-                        sendFileToServer(filepath,listFolders(connect().get("std")).stream().filter(folder -> folder.getInteger()==id).findFirst().get());
+                        uploadFile(filepath, listFolders(connect().get("std")).stream().filter(folder -> folder.getInteger() == id).findFirst().get());
+                    } catch (Exception e) {
+                        e.printStackTrace();
+
+                        break;
+                    }
+                    break;
+                case "delfile":
+                    try {
+                        final int id = Integer.valueOf(inp.split(" ")[1]);
+                        String filename = inp.split(" ")[2];
+                        deleteFile(sock,id,filename);
                     } catch (Exception e) {
                         e.printStackTrace();
 
@@ -118,10 +129,20 @@ public class Functions {
                     break;
                 case "tree":
                     Set<Folder> folders = listFolders(connect().get("std"));
+                    for(Folder x:folders){
+                        x.setFiles(new ArrayList<>());
+                    }
+                    for(VaultFile x: listFiles(connect().get("std"))){
+                        for(Folder y: folders){
+                            if(x.getParentFolder().equals(y)){
+                                y.getFiles().add(x);
+                            }
+                        }
+                    }
                     Folder root = folders.stream().filter(folder -> folder.getName().equals("root")).findFirst().get();
                     //Set<VaultFile> files = listFiles(connect().get("std"));
 
-                    TreeNode rootNode = new TreeNode(String.format("F %s: ", root.getInteger())+root.getName(),root.toNodeList());
+                    TreeNode rootNode = new TreeNode(String.format("F %s: ", root.getInteger()) + root.getName(), root.toNodeList());
                     rootNode.print();
                     break;
                 default:
@@ -131,6 +152,17 @@ public class Functions {
             System.out.print("~ ");
         }
         //sendFileToServer("C:/Users/extensys/Desktop/Screenshot_1.png", listFolders(sock).stream().filter(folder -> folder.getName().equals("root")).findFirst().get());
+    }
+
+    public static void deleteFile(Socket sock, int id, String name){
+        try {
+            DataOutputStream dos = new DataOutputStream(sock.getOutputStream());
+            dos.writeUTF("%delete-file%");
+            dos.writeInt(id);
+            dos.writeUTF(name);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
     }
 
     public static Set<VaultFile> listFiles(Socket sock) {
@@ -148,8 +180,7 @@ public class Functions {
         return files;
     }
 
-
-    public static String ping(Socket sock){
+    public static String ping(Socket sock) {
         String resp = "";
         try {
             new DataOutputStream(sock.getOutputStream()).writeUTF("%ping%");
@@ -179,7 +210,7 @@ public class Functions {
             dos.writeUTF(psw);
             dos.writeUTF(otp);
             success = dis.readBoolean();
-            if(success)response.put("allgood",null);
+            if (success) response.put("allgood", null);
             response.put("std", sock);
             response.put("vash", vash);
         } catch (Exception e) {
@@ -187,7 +218,8 @@ public class Functions {
         }
         return response;
     }
-    public static String getToken(Socket sock,String username){
+
+    public static String getToken(Socket sock, String username) {
         String token = null;
         try {
             DataInputStream dis = new DataInputStream(sock.getInputStream());
@@ -202,6 +234,7 @@ public class Functions {
         }
         return token;
     }
+
     public static String requestKey(Socket sock) {
         String key = null;
         try {
@@ -219,7 +252,6 @@ public class Functions {
         return key;
     }
 
-
     static int getSize(byte[] buffer, long remaining) {
         try {
             return Math.toIntExact(Math.min(((long) buffer.length), remaining));
@@ -228,30 +260,7 @@ public class Functions {
         }
     }
 
-    static void sendFile(String file, DataOutputStream outStream, String parentUUID) {
-        try {
-
-            File f = new File(file);
-            System.out.println(String.format("File size is: %s", String.valueOf(f.length())));
-            outStream.writeUTF(parentUUID);
-            outStream.writeUTF(f.getName());
-            outStream.writeLong(f.length());
-            FileInputStream fis = new FileInputStream(f);
-            byte[] buffer = new byte[4096];
-            int count;
-            while ((count = fis.read(buffer)) > 0) {
-                outStream.write(buffer, 0, count);
-                System.out.println(count);
-            }
-
-            fis.close();
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-
-    }
-
-    static void saveFile(Socket clientSock, DataInputStream dis) throws IOException {
+    static void downloadFile(Socket clientSock, DataInputStream dis) throws IOException {
 
         String fileName = dis.readUTF();
         File f = new File(fileName);
@@ -273,6 +282,52 @@ public class Functions {
         fos.close();
     }
 
+    public static void uploadFile(String path, Folder parent) {
+        File toSend = new File(path).getAbsoluteFile();
+        try {
+
+            String key = requestKey(connect().get("std"));
+            System.out.println(key);
+            String keyTokenized = CryptoUtils.encryptString(key, token);
+            System.out.println(keyTokenized);
+
+            File toSendEnc = new File(toSend.getParent() + "\\" + toSend.getName() + ".transfer");
+            CryptoUtils.encryptFile(key, toSend, toSendEnc);
+            Socket sock = connect().get("std");
+            DataOutputStream dos = new DataOutputStream(sock.getOutputStream());
+            dos.writeUTF("%fileC2S%");
+            //sendFile(toSendEnc.getAbsolutePath(), dos, parent.getId().toString());
+            String file = toSendEnc.getAbsolutePath();
+            DataOutputStream outStream = dos;
+            String parentUUID = parent.getId().toString();
+            try {
+
+                File f = new File(file);
+                System.out.println(String.format("File size is: %s", String.valueOf(f.length())));
+                outStream.writeUTF(parentUUID);
+                outStream.writeUTF(f.getName());
+                outStream.writeLong(f.length());
+                FileInputStream fis = new FileInputStream(f);
+                byte[] buffer = new byte[4096];
+                int count;
+                while ((count = fis.read(buffer)) > 0) {
+                    outStream.write(buffer, 0, count);
+                    System.out.println(count);
+                }
+
+                fis.close();
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+            dos.writeUTF(keyTokenized);
+            Files.deleteIfExists(toSendEnc.toPath());
+
+
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+
     public static Set<Folder> listFolders(Socket sock) {
         Set<Folder> folders = null;
         try {
@@ -286,30 +341,5 @@ public class Functions {
             e.printStackTrace();
         }
         return folders;
-    }
-
-    public static void sendFileToServer(String path, Folder parent) {
-        File toSend = new File(path);
-        try {
-
-            String key = requestKey(connect().get("std"));
-            System.out.println(key);
-            String keyTokenized = CryptoUtils.encryptString(key, token);
-            System.out.println(keyTokenized);
-
-            File toSendEnc = new File(toSend.getParent() + "\\" + toSend.getName() + ".transfer");
-            CryptoUtils.encryptFile(key, toSend, toSendEnc);
-            Socket sock = connect().get("std");
-            DataOutputStream dos = new DataOutputStream(sock.getOutputStream());
-            dos.writeUTF("%fileC2S%");
-            sendFile(toSendEnc.getAbsolutePath(), dos, parent.getId().toString());
-            dos.writeUTF(keyTokenized);
-            Files.deleteIfExists(toSendEnc.toPath());
-
-
-
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
     }
 }
