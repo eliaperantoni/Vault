@@ -1,5 +1,6 @@
 package com.extensys.vault.client;
 
+import com.extensys.vault.Colors;
 import com.extensys.vault.crypto.CryptoUtils;
 import com.extensys.vault.obj.Folder;
 import com.extensys.vault.obj.TreeNode;
@@ -39,14 +40,18 @@ public class Functions {
         String inp;
         System.out.print("~ ");
         while (!((inp = scan.nextLine()).equals("exit"))) {
-            Map<String, Socket> response = connect();
-            Socket sock = response.get("std");
-            Socket vash = response.get("vash");
             switch (inp.split(" ")[0]) {
-                case "ping":
+                case "ping": {
+                    Map<String, Socket> response = connect();
+                    Socket sock = response.get("std");
+                    Socket vash = response.get("vash");
                     System.out.println(ping(sock));
                     break;
-                case "reqtok":
+                }
+                case "reqtok": {
+                    Map<String, Socket> response = connect();
+                    Socket sock = response.get("std");
+                    Socket vash = response.get("vash");
                     boolean useUsr;
                     try {
                         useUsr = inp.split(" ")[1].equals("-s");
@@ -56,15 +61,27 @@ public class Functions {
                     String out = useUsr ? getToken(sock, usr) : getToken(sock, inp.split(" ")[1]);
                     System.out.println(out);
                     break;
-                case "key":
+                }
+                case "key": {
+                    Map<String, Socket> response = connect();
+                    Socket sock = response.get("std");
+                    Socket vash = response.get("vash");
                     System.out.println(requestKey(sock));
                     break;
-                case "lfi":
+                }
+                case "lfi": {
+                    Map<String, Socket> response = connect();
+                    Socket sock = response.get("std");
+                    Socket vash = response.get("vash");
                     for (VaultFile x : listFiles(sock)) {
                         System.out.println(x.getFileName());
                     }
                     break;
-                case "sout":
+                }
+                case "sout": {
+                    Map<String, Socket> response = connect();
+                    Socket sock = response.get("std");
+                    Socket vash = response.get("vash");
                     boolean showPassword;
                     try {
                         showPassword = inp.split(" ")[1].equals("-p");
@@ -80,7 +97,11 @@ public class Functions {
                     System.out.println(vash);
 
                     break;
-                case "lf":
+                }
+                case "lf": {
+                    Map<String, Socket> response = connect();
+                    Socket sock = response.get("std");
+                    Socket vash = response.get("vash");
                     for (Folder x : listFolders(sock)) {
                         Folder parent = x.getParent();
                         String parentName;
@@ -93,6 +114,7 @@ public class Functions {
                         System.out.println(String.format("Folder: {Id: %s, Name: %s, Parent: %s, Children count: %s}", String.valueOf(x.getInteger()), x.getName(), parentName, String.valueOf(x.getChildren().size())));
                     }
                     break;
+                }
                 case "folderinfo":
                     try {
                         final int id = Integer.valueOf(inp.split(" ")[1]);
@@ -116,26 +138,36 @@ public class Functions {
                         break;
                     }
                     break;
-                case "delfile":
+                case "delfile": {
+                    Map<String, Socket> response = connect();
+                    Socket sock = response.get("std");
+                    Socket vash = response.get("vash");
                     try {
                         final int id = Integer.valueOf(inp.split(" ")[1]);
                         String filename = inp.split(" ")[2];
-                        deleteFile(sock,id,filename);
+                        deleteFile(sock, id, filename);
                     } catch (Exception e) {
                         e.printStackTrace();
 
                         break;
                     }
                     break;
-                case "tree":
+                }
+                case "tree": {
+                    Map<String, Socket> response = connect();
+                    Socket sock = response.get("std");
+                    Socket vash = response.get("vash");
                     prepareTree(sock).print();
                     break;
+                }
                 default:
                     System.out.println("Command not found");
                     break;
             }
             System.out.print("~ ");
         }
+        System.out.println(Colors.ANSI_RED+"EXITING"+Colors.ANSI_RESET);
+
         //sendFileToServer("C:/Users/extensys/Desktop/Screenshot_1.png", listFolders(sock).stream().filter(folder -> folder.getName().equals("root")).findFirst().get());
     }
 

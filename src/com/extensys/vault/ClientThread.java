@@ -101,7 +101,7 @@ public class ClientThread extends Thread {
                                             folder -> folder.getInteger() == id
                                     ).findFirst().get())
                     ).findFirst().get());
-
+                    DataBank.getInstance().saveAll();
                     break;
                 case "%list-folders%":
                     ObjectOutputStream obj = new ObjectOutputStream(outStream);
