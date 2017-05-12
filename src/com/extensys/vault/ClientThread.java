@@ -123,7 +123,7 @@ public class ClientThread extends Thread {
                     outStream.writeUTF("HelloWorld");
                     break;
                 case "%close%":
-                    this.close();
+                    //this.close();
                     break;
                 case "%randomkey%":
                     String key = CryptoUtils.generate16BitsKey();
@@ -134,6 +134,8 @@ public class ClientThread extends Thread {
         } catch (Exception e) {
             e.printStackTrace();
         }
+        try{
+        close();}catch(Exception e){}
     }
 
     boolean authenticate(String usr, String psw, String otp) {

@@ -95,7 +95,11 @@ public class Functions {
                             token));
                     System.out.println(sock);
                     System.out.println(vash);
-
+                    try {
+                        new DataOutputStream(sock.getOutputStream()).writeUTF("%close%");
+                    } catch (IOException e) {
+                        e.printStackTrace();
+                    }
                     break;
                 }
                 case "lf": {
