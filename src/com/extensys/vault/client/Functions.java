@@ -1,6 +1,7 @@
 package com.extensys.vault.client;
 
 import com.extensys.vault.Colors;
+import com.extensys.vault.crypto.CryptoException;
 import com.extensys.vault.crypto.CryptoUtils;
 import com.extensys.vault.obj.Folder;
 import com.extensys.vault.obj.TreeNode;
@@ -142,6 +143,27 @@ public class Functions {
                         break;
                     }
                     break;
+                case "download":{
+                    try {
+                        int len = inp.split(" ").length;
+                        final int id = Integer.valueOf(inp.split(" ")[1]);
+                        String filename = inp.split(" ")[2];
+                        String path = null;
+                        if(len>3){
+                            path = inp.split(" ")[3];
+                            downloadFile(filename,listFolders(connect().get("std")).stream().filter(folder ->
+                                    folder.getInteger()==id).findFirst().get(),path);
+                        }else{
+                            downloadFile(filename,listFolders(connect().get("std")).stream().filter(folder ->
+                                    folder.getInteger()==id).findFirst().get());
+                        }
+                    } catch (Exception e) {
+                        e.printStackTrace();
+
+                        break;
+                    }
+                    break;
+                }
                 case "delfile": {
                     Map<String, Socket> response = connect();
                     Socket sock = response.get("std");
@@ -170,19 +192,19 @@ public class Functions {
             }
             System.out.print("~ ");
         }
-        System.out.println(Colors.ANSI_RED+"EXITING"+Colors.ANSI_RESET);
+        System.out.println(Colors.ANSI_RED + "EXITING" + Colors.ANSI_RESET);
 
         //sendFileToServer("C:/Users/extensys/Desktop/Screenshot_1.png", listFolders(sock).stream().filter(folder -> folder.getName().equals("root")).findFirst().get());
     }
 
-    public static TreeNode prepareTree(Socket sock){
+    public static TreeNode prepareTree(Socket sock) {
         Set<Folder> folders = listFolders(sock);
-        for(Folder x:folders){
+        for (Folder x : folders) {
             x.setFiles(new ArrayList<>());
         }
-        for(VaultFile x: listFiles(connect().get("std"))){
-            for(Folder y: folders){
-                if(x.getParentFolder().equals(y)){
+        for (VaultFile x : listFiles(connect().get("std"))) {
+            for (Folder y : folders) {
+                if (x.getParentFolder().equals(y)) {
                     y.getFiles().add(x);
                 }
             }
@@ -194,7 +216,7 @@ public class Functions {
         return rootNode;
     }
 
-    public static void deleteFile(Socket sock, int id, String name){
+    public static void deleteFile(Socket sock, int id, String name) {
         try {
             DataOutputStream dos = new DataOutputStream(sock.getOutputStream());
             dos.writeUTF("%delete-file%");
@@ -300,10 +322,18 @@ public class Functions {
         }
     }
 
-    public static void downloadFile(Socket clientSock, DataInputStream dis) throws IOException {
-
-        String fileName = dis.readUTF();
-        File f = new File(fileName);
+    public static void downloadFile(String filename, Folder parent, String whereToDownload) throws IOException {
+        if(whereToDownload!=""){
+            whereToDownload+="\\";
+        }
+        Socket sock = connect().get("std");
+        DataInputStream dis = new DataInputStream(sock.getInputStream());
+        DataOutputStream dos = new DataOutputStream(sock.getOutputStream());
+        dos.writeUTF("%fileS2C");
+        dos.writeUTF(parent.getId().toString());
+        dos.writeUTF(filename);
+        //Socket clientSock, DataInputStream dis
+        File f = new File(whereToDownload+filename+".encrypted");
         FileOutputStream fos = new FileOutputStream(f);
         byte[] buffer = new byte[4096];
 
@@ -318,8 +348,21 @@ public class Functions {
             System.out.println("read " + totalRead + " bytes.");
             fos.write(buffer, 0, read);
         }
-
         fos.close();
+        VaultFile vf = listFiles(connect().get("std")).stream().filter(vaultFile -> vaultFile.getParentFolder().equals(parent)
+                && vaultFile.getFileName().equals(filename)).findFirst().get();
+        File fc = new File(whereToDownload+filename);
+        try {
+            CryptoUtils.decryptFile(vf.getKey(),f,fc);
+            Files.deleteIfExists(f.toPath());
+        } catch (CryptoException e) {
+            e.printStackTrace();
+        }
+    }
+
+    public static void downloadFile(String filename, Folder parent) throws IOException {
+        downloadFile(filename,parent,"");
+
     }
 
     public static void uploadFile(String path, Folder parent) {

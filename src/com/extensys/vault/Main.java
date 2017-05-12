@@ -1,6 +1,7 @@
 package com.extensys.vault;
 
 import com.extensys.vault.obj.User;
+import com.extensys.vault.obj.VaultFile;
 
 import javax.xml.crypto.Data;
 import java.io.DataInputStream;

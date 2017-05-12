@@ -73,7 +73,7 @@ public class ClientThread extends Thread {
             } else {
                 try {
                     result = authenticate(usr, psw, otp);
-                }catch (Exception e){
+                } catch (Exception e) {
                     result = false;
                 }
             }
@@ -91,17 +91,22 @@ public class ClientThread extends Thread {
                 case "%fileC2S%":
                     saveFile(stdSocket);
                     break;
+                case "%fileS2C":
+                    sendFile(stdSocket);
+                    break;
                 case "%delete-file%":
                     int id = inStream.readInt();
                     String name = inStream.readUTF();
                     System.out.println(String.format("Deleting file %s in folder %d", name, id));
-                    DataBank.getInstance().getFiles().remove(DataBank.getInstance().getFiles().stream().filter(
+                    VaultFile vf =DataBank.getInstance().getFiles().stream().filter(
                             vaultFile -> vaultFile.getFileName().equals(name) && vaultFile.getParentFolder()
                                     .equals(DataBank.getInstance().getFolders().stream().filter(
                                             folder -> folder.getInteger() == id
                                     ).findFirst().get())
-                    ).findFirst().get());
+                    ).findFirst().get();
+                    DataBank.getInstance().getFiles().remove(vf);
                     DataBank.getInstance().saveAll();
+                    Files.deleteIfExists(vf.getEncryptedFile().toPath());
                     break;
                 case "%list-folders%":
                     ObjectOutputStream obj = new ObjectOutputStream(outStream);
@@ -112,9 +117,6 @@ public class ClientThread extends Thread {
                     ObjectOutputStream obj_ = new ObjectOutputStream(outStream);
                     obj_.writeObject(DataBank.getInstance().getFiles());
                     obj_.flush();
-                    break;
-                case "%fileS2C":
-                    //TODO: Send file Server -> Client
                     break;
                 case "%ping%":
                     outStream.writeUTF("pong");
@@ -134,8 +136,10 @@ public class ClientThread extends Thread {
         } catch (Exception e) {
             e.printStackTrace();
         }
-        try{
-        close();}catch(Exception e){}
+        try {
+            close();
+        } catch (Exception e) {
+        }
     }
 
     boolean authenticate(String usr, String psw, String otp) {
@@ -168,10 +172,16 @@ public class ClientThread extends Thread {
         }
     }
 
-    void sendFile(String file) {
+    void sendFile(Socket sock) {
         try {
-            File f = new File(file);
-            outStream.writeUTF(file);
+            DataInputStream dis = new DataInputStream(sock.getInputStream());
+            DataOutputStream dos = new DataOutputStream(sock.getOutputStream());
+            Folder container = DataBank.getInstance().getFoldersMap().get(UUID.fromString(dis.readUTF()));
+            String fileName = dis.readUTF();
+
+            VaultFile vf = DataBank.getInstance().getFiles().stream().filter(vaultFile -> vaultFile.getFileName().equals(fileName)
+                    && vaultFile.getParentFolder().equals(container)).findFirst().get();
+            File f = vf.getEncryptedFile();
             outStream.writeLong(f.length());
             FileInputStream fis = new FileInputStream(f);
             byte[] buffer = new byte[4096];
@@ -200,6 +210,7 @@ public class ClientThread extends Thread {
         Folder container = DataBank.getInstance().getFoldersMap().get(UUID.fromString(dis.readUTF()));
         String fileName = dis.readUTF();
         VaultFile vf = new VaultFile(fileName.replaceAll(".transfer", ""), container);
+
         String path = FileSystem.createFile(vf);
         File f = new File(path + "/" + fileName);
         FileOutputStream fos = new FileOutputStream(f);
