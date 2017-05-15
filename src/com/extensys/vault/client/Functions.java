@@ -25,7 +25,7 @@ public class Functions {
     static String usr = "hellix";
     static String psw = "abc";
     static String otp = "%debug%";
-    static final String ip = "192.168.2.18";
+    static final String ip = "192.168.2.99";
 
     public static void main(String[] args) {
         Scanner scan = new Scanner(System.in);
