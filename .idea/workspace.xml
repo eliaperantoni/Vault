@@ -8,12 +8,15 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="1c51b184-97e9-42dc-97b8-2e3d797ace63" name="Default" comment="">
-      <change type="DELETED" beforePath="$PROJECT_DIR$/storage/root/README.md.encrypted" afterPath="" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/db/files.bin" afterPath="$PROJECT_DIR$/db/files.bin" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/storage/root/.gitignore.encrypted" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/storage/root/LICENSE.encrypted" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/storage/root/SubTest1/SubTest1/README.md.encrypted" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/storage/root/SubTest1/SubTest2/LICENSE.encrypted" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/storage/root/SubTest1/SubTest2/lines.txt.encrypted" afterPath="" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/db/folders.bin" afterPath="$PROJECT_DIR$/db/folders.bin" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/com/extensys/vault/ClientThread.java" afterPath="$PROJECT_DIR$/src/com/extensys/vault/ClientThread.java" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/com/extensys/vault/client/Functions.java" afterPath="$PROJECT_DIR$/src/com/extensys/vault/client/Functions.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/com/extensys/vault/obj/Folder.java" afterPath="$PROJECT_DIR$/src/com/extensys/vault/obj/Folder.java" />
     </list>
     <ignored path="$PROJECT_DIR$/out/" />
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
@@ -44,11 +47,21 @@
   </component>
   <component name="FileEditorManager">
     <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
-      <file leaf-file-name="Functions.java" pinned="false" current-in-tab="true">
+      <file leaf-file-name="Folder.java" pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/src/com/extensys/vault/obj/Folder.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="348">
+              <caret line="151" column="88" lean-forward="false" selection-start-line="151" selection-start-column="88" selection-end-line="151" selection-end-column="88" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="Functions.java" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/com/extensys/vault/client/Functions.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="307">
-              <caret line="176" column="47" lean-forward="false" selection-start-line="176" selection-start-column="47" selection-end-line="176" selection-end-column="47" />
+            <state relative-caret-position="275">
+              <caret line="174" column="17" lean-forward="false" selection-start-line="174" selection-start-column="17" selection-end-line="174" selection-end-column="17" />
               <folding>
                 <element signature="docComment;class#Functions#0" expanded="false" />
                 <element signature="method#prepareTree#0;class#Functions#0" expanded="false" />
@@ -68,11 +81,21 @@
       <file leaf-file-name="ClientThread.java" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/com/extensys/vault/ClientThread.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="984">
+            <state relative-caret-position="1128">
               <caret line="135" column="57" lean-forward="false" selection-start-line="135" selection-start-column="24" selection-end-line="135" selection-end-column="57" />
               <folding>
                 <element signature="method#getSize#0;class#ClientThread#0" expanded="false" />
               </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="TreeNode.java" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/com/extensys/vault/obj/TreeNode.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="112">
+              <caret line="7" column="12" lean-forward="false" selection-start-line="7" selection-start-column="12" selection-end-line="7" selection-end-column="12" />
+              <folding />
             </state>
           </provider>
         </entry>
@@ -139,11 +162,11 @@
         <option value="$PROJECT_DIR$/src/com/extensys/vault/Colors.java" />
         <option value="$PROJECT_DIR$/src/com/extensys/vault/obj/VaultFile.java" />
         <option value="$PROJECT_DIR$/src/com/extensys/vault/crypto/CryptoUtils.java" />
-        <option value="$PROJECT_DIR$/src/com/extensys/vault/obj/Folder.java" />
         <option value="$PROJECT_DIR$/src/com/extensys/vault/Main.java" />
         <option value="$PROJECT_DIR$/src/com/extensys/vault/test/com/extensys/vault/ClientThreadTest.java" />
         <option value="$PROJECT_DIR$/src/com/extensys/vault/ClientThread.java" />
         <option value="$PROJECT_DIR$/src/com/extensys/vault/client/Functions.java" />
+        <option value="$PROJECT_DIR$/src/com/extensys/vault/obj/Folder.java" />
       </list>
     </option>
   </component>
@@ -767,7 +790,6 @@
   </component>
   <component name="ToolWindowManager">
     <frame x="-8" y="-8" width="1296" height="1000" extended-state="6" />
-    <editor active="true" />
     <layout>
       <window_info id="Palette" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.3298731" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
@@ -778,7 +800,7 @@
       <window_info id="Capture Analysis" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.39907727" sideWeight="0.4142395" order="7" side_tool="true" content_ui="tabs" />
       <window_info id="Maven Projects" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32928804" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
-      <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.3690888" sideWeight="0.65129447" order="2" side_tool="false" content_ui="tabs" x="126" y="561" width="975" height="425" />
+      <window_info id="Run" active="true" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.6597462" sideWeight="0.65129447" order="2" side_tool="false" content_ui="tabs" x="126" y="561" width="975" height="425" />
       <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.3298731" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Properties" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Terminal" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.3298731" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
@@ -1108,13 +1130,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/com/extensys/vault/obj/TreeNode.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="112">
-          <caret line="7" column="12" lean-forward="false" selection-start-line="7" selection-start-column="12" selection-end-line="7" selection-end-column="12" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/com/extensys/vault/Vash.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="1376">
@@ -1169,28 +1184,10 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/com/extensys/vault/obj/Folder.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="1530">
-          <caret line="137" column="0" lean-forward="false" selection-start-line="137" selection-start-column="0" selection-end-line="137" selection-end-column="0" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/com/extensys/vault/ClientThread.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="984">
-          <caret line="135" column="57" lean-forward="false" selection-start-line="135" selection-start-column="24" selection-end-line="135" selection-end-column="57" />
-          <folding>
-            <element signature="method#getSize#0;class#ClientThread#0" expanded="false" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/com/extensys/vault/client/Functions.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="307">
-          <caret line="176" column="47" lean-forward="false" selection-start-line="176" selection-start-column="47" selection-end-line="176" selection-end-column="47" />
+        <state relative-caret-position="275">
+          <caret line="174" column="17" lean-forward="false" selection-start-line="174" selection-start-column="17" selection-end-line="174" selection-end-column="17" />
           <folding>
             <element signature="docComment;class#Functions#0" expanded="false" />
             <element signature="method#prepareTree#0;class#Functions#0" expanded="false" />
@@ -1203,6 +1200,32 @@
             <element signature="method#getSize#0;class#Functions#0" expanded="false" />
             <element signature="method#listFolders#0;class#Functions#0" expanded="false" />
           </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/com/extensys/vault/ClientThread.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="1128">
+          <caret line="135" column="57" lean-forward="false" selection-start-line="135" selection-start-column="24" selection-end-line="135" selection-end-column="57" />
+          <folding>
+            <element signature="method#getSize#0;class#ClientThread#0" expanded="false" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/com/extensys/vault/obj/TreeNode.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="112">
+          <caret line="7" column="12" lean-forward="false" selection-start-line="7" selection-start-column="12" selection-end-line="7" selection-end-column="12" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/com/extensys/vault/obj/Folder.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="348">
+          <caret line="151" column="88" lean-forward="false" selection-start-line="151" selection-start-column="88" selection-end-line="151" selection-end-column="88" />
+          <folding />
         </state>
       </provider>
     </entry>

@@ -149,7 +149,8 @@ public class Folder implements Serializable, HasId {
         for(VaultFile x: this.getFiles()){
 
             if(x.getParentFolder().equals(this)){
-                list.add(new TreeNode(Colors.ANSI_CYAN+x.getFileName()+Colors.ANSI_RESET,new ArrayList<>()));
+                list.add(new TreeNode(Colors.ANSI_CYAN+x.getFileName()+Colors.ANSI_RESET+Colors.ANSI_GREEN+
+                        " "+x.getParentFolder().getInteger()+Colors.ANSI_RESET,new ArrayList<>()));
             }
         }
         return list;

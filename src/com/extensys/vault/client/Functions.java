@@ -173,8 +173,8 @@ public class Functions {
                     }
                     break;
                 }
-                case "ls":
-                    FileUtils.listFilesAndDirs()
+                case "pwd":
+                    System.out.println(new File(System.getProperty("user.dir")).getAbsoluteFile().getAbsolutePath());
                     break;
                 case "rm": {
                     Map<String, Socket> response = connect();
