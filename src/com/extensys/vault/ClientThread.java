@@ -8,15 +8,18 @@ import com.extensys.vault.obj.VaultFile;
 import com.google.common.collect.Iterables;
 import com.google.common.hash.Hashing;
 
+import com.sun.scenario.effect.impl.sw.sse.SSEBlend_SRC_OUTPeer;
 import com.yubico.client.v2.VerificationResponse;
 import com.yubico.client.v2.YubicoClient;
 import com.yubico.client.v2.exceptions.*;
+import org.apache.commons.io.FileUtils;
 
 import javax.xml.crypto.Data;
 import java.io.*;
 import java.net.Socket;
 import java.nio.charset.StandardCharsets;
-import java.nio.file.Files;
+import java.nio.file.*;
+import java.nio.file.attribute.BasicFileAttributes;
 import java.util.*;
 
 /**
@@ -132,13 +135,46 @@ public class ClientThread extends Thread {
                         String nameFolder = inStream.readUTF();
                         int parentId = inStream.readInt();
                         DataBank.getInstance().getFolders().add(new Folder(nameFolder,DataBank.getInstance().getFolders()
-                        .stream().filter(folder -> folder.getInteger()==parentId).findFirst().get()));
+                                .stream().filter(folder -> folder.getInteger()==parentId).findFirst().get()));
                         DataBank.getInstance().saveAll();
                     } catch (IOException e) {
                         e.printStackTrace();
                     }
 
                     break;
+                case "%remove-dir%":
+                    try {
+                        int idToRemove = inStream.readInt();
+                        Folder removing = DataBank.getInstance().getFolders().stream().filter(
+                                folder -> folder.getInteger()==idToRemove
+                        ).findFirst().get();
+                        DataBank.getInstance().getFolders().remove(removing);
+                        Path directory = Paths.get(new File("storage\\"+removing.path()).getAbsolutePath());
+                        Files.walkFileTree(directory, new SimpleFileVisitor<Path>() {
+                            @Override
+                            public FileVisitResult visitFile(Path file, BasicFileAttributes attrs) throws IOException {
+                                Files.delete(file);
+                                return FileVisitResult.CONTINUE;
+                            }
+
+                            @Override
+                            public FileVisitResult postVisitDirectory(Path dir, IOException exc) throws IOException {
+                                Files.delete(dir);
+                                return FileVisitResult.CONTINUE;
+                            }
+                        });
+                        for(VaultFile x:DataBank.getInstance().getFiles()){
+                            if(x.getParentFolder().getId().equals(removing.getId())){
+                                DataBank.getInstance().getFiles().remove(x);
+                            }
+                        }
+                        DataBank.getInstance().saveAll();
+                    } catch (IOException e) {
+                        e.printStackTrace();
+                    }
+
+                    break;
+
                 case "%randomkey%":
                     String key = CryptoUtils.generate16BitsKey();
                     System.out.println(String.format("RANDOM KEY IS: %s", key));
@@ -262,7 +298,6 @@ public class ClientThread extends Thread {
         DataBank bank = DataBank.getInstance();
         vf.setEncrypted(true);
         vf.setEncryptedFile(enc);
-        container.getFiles().add(vf);
         if (!bank.getFiles().add(vf)) {
             bank.getFiles().remove(vf);
             bank.getFiles().add(vf);

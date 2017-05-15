@@ -117,7 +117,7 @@ public class Functions {
                         } catch (NullPointerException e) {
                             parentName = "";
                         }
-                        System.out.println(String.format("Folder: {Id: %s, Name: %s, Parent: %s, Children count: %s}", String.valueOf(x.getInteger()), x.getName(), parentName, String.valueOf(x.getChildren().size())));
+                        System.out.println(String.format("Folder: {Id: %s, Name: %s, Parent: %s, Children count: %s}", String.valueOf(x.getInteger()), x.getName(), parentName, String.valueOf(x.getChildren(new ArrayList<>(listFolders(connect().get("std")))).size())));
                     }
                     break;
                 }
@@ -167,9 +167,22 @@ public class Functions {
                 }
                 case "mkdir": {
                     try {
-                        makeDir(inp.split(" ")[2],Integer.valueOf(inp.split(" ")[1]));
+                        makeDir(inp.split(" ")[2],Integer.valueOf(inp.split(" ")[1]),connect().get("std"));
                     }catch (Exception e){
                         e.printStackTrace();
+                    }
+                    break;
+                }
+                case "rmdir":{
+                    int id = Integer.valueOf(inp.split(" ")[1]);
+                    if(id>0) {
+                        try {
+                            removeDir(id, connect().get("std"));
+                        } catch (Exception e) {
+                            e.printStackTrace();
+                        }
+                    }else{
+                        System.out.println("Cannot delete root 0");
                     }
                     break;
                 }
@@ -211,32 +224,32 @@ public class Functions {
 
     public static TreeNode prepareTree(Socket sock) {
         Set<Folder> folders = listFolders(sock);
-        for (Folder x : folders) {
-            x.setFiles(new ArrayList<>());
-        }
-        for (VaultFile x : listFiles(connect().get("std"))) {
-            for (Folder y : folders) {
-                if (x.getParentFolder().equals(y)) {
-                    y.getFiles().add(x);
-                }
-            }
-        }
         Folder root = folders.stream().filter(folder -> folder.getName().equals("root")).findFirst().get();
         //Set<VaultFile> files = listFiles(connect().get("std"));
 
-        TreeNode rootNode = new TreeNode(String.format("F %s: ", root.getInteger()) + root.getName(), root.toNodeList());
+        TreeNode rootNode = new TreeNode(String.format("F %s: ", root.getInteger()) + root.getName(), root.toNodeList(
+                new ArrayList<>(folders),
+                new ArrayList<>(listFiles(connect().get("std")))
+        ));
         return rootNode;
     }
 
-    public static void makeDir(String name, int parentInteger){
-        Map<String, Socket> response = connect();
-        Socket sock = response.get("std");
-        Socket vash = response.get("vash");
+    public static void makeDir(String name, int parentInteger, Socket sock){
         try {
             DataOutputStream dos = new DataOutputStream(sock.getOutputStream());
             dos.writeUTF("%create-dir%");
             dos.writeUTF(name);
             dos.writeInt(parentInteger);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+
+    public static void removeDir(int id,Socket sock){
+        try {
+            DataOutputStream dos = new DataOutputStream(sock.getOutputStream());
+            dos.writeUTF("%remove-dir%");
+            dos.writeInt(id);
         } catch (Exception e) {
             e.printStackTrace();
         }

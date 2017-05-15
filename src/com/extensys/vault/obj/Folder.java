@@ -15,16 +15,17 @@ public class Folder implements Serializable, HasId {
 
     private int integer;
     private UUID id;
-    private List<Folder> children;
+
+
+    public void setFiles(List<VaultFile> f){
+        this.files = f;
+    }
+
     private List<VaultFile> files;
-
-
-
     private Folder parent;
     private String name;
 
     public Folder(String name) {
-        this.files = new ArrayList<>();
         int max = 0;
         List<Integer> ints = new ArrayList<>();
         for(Folder x:DataBank.getInstance().getFolders()){
@@ -47,7 +48,6 @@ public class Folder implements Serializable, HasId {
         }
         this.id = uid;
         this.name = name;
-        this.children = new ArrayList<>();
     }
 
     public String path(){
@@ -60,18 +60,21 @@ public class Folder implements Serializable, HasId {
 
     public Folder(String name, Folder parent) {
         this(name);
-        DataBank.Utils.mapFromSet(DataBank.getInstance().getFolders()).get(parent.getId()).getChildren().add(this);
         this.parent = parent;
 
     }
 
-    public List<Folder> getChildren() {
-        return children;
+    public List<Folder> getChildren(List<Folder> folders_) {
+        List<Folder> childrens = new ArrayList<>();
+        for(Folder x: folders_){
+            if(x.getName().equals("root")) continue;
+            if(x.getParent().getId().equals(this.getId())){
+                childrens.add(x);
+            }
+        }
+        return childrens;
     }
 
-    public void setChildren(List<Folder> children) {
-        this.children = children;
-    }
 
     public UUID getId() {
         return id;
@@ -102,13 +105,16 @@ public class Folder implements Serializable, HasId {
         return integer;
     }
 
-    public List<VaultFile> getFiles() {
+    public List<VaultFile> getFiles(List<VaultFile> files_) {
+        List<VaultFile> files = new ArrayList<>();
+        for(VaultFile x:files_){
+            if(x.getParentFolder().getId().equals(this.getId())){
+                files.add(x);
+            }
+        }
         return files;
     }
 
-    public void setFiles(List<VaultFile> files) {
-        this.files = files;
-    }
 
     public void setInteger(int integer) {
         this.integer = integer;
@@ -141,12 +147,12 @@ public class Folder implements Serializable, HasId {
         return false;
     }
 
-    public List<TreeNode> toNodeList(){
+    public List<TreeNode> toNodeList(List<Folder> fds, List<VaultFile> vfs){
         List<TreeNode> list = new ArrayList<>();
-        for(Folder x:this.getChildren()){
-            list.add(new TreeNode(String.format("F %s: ", x.integer)+x.getName(), x.toNodeList()));
+        for(Folder x:this.getChildren(fds)){
+            list.add(new TreeNode(String.format("F %s: ", x.integer)+x.getName(), x.toNodeList(fds, vfs)));
         }
-        for(VaultFile x: this.getFiles()){
+        for(VaultFile x: this.getFiles(vfs)){
 
             if(x.getParentFolder().equals(this)){
                 list.add(new TreeNode(Colors.ANSI_CYAN+x.getFileName()+Colors.ANSI_RESET+Colors.ANSI_GREEN+
