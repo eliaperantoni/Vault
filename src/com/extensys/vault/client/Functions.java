@@ -25,6 +25,7 @@ public class Functions {
     static String usr = "hellix";
     static String psw = "abc";
     static String otp = "%debug%";
+    static final String ip = "192.168.2.18";
 
     public static void main(String[] args) {
         Scanner scan = new Scanner(System.in);
@@ -297,12 +298,12 @@ public class Functions {
         boolean success = false;
         Socket sock = null;
         try {
-            sock = new Socket("localhost", 9090);
+            sock = new Socket(ip, 9090);
             DataInputStream dis = new DataInputStream(sock.getInputStream());
             DataOutputStream dos = new DataOutputStream(sock.getOutputStream());
             dos.writeUTF("null");
             String myId = dis.readUTF();
-            Socket vash = new Socket("localhost", 9090);
+            Socket vash = new Socket(ip, 9090);
             DataInputStream vdis = new DataInputStream(vash.getInputStream());
             DataOutputStream vdos = new DataOutputStream(vash.getOutputStream());
             vdos.writeUTF(myId);
@@ -363,7 +364,7 @@ public class Functions {
 
     public static void downloadFile(String filename, Folder parent, String whereToDownload) throws IOException {
         if (whereToDownload != "") {
-            whereToDownload += "\\";
+            whereToDownload += "/";
         }
         Socket sock = connect().get("std");
         DataInputStream dis = new DataInputStream(sock.getInputStream());
@@ -413,7 +414,7 @@ public class Functions {
             String keyTokenized = CryptoUtils.encryptString(key, token);
             System.out.println(keyTokenized);
 
-            File toSendEnc = new File(toSend.getParent() + "\\" + toSend.getName() + ".transfer");
+            File toSendEnc = new File(toSend.getParent() + "/" + toSend.getName() + ".transfer");
             CryptoUtils.encryptFile(key, toSend, toSendEnc);
             Socket sock = connect().get("std");
             DataOutputStream dos = new DataOutputStream(sock.getOutputStream());

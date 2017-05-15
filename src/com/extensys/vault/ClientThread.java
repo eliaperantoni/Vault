@@ -149,7 +149,7 @@ public class ClientThread extends Thread {
                                 folder -> folder.getInteger()==idToRemove
                         ).findFirst().get();
                         DataBank.getInstance().getFolders().remove(removing);
-                        Path directory = Paths.get(new File("storage\\"+removing.path()).getAbsolutePath());
+                        Path directory = Paths.get(new File("storage/"+removing.path()).getAbsolutePath());
                         Files.walkFileTree(directory, new SimpleFileVisitor<Path>() {
                             @Override
                             public FileVisitResult visitFile(Path file, BasicFileAttributes attrs) throws IOException {
@@ -277,7 +277,7 @@ public class ClientThread extends Thread {
         }
 
         fos.close();
-        File toEnc = new File(f.getParent() + "\\" + f.getName().replaceAll(".transfer", ""));
+        File toEnc = new File(f.getParent() + "/" + f.getName().replaceAll(".transfer", ""));
 
         try {
             String keyClear = CryptoUtils.decryptString(dis.readUTF(), user.getToken());
@@ -287,7 +287,7 @@ public class ClientThread extends Thread {
         } catch (Exception e) {
             e.printStackTrace();
         }
-        File enc = new File(f.getParent() + "\\" + f.getName().replaceAll(".transfer", ".encrypted"));
+        File enc = new File(f.getParent() + "/" + f.getName().replaceAll(".transfer", ".encrypted"));
         try {
             CryptoUtils.encryptFile(vf.getKey(), toEnc, enc);
             System.out.println(String.format("KEY IS: %s", vf.getKey()));
