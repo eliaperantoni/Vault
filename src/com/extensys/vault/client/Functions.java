@@ -7,6 +7,7 @@ import com.extensys.vault.obj.Folder;
 import com.extensys.vault.obj.TreeNode;
 import com.extensys.vault.obj.VaultFile;
 import com.google.common.base.MoreObjects;
+import org.apache.commons.io.FileUtils;
 
 import java.io.*;
 import java.net.Socket;
@@ -103,7 +104,7 @@ public class Functions {
                     }
                     break;
                 }
-                case "lf": {
+                case "lfo": {
                     Map<String, Socket> response = connect();
                     Socket sock = response.get("std");
                     Socket vash = response.get("vash");
@@ -143,19 +144,19 @@ public class Functions {
                         break;
                     }
                     break;
-                case "download":{
+                case "download": {
                     try {
                         int len = inp.split(" ").length;
                         final int id = Integer.valueOf(inp.split(" ")[1]);
                         String filename = inp.split(" ")[2];
                         String path = null;
-                        if(len>3){
+                        if (len > 3) {
                             path = inp.split(" ")[3];
-                            downloadFile(filename,listFolders(connect().get("std")).stream().filter(folder ->
-                                    folder.getInteger()==id).findFirst().get(),path);
-                        }else{
-                            downloadFile(filename,listFolders(connect().get("std")).stream().filter(folder ->
-                                    folder.getInteger()==id).findFirst().get());
+                            downloadFile(filename, listFolders(connect().get("std")).stream().filter(folder ->
+                                    folder.getInteger() == id).findFirst().get(), path);
+                        } else {
+                            downloadFile(filename, listFolders(connect().get("std")).stream().filter(folder ->
+                                    folder.getInteger() == id).findFirst().get());
                         }
                     } catch (Exception e) {
                         e.printStackTrace();
@@ -164,7 +165,18 @@ public class Functions {
                     }
                     break;
                 }
-                case "delfile": {
+                case "mkdir": {
+                    try {
+                        makeDir(inp.split(" ")[2],Integer.valueOf(inp.split(" ")[1]));
+                    }catch (Exception e){
+                        e.printStackTrace();
+                    }
+                    break;
+                }
+                case "ls":
+                    FileUtils.listFilesAndDirs()
+                    break;
+                case "rm": {
                     Map<String, Socket> response = connect();
                     Socket sock = response.get("std");
                     Socket vash = response.get("vash");
@@ -214,6 +226,20 @@ public class Functions {
 
         TreeNode rootNode = new TreeNode(String.format("F %s: ", root.getInteger()) + root.getName(), root.toNodeList());
         return rootNode;
+    }
+
+    public static void makeDir(String name, int parentInteger){
+        Map<String, Socket> response = connect();
+        Socket sock = response.get("std");
+        Socket vash = response.get("vash");
+        try {
+            DataOutputStream dos = new DataOutputStream(sock.getOutputStream());
+            dos.writeUTF("%create-dir%");
+            dos.writeUTF(name);
+            dos.writeInt(parentInteger);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
     }
 
     public static void deleteFile(Socket sock, int id, String name) {
@@ -323,8 +349,8 @@ public class Functions {
     }
 
     public static void downloadFile(String filename, Folder parent, String whereToDownload) throws IOException {
-        if(whereToDownload!=""){
-            whereToDownload+="\\";
+        if (whereToDownload != "") {
+            whereToDownload += "\\";
         }
         Socket sock = connect().get("std");
         DataInputStream dis = new DataInputStream(sock.getInputStream());
@@ -333,7 +359,7 @@ public class Functions {
         dos.writeUTF(parent.getId().toString());
         dos.writeUTF(filename);
         //Socket clientSock, DataInputStream dis
-        File f = new File(whereToDownload+filename+".encrypted");
+        File f = new File(whereToDownload + filename + ".encrypted");
         FileOutputStream fos = new FileOutputStream(f);
         byte[] buffer = new byte[4096];
 
@@ -351,9 +377,9 @@ public class Functions {
         fos.close();
         VaultFile vf = listFiles(connect().get("std")).stream().filter(vaultFile -> vaultFile.getParentFolder().equals(parent)
                 && vaultFile.getFileName().equals(filename)).findFirst().get();
-        File fc = new File(whereToDownload+filename);
+        File fc = new File(whereToDownload + filename);
         try {
-            CryptoUtils.decryptFile(vf.getKey(),f,fc);
+            CryptoUtils.decryptFile(vf.getKey(), f, fc);
             Files.deleteIfExists(f.toPath());
         } catch (CryptoException e) {
             e.printStackTrace();
@@ -361,7 +387,7 @@ public class Functions {
     }
 
     public static void downloadFile(String filename, Folder parent) throws IOException {
-        downloadFile(filename,parent,"");
+        downloadFile(filename, parent, "");
 
     }
 

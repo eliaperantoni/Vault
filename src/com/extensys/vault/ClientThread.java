@@ -127,6 +127,18 @@ public class ClientThread extends Thread {
                 case "%close%":
                     //this.close();
                     break;
+                case "%create-dir%":
+                    try {
+                        String nameFolder = inStream.readUTF();
+                        int parentId = inStream.readInt();
+                        DataBank.getInstance().getFolders().add(new Folder(nameFolder,DataBank.getInstance().getFolders()
+                        .stream().filter(folder -> folder.getInteger()==parentId).findFirst().get()));
+                        DataBank.getInstance().saveAll();
+                    } catch (IOException e) {
+                        e.printStackTrace();
+                    }
+
+                    break;
                 case "%randomkey%":
                     String key = CryptoUtils.generate16BitsKey();
                     System.out.println(String.format("RANDOM KEY IS: %s", key));
