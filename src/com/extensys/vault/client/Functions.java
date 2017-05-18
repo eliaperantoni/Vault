@@ -126,7 +126,7 @@ public class Functions {
                     try {
                         final int id = Integer.valueOf(inp.split(" ")[1]);
                         Folder f = listFolders(connect().get("std")).stream().filter(folder -> folder.getInteger() == id).findFirst().get();
-                        System.out.println(f.getOwner().getUsername());
+                        System.out.println("WIP");
                     } catch (Exception e) {
                         System.out.println("No such id");
                     }

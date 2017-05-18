@@ -28,7 +28,9 @@ public class User implements Serializable,HasId {
                 .toString();
         this.mToken = token;
         this.mGroups = new ArrayList<>();
-        this.mGroups.add(new Group(mUsername));
+        Group g = new Group(mUsername);
+        DataBank.getInstance().getGroups().add(g);
+        this.mGroups.add(g);
         this.mPublicId = publicId;
         this.mRegisterDate = new Date();
     }

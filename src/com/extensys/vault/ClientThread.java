@@ -3,6 +3,7 @@ package com.extensys.vault;
 import com.extensys.vault.crypto.CryptoException;
 import com.extensys.vault.crypto.CryptoUtils;
 import com.extensys.vault.obj.Folder;
+import com.extensys.vault.obj.Group;
 import com.extensys.vault.obj.User;
 import com.extensys.vault.obj.VaultFile;
 import com.google.common.collect.Iterables;
@@ -136,7 +137,11 @@ public class ClientThread extends Thread {
                         int parentId = inStream.readInt();
                         Folder x = new Folder(nameFolder,DataBank.getInstance().getFolders()
                                 .stream().filter(folder -> folder.getInteger()==parentId).findFirst().get());
-                        x.setOwner(user);
+                        Group g = DataBank.getInstance().getGroups().stream()
+                                .filter(group -> group.getGroupName().equals(user.getUsername())).findFirst().get();
+                        x.getAdmin().add(g);
+                        x.getWrite().add(g);
+                        x.getRead().add(g);
                         DataBank.getInstance().getFolders().add(x);
 
                         DataBank.getInstance().saveAll();

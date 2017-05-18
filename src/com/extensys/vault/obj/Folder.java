@@ -24,16 +24,16 @@ public class Folder implements Serializable, HasId {
     private List<VaultFile> files;
     private Folder parent;
     private String name;
-    private User owner;
     private List<Group> read;
     private List<Group> write;
+    private List<Group> admin;
 
-    public User getOwner() {
-        return owner;
+    public List<Group> getAdmin() {
+        return admin;
     }
 
-    public void setOwner(User owner) {
-        this.owner = owner;
+    public void setAdmin(List<Group> admin) {
+        this.admin = admin;
     }
 
     public List<Group> getRead() {
@@ -77,6 +77,7 @@ public class Folder implements Serializable, HasId {
         this.name = name;
         this.read = new ArrayList<>();
         this.write = new ArrayList<>();
+        this.admin = new ArrayList<>();
     }
 
     public String path(){
