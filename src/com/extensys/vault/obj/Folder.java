@@ -24,6 +24,33 @@ public class Folder implements Serializable, HasId {
     private List<VaultFile> files;
     private Folder parent;
     private String name;
+    private User owner;
+    private List<Group> read;
+    private List<Group> write;
+
+    public User getOwner() {
+        return owner;
+    }
+
+    public void setOwner(User owner) {
+        this.owner = owner;
+    }
+
+    public List<Group> getRead() {
+        return read;
+    }
+
+    public void setRead(List<Group> read) {
+        this.read = read;
+    }
+
+    public List<Group> getWrite() {
+        return write;
+    }
+
+    public void setWrite(List<Group> write) {
+        this.write = write;
+    }
 
     public Folder(String name) {
         int max = 0;
@@ -48,6 +75,8 @@ public class Folder implements Serializable, HasId {
         }
         this.id = uid;
         this.name = name;
+        this.read = new ArrayList<>();
+        this.write = new ArrayList<>();
     }
 
     public String path(){

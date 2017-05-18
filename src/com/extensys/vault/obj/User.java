@@ -28,6 +28,7 @@ public class User implements Serializable,HasId {
                 .toString();
         this.mToken = token;
         this.mGroups = new ArrayList<>();
+        this.mGroups.add(new Group(mUsername));
         this.mPublicId = publicId;
         this.mRegisterDate = new Date();
     }

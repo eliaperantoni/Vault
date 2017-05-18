@@ -134,8 +134,11 @@ public class ClientThread extends Thread {
                     try {
                         String nameFolder = inStream.readUTF();
                         int parentId = inStream.readInt();
-                        DataBank.getInstance().getFolders().add(new Folder(nameFolder,DataBank.getInstance().getFolders()
-                                .stream().filter(folder -> folder.getInteger()==parentId).findFirst().get()));
+                        Folder x = new Folder(nameFolder,DataBank.getInstance().getFolders()
+                                .stream().filter(folder -> folder.getInteger()==parentId).findFirst().get());
+                        x.setOwner(user);
+                        DataBank.getInstance().getFolders().add(x);
+
                         DataBank.getInstance().saveAll();
                     } catch (IOException e) {
                         e.printStackTrace();
